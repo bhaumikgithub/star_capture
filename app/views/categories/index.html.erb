@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="col-12">
+    <%= link_to "New Category", new_category_path, class: "btn btn-success btn-sm pull-right" %>
+  </div>
+  <table class=" table table-striped sortable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>created Time</th>
+      </tr>
+    </thead>
+
+   <tbody>
+     <% @resources.each do |category| %>
+       <tr>
+        <td><%= link_to category.name, category_path(category) %></td>
+        <td><%= category.created_at.strftime("%d-%b-%-y") %></td>
+        <td><%= link_to("Edit", edit_category_path(category)) %></td>
+        <td><%= link_to("Delete", category_path(category), method: :delete) %></td>
+      </tr>
+     <% end %>
+   </tbody>
+ </div>

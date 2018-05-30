@@ -1,0 +1,20 @@
+<div class="container">
+  <p><b>Procuct name: </b> <%= @product.name %></p>
+  <p><b>Product price: </b><%= @product.price %></p>
+  <p><b>Prodcut Categories</b> <%= @product.categories.map { |e| e.name  }.join(', ') %></p>
+  <b>Product Images:</b>
+  <% @product.images.each do |image| %>
+    <%= image_tag image, class: 'product_image_size' %>
+    <br>
+  <% end %>
+
+</div>
+
+
+<style type="text/css">
+.product_image_size {
+  width: 50px;
+  height: 50px;
+  margin-left: 0;
+}
+</style>

@@ -1,0 +1,4 @@
+<div class="container">
+ <p><b>Categoryt name: </b> <%= @resource.name %></p>
+<p><b>Products associated: </b> <%= @resource.products.map { |e| e.name  }.join(', ') %></p>
+

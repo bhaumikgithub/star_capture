@@ -1,0 +1,4 @@
+<%= bootstrap_form_for(@resource) do |f| %>    
+    <%= f.text_field :name, required: true %>
+    <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
+<% end %>
