@@ -2,9 +2,8 @@
   <p><b>Procuct name: </b> <%= @resource.name %></p>
   <p><b>Product price: </b><%= @resource.price %></p>
   <p><b>Prodcut Categories</b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p>
-  <b>Product Images:</b>
+  <b>Product Images:</b><br>
   <% @resource.images.each do |image| %>
     <%= image_tag image, class: 'product_image_size' %>
-    <br>
   <% end %>
 </div>

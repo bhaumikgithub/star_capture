@@ -6,8 +6,9 @@
   <table class=" table table-striped sortable">
     <thead>
       <tr>
-        <th>Category Name</th>
+        <th>Category name</th>
         <th>Created Time</th>
+        <th>Product count</th>
       </tr>
     </thead>
     <tbody>
@@ -15,9 +16,10 @@
         <tr>
           <td><%= link_to category.name, category_path(category) %></td>
           <td><%= category.created_at.strftime("%d-%b-%-y") %></td>
+          <td><%= category.products.count %></td>
           <td><%= link_to("View",category_path(category)) %></td>
           <td><%= link_to("Edit", edit_category_path(category)) %></td>
-          <td><%= link_to("Delete", category_path(category), method: :delete) %></td>
+          <td><%= link_to "Delete", category_path(category), method: :delete, data: {confirm: "Are you sure?"} %></td>
         </tr>
       <% end %>
     </tbody>
@@ -25,5 +27,4 @@
   <div id="paginate">
     <%= paginate @resources, theme: 'twitter-bootstrap-4' %>
   </div>
-
 </div>

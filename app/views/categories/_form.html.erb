@@ -1,4 +1,13 @@
-<%= bootstrap_form_for(@resource) do |f| %>    
+<%= bootstrap_form_for(@resource) do |f| %>
+  <% if @resource.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @resource.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
     <%= f.text_field :name, required: true %>
     <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
 <% end %>
