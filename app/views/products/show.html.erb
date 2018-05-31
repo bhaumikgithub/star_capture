@@ -4,10 +4,21 @@
         <div class="mb-3"><p><b>Procuct name: </b> <%= @resource.name %></p></div>
         <div class="mb-3"><p><b>Product price: </b><%= @resource.price %></p></div>
         <div class="mb-3"><p><b>Prodcut Categories</b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p></div>
-        <div class="mb-3"><b>Product Images:</b></div>
-        <% @resource.images.each do |image| %>
-          <%= image_tag image, class: 'product_image_size mr-3' %>
-        <% end %>
+        <div class="">
+          <div class="d-block align-top mb-3"><b>Product Images:</b></div>
+            <div class="d-block align-top">
+              <% @resource.images.each do |image| %>
+                <div class="d-inline-block ">
+                  <%= image_tag image, class: 'product_image_size mr-3' %>
+                  <span class="d-block">
+                  <%= link_to 'delete', delete_image_product_path(@resource, image),
+                        method: :delete,
+                        data: { confirm: 'Are you sure?' } %>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+        </div>
         <div class="mt-4">
           <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
           <td><%= link_to "Edit", edit_product_path(@resource) , class: 'btn btn-sm btn-primary'  %></td>

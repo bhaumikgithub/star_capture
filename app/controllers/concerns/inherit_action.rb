@@ -3,7 +3,7 @@ module InheritAction
   extend ActiveSupport::Concern
 
   included do
-    before_action :get_resource, only: [:show, :edit, :update, :destroy]
+    before_action :get_resource, only: [:show, :edit, :update, :destroy,:delete_image]
     before_action :remove_path_sessions, except: [:new, :create, :edit, :update, :destroy]
     after_action :remove_path_sessions, only: [:create, :update, :destroy] if @resource && !@resource.errors.any?
   end
