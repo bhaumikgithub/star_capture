@@ -2,5 +2,8 @@
   <p><b>Categoryt name: </b> <%= @resource.name %></p>
   <p><b>Products associated: </b> <%= @resource.products.present? ? @resource.products.map { |e| e.name  }.join(', ') : 'No product associated'%></p>
   <%= link_to "Back", categories_path, class: 'btn btn-sm btn-info' %>
+  <%= link_to "Edit", edit_category_path(@resource), class: 'btn btn-sm btn-primary' %>
+  <%= link_to "Delete", category_path(@resource), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-sm btn-danger' %>
+  <%= link_to "New Product", new_product_path(cat_id:@resource.id), class: "btn  btn-outline-secondary btn-sm mr-2" %>
 </div>
 

@@ -10,6 +10,8 @@
         <% end %>
         <div class="mt-4">
           <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
+          <td><%= link_to "Edit", edit_product_path(@resource) , class: 'btn btn-sm btn-primary'  %></td>
+          <td><%= link_to "Delete", product_path(@resource), method: :delete, data: {confirm: "Are you sure?"},class: 'btn btn-sm btn-danger' %></td>
         </div>
       </div>
     </div>
