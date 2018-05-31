@@ -1,17 +1,25 @@
 <div class="container">
-  <p><b>Procuct name: </b> <%= @product.name %></p>
-  <p><b>Product price: </b><%= @product.price %></p>
-  <p><b>Prodcut Categories</b> <%= @product.categories.map { |e| e.name  }.join(', ') %></p>
-  <b>Product Images:</b>
-  <% @product.images.each do |image| %>
-    <%= image_tag image, class: 'product_image_size' %>
-    <br>
-  <% end %>
-
+  <div class="row">
+     <div class="col">
+       <div class="wrap">
+          <div class="mb-3"><p><b>Procuct name: </b> <%= @resource.name %></p></div>
+          <div class="mb-3"><p><b>Product price: </b><%= @resource.price %></p></div>
+          <div class="mb-3"><p><b>Prodcut Categories</b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p></div>
+          <div class="mb-3"><b>Product Images:</b></div>
+          <% @resource.images.each do |image| %>
+            <%= image_tag image, class: 'product_image_size mr-3' %>
+          <% end %>
+          <div class="mt-4">
+            <%= link_to "Back", products_path, class: 'btn btn-sm btn-outline-secondary' %>'
+          </div>
+        </div>
+      </div>
 </div>
 
 
 <style type="text/css">
+
+
 .product_image_size {
   width: 50px;
   height: 50px;

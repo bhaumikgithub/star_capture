@@ -4,4 +4,5 @@
   <%= f.file_field :images, multiple: true %>
   <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your favorite category",:include_blank => false, include_hidden: false}, :multiple => true %>
   <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
+  <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
 <% end %>

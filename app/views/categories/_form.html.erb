@@ -1,4 +1,5 @@
 <%= bootstrap_form_for(@resource) do |f| %>    
-    <%= f.text_field :name, required: true %>
-    <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
+  <%= f.text_field :name, required: true %>
+  <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
+  <%= link_to "Back", categories_path, class: 'btn btn-sm btn-info' %>
 <% end %>
