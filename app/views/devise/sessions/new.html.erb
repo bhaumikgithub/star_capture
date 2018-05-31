@@ -18,7 +18,7 @@
         </label>
       </div>
     <% end -%>
-    <%= f.submit 'Sign in', :class => 'button right' %><br><br>
+    <%= f.submit 'Sign in', :class => 'button right' %>
     <%- if devise_mapping.recoverable? %>
       <%= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
     <% end -%><br>
