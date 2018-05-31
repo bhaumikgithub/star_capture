@@ -9,7 +9,7 @@ module InheritAction
   end
 
   def index
-    @resources = resource_class.all.order('updated_at DESC')
+    @resources = resource_class.all.order('created_at DESC').page(params[:page]).per(2)
     respond_to do |format|
       format.html
       format.json { render json: @resources }
@@ -72,13 +72,13 @@ module InheritAction
     resource_name.classify.constantize
   end
 
-  # def resource_params
-  #     params.fetch(resource_name, {}).permit(permitted_attributes)
-  # end
+  def resource_params
+      params.fetch(resource_name, {}).permit(permitted_attributes)
+  end
 
-  # def permitted_attributes
-  #   resource_class.column_names
-  # end
+  def permitted_attributes
+    resource_class.column_names
+  end
 
   def configure_redirect_path
     redirect_to session[:redirect_back] || { controller: controller_name, action: :index }

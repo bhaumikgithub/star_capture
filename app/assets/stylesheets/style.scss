@@ -1,0 +1,21 @@
+$hover-color: #007bff;
+$primary-color-light: #f0d1db;
+$text-color: #2e2e2e;
+$primary-color-hover: rgba(209,209,240,0.2);
+.pagination {
+    .page-item.active .page-link, .page-item.active .page-link:hover {
+        background: $hover-color !important;
+        border-color: $hover-color !important;
+        color: white;
+    }
+    .page-item .page-link:hover {
+        background: $primary-color-hover !important;
+    }
+    .page-item .page-link {
+        border-radius: 0 !important;
+        color: $text-color;
+        padding: 10px 20px;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+}
