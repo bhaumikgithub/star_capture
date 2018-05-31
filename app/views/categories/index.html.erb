@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Category Listing</h2>
-  <div class="col-12 ">
-    <%= link_to "New Category", new_category_path, class: "btn btn-success btn-sm pull-right" %>
+  <div class="col-12">
+    <%= link_to "New Category", new_category_path, class: "btn  btn-outline-secondary btn-sm float-right mb-2" %>
   </div>
   <table class=" table table-striped sortable">
     <thead>
@@ -9,6 +9,7 @@
         <th>Category name</th>
         <th>Created Time</th>
         <th>Product count</th>
+        <th colspan="3">Actions</th>
       </tr>
     </thead>
     <tbody>
