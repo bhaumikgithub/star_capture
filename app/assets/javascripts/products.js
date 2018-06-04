@@ -13,9 +13,9 @@ $(document).on('turbolinks:load', function() {
 
 function initialize(){
   product_id = $('#product').data('product-id');
-  lat = $('#product').data('latitude');
-  lang = $('#product').data('longitude');
-  if (lat == '' && lang == '') {
+  lat = parseFloat($('#product').data('latitude'));
+  lang = parseFloat($('#product').data('longitude'));
+  if ((lat == '' && lang == '') || (isNaN(lat) && isNaN(lang)) ) {
     getLocation();
   }
   else{  
