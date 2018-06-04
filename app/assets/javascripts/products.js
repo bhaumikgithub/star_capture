@@ -35,7 +35,7 @@ function showPosition(position) {
 }
 function updatePosition(lat, long){
   $.ajax({
-    url: 'http://localhost:3000/products/'+product_id+'/update_location/',
+    url: window.location.origin+'/products/'+product_id+'/update_location/',
     type: 'PATCH',
     data: {latitude: lat, longitude: lang},
     dataType: 'JSON'
