@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :categories
   resources :products  do
     member do
-      delete  'delete_image/:image_id', to: 'products#delete_image', as: 'delete_image'
+      delete 'delete_image/:image_id', to: 'products#delete_image', as: 'delete_image'
+      patch :update_location
+      patch :update_address
     end
   end
 end

@@ -52,7 +52,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
-    autoprefixer-rails (8.5.2)
+    autoprefixer-rails (8.6.0)
       execjs
     aws_cf_signer (0.1.3)
     bcrypt (3.1.12)
@@ -69,6 +69,7 @@ GEM
     cloudinary (1.9.1)
       aws_cf_signer
       rest-client
+    coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -88,9 +89,12 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.1)
     execjs (2.7.0)
-    ffi (1.9.23)
+    ffi (1.9.25)
+    geocoder (1.4.9)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    gmaps-autocomplete-rails (0.3.1)
+      rails (>= 3.1.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.0.1)
@@ -140,7 +144,10 @@ GEM
     orm_adapter (0.5.0)
     pg (1.0.0)
     popper_js (1.12.9)
-    puma (3.11.3)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    puma (3.11.4)
     rack (2.0.5)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
@@ -210,7 +217,7 @@ GEM
     turbolinks-source (5.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.10)
+    uglifier (4.1.11)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -238,11 +245,14 @@ DEPENDENCIES
   cloudinary
   coffee-rails (~> 4.2)
   devise
+  geocoder
+  gmaps-autocomplete-rails
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
   listen (~> 3.0.5)
   pg
+  pry
   puma (~> 3.10)
   rails
   sass-rails (~> 5.0)
@@ -254,4 +264,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.15.4
+   1.16.2

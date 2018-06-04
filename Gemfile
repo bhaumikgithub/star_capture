@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'pry'
 end
 
 group :development do
@@ -30,3 +31,8 @@ gem 'bootstrap4-kaminari-views'
 #file storage
 gem 'cloudinary', require: false
 gem 'activestorage-cloudinary-service'
+
+# for location
+gem 'geocoder'
+# for autocomplete location
+gem 'gmaps-autocomplete-rails'
