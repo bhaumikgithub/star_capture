@@ -37,6 +37,9 @@
 
 <%=  bootstrap_form_for @resource, url: {controller: 'products', action: 'update_address'}  do |f| %>
   <div class='row'>
+    <div class="col-12">
+      <%= f.text_field :address %>
+    </div>
     <div class="col-6">
       <%= f.text_field :city, readonly: true %>
       <%= f.text_field :state, readonly: true %>
@@ -46,5 +49,4 @@
       <%= f.text_field :pincode %>
     </div>
   </div>
-  <%= f.submit 'Update location' %>
 <% end %>
