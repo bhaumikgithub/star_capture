@@ -12,8 +12,12 @@
         <li class="nav-item"><%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %></li>
       <% end %>
       <% if user_signed_in? %>
-        <li class="nav-item"><%= link_to 'Categories', categories_path, class: 'nav-link' %></li>
-        <li class="nav-item"><%= link_to 'Products', products_path, class: 'nav-link' %></li>
+        <% if current_user.role == 'admin' %>
+          <li class="nav-item"><%= link_to 'Categories', categories_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'Products', products_path, class: 'nav-link' %></li>
+        <% else %>
+          <li class="nav-item"><%= link_to 'Nearby products', show_nearby_products_products_path, class: 'nav-link' %></li>
+        <% end %>
       <% end %>
     </ul>
     <% if user_signed_in? %>

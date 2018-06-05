@@ -1,6 +1,8 @@
 var product_id;
 var lat = '';
 var lang = '';
+var role = '';
+var products_array = '';
 $( document ).ready(function() {
   initialize();
 });
@@ -15,6 +17,8 @@ function initialize(){
   product_id = $('#product').data('product-id');
   lat = parseFloat($('#product').data('latitude'));
   lang = parseFloat($('#product').data('longitude'));
+  products_array = $('#product').data('array');
+  role = $('#product').data('role');
   if ((lat == '' && lang == '') || (isNaN(lat) && isNaN(lang)) ) {
     getLocation();
   }
@@ -40,6 +44,7 @@ function showPosition(position) {
 
 function initMap() {
   var current_pos = {lat: lat, lng: lang};
+
   // The map, centered at location
   var map = new google.maps.Map(document.getElementById('map'), {zoom: 17, center: current_pos});
 
@@ -88,17 +93,30 @@ function initMap() {
     lat = JSON.parse(JSON.stringify(place.geometry.location)).lat;
     lang = JSON.parse(JSON.stringify(place.geometry.location)).lng;
     updatePosition(lat, lang);
+    update_user_location(lat, lang);
+
   });
 
   google.maps.event.addListener(marker, 'dragend', function (event) {
     current_pos = {lat: event.latLng.lat(), lng: event.latLng.lng()};
     updatePosition(event.latLng.lat(), event.latLng.lng());
+    update_user_location(event.latLng.lat(), event.latLng.lng());
+
   });
 
   updatePosition(lat, lang);
+  update_user_location(lat, lang);
+
 }
 
 function updatePosition(lat, lang){
+  if (role != 'user') {
+    update_product_location(lat, lang);
+  }
+
+}
+
+function update_product_location(lat, lang){
   $.ajax({
     url: window.location.origin+'/products/'+product_id+'/update_location/',
     type: 'PATCH',
@@ -110,5 +128,20 @@ function updatePosition(lat, lang){
     $('#product_city').val(data.product.city)
     $('#product_pincode').val(data.product.pincode)
     $('#product_address').val(data.product.address)
+  });
+}
+
+function update_user_location(lat, lang){
+  $.ajax({
+    url: window.location.origin+'/products/update_user_location',
+    type: 'PATCH',
+    data: {latitude: lat, longitude: lang},
+    dataType: 'JSON'
+  }).done(function(data){
+    $('#product_country').val(data.country)
+    $('#product_state').val(data.state)
+    $('#product_city').val(data.city)
+    $('#product_pincode').val(data.pincode)
+    $('#product_address').val(data.address)
   });
 }

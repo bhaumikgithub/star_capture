@@ -1,0 +1,126 @@
+<div id="product" data-role="<%= current_user.role %>" data-latitude="<%= current_user.latitude %>" data-longitude="<%= current_user.longitude %>" data-array="<%= @nearby_products %>"></div>
+
+<div style='width: 800px;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
+<br>
+
+<div class='row'>
+  <div class="col-12">
+    <div class="form-group">
+      <label for="product_address">Address</label>
+      <input class="form-control" type="text" value= <%= @user_location.present? ? @user_location.address : '-' %>  id="product_address" placeholder="Enter a location" autocomplete="off">
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+      <label for="product_city">City</label>
+      <input readonly="readonly" class="form-control" type="text" value=<%= @user_location.present? ? @user_location.city : '-'%>  id="product_city">
+    </div>
+
+    <div class="form-group">
+      <label >State</label>
+      <input readonly="readonly" class="form-control" type="text" value= <%= @user_location.present? ? @user_location.state : '-' %> id="product_state">
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+      <label>Country</label>
+      <input readonly="readonly" class="form-control" type="text" value=<%=@user_location.present? ?  @user_location.country : '-' %>  id="product_country">
+    </div>
+
+    <div class="form-group">
+      <label>Pincode</label>
+      <input class="form-control" type="text" value=<%= @user_location.present? ? @user_location.postal_code : '-'%>  id="product_pincode">
+    </div>
+
+  </div>
+</div>
+
+  <!--   <div id="map1"></div>
+
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map1 {
+        height: 700px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+   
+
+<script type="text/javascript">
+var geocoder;
+var map;
+var bounds = new google.maps.LatLngBounds();
+var locations = [{lat: 21.1702, lng: 72.8311},{lat: 22.3039, lng: 70.8022}];
+
+function initialize() {
+    map = new google.maps.Map(
+    document.getElementById("map1"), {
+        center: new google.maps.LatLng(23.0225, 72.5714),
+        zoom: 17
+        // mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    marker = new google.maps.Marker({
+    draggable:true,
+    position: {lat: 23.0225, lng: 72.5714},
+    map: map,
+    title:"Drag me!"
+  });
+    geocoder = new google.maps.Geocoder();
+
+    for (i = 0; i < locations.length; i++) {
+
+
+        geocodeAddress(locations, i);
+    }
+}
+// google.maps.event.addDomListener(window, "load", initialize);
+
+function geocodeAddress(locations, i) {
+    
+    geocoder.geocode(
+    {'location': locations[i]},
+    function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            var marker = new google.maps.Marker({
+                icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+                map: map,
+                position: results[0].geometry.location
+            })
+            infoWindow(marker, map, 'title', 'address', 'url');
+            bounds.extend(marker.getPosition());
+            map.fitBounds(bounds);
+        } 
+    });
+}
+
+function infoWindow(marker, map, title, address, url) {
+    google.maps.event.addListener(marker, 'click', function () {
+        var html = "<div><h3>" + title + "</h3><p>" + address + "<br></div><a href='" + url + "'>View location</a></p></div>";
+        iw = new google.maps.InfoWindow({
+            content: html,
+            maxWidth: 350
+        });
+        iw.open(map, marker);
+    });
+}
+
+// function createMarker(results) {
+//     var marker = new google.maps.Marker({
+//         icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+//         map: map,
+//         position: results[0].geometry.location,
+//         title: title,
+//         animation: google.maps.Animation.DROP,
+//         address: address,
+//         url: url
+//     })
+//     bounds.extend(marker.getPosition());
+//     map.fitBounds(bounds);
+//     infoWindow(marker, map, title, address, url);
+//     return marker;
+// }
+
+
+</script> -->

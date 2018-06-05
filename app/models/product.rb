@@ -15,16 +15,9 @@ class Product < ApplicationRecord
       obj.address = geo.formatted_address
     end
   end
-  after_validation :update_pin, if: :pincode_changed?
   after_validation :reverse_geocode
 
   def full_address
     [self.address].compact.join(', ')
-  end
-
-  def update_pin
-    geocoder = Geocoder.search(self.pincode)
-    self.latitude = geocoder.first.latitude
-    self.longitude = geocoder.first.longitude
   end
 end

@@ -66,6 +66,7 @@ GEM
       rails (>= 3.1)
     builder (3.2.3)
     byebug (10.0.2)
+    cancancan (2.2.0)
     cloudinary (1.9.1)
       aws_cf_signer
       rest-client
@@ -93,8 +94,6 @@ GEM
     geocoder (1.4.9)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    gmaps-autocomplete-rails (0.3.1)
-      rails (>= 3.1.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.0.1)
@@ -242,11 +241,11 @@ DEPENDENCIES
   bootstrap4-kaminari-views
   bootstrap_form!
   byebug
+  cancancan (~> 2.0)
   cloudinary
   coffee-rails (~> 4.2)
   devise
   geocoder
-  gmaps-autocomplete-rails
   jbuilder (~> 2.5)
   jquery-rails
   kaminari

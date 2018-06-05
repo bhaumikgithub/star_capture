@@ -34,5 +34,6 @@ gem 'activestorage-cloudinary-service'
 
 # for location
 gem 'geocoder'
-# for autocomplete location
-gem 'gmaps-autocomplete-rails'
+
+#for authorization
+gem 'cancancan', '~> 2.0'
