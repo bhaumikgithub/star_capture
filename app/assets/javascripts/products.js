@@ -8,11 +8,13 @@ var map;
 
 $( document ).ready(function() {
   initialize();
+  // $("#map_wrapper").hide();
 });
 
 $(document).on('turbolinks:load', function() {
   if (typeof google != 'undefined') {
     initialize();
+  // $("#map_wrapper").hide();
   }
 });
 
@@ -194,3 +196,7 @@ function update_user_location(lat, lang){
     $('#product_address').val(data.address)
   });
 }
+
+$(document).on("click", "#manage_location", function(){
+  $("#map_wrapper").show();
+});
