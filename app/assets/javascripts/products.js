@@ -206,9 +206,9 @@ function update_user_location(lat, lang){
       $('#product_city').val(data.city)
       $('#product_pincode').val(data.pincode)
       $('#product_address').val(data.address)
-      if(data.is_updated){
-        window.location.reload(true)
-      }
+      // if(data.is_updated){
+      //   // window.location.reload(true)
+      // }
     });
   }
 }
