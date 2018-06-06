@@ -16,3 +16,7 @@
   <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
   <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
 <% end %>
+
+<% if @resource.persisted? %>
+  <%= render 'map' %>
+<% end %>

@@ -80,7 +80,7 @@ module InheritAction
   end
 
   def configure_redirect_path
-    redirect_to session[:redirect_back] || { controller: controller_name, action: :index }
+    redirect_to session[:redirect_back] || { controller: controller_name, action: :show, id: @resource.id}
   end
 
   def resource_name
