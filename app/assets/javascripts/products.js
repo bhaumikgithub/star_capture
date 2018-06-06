@@ -168,7 +168,7 @@ function geocodeAddress(locations, i) {
 
 function infoWindow(marker, map, title, price, url) {
   google.maps.event.addListener(marker, 'click', function () {
-    var html = "<div><b> Name: " + title + "</b><p>Price:  " + price + "<br></div><a href='" + url + "'>View Product</a></p></div>";
+    var html = "<div><b> Name: " + title + "</b><br><p><b>Price:  </b> " + price + "<br></div><a href='" + url + "'>View Product</a></p></div>";
     iw = new google.maps.InfoWindow({
         content: html,
         maxWidth: 350
