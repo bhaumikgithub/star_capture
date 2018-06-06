@@ -33,10 +33,12 @@ class ProductsController < ApplicationController
   end
 
   def update_user_location
-    current_user.update(latitude: params[:latitude], longitude: params[:longitude])
-    @user_location = current_user.reverse_geocode
-    sleep 3
-    render json: {city: @user_location.city, country: @user_location.country, state: @user_location.state, pincode: @user_location.postal_code, address: @user_location.address}
+    if current_user.user?
+      current_user.update(latitude: params[:latitude], longitude: params[:longitude])
+      @user_location = current_user.reverse_geocode
+      sleep 3
+      render json: {city: @user_location.city, country: @user_location.country, state: @user_location.state, pincode: @user_location.postal_code, address: @user_location.address}
+    end
   end
 
   private
