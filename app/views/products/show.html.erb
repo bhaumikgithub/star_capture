@@ -21,9 +21,10 @@
         </div>
         <div class="mt-4">
           <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
-          <td><%= link_to "Edit", edit_product_path(@resource) , class: 'btn btn-sm btn-primary'  %></td>
-          <td><%= link_to "Delete", product_path(@resource), method: :delete, data: {confirm: "Are you sure?"},class: 'btn btn-sm btn-danger' %></td>
-          <td><button class="btn btn-sm btn-success" id="manage_location">Manage location</button></td>
+          <% if current_user.admin? %>
+            <td><%= link_to "Edit", edit_product_path(@resource) , class: 'btn btn-sm btn-primary'  %></td>
+            <td><%= link_to "Delete", product_path(@resource), method: :delete, data: {confirm: "Are you sure?"},class: 'btn btn-sm btn-danger' %></td>
+          <% end %>
         </div>
       </div>
     </div>
@@ -32,10 +33,3 @@
 <% if @resource.latitude.present? && @resource.longitude.present? %>
   <%= render 'map' %>
 <% end %>
-<script type="text/javascript">
-    $("#map_wrapper").hide()
-
-  $(document).on('click','#manage_location', function() {
-    $("#map_wrapper").show()
-  });
-</script>

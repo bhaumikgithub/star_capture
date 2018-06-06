@@ -5,16 +5,17 @@ var role = '';
 var products_array = '';
 var geocoder;
 var map;
+var flag = true;
 
 $( document ).ready(function() {
-  initialize();
-  // $("#map_wrapper").hide();
+  if (flag == false) {
+    initialize();
+  }
 });
 
 $(document).on('turbolinks:load', function() {
   if (typeof google != 'undefined') {
     initialize();
-  // $("#map_wrapper").hide();
   }
 });
 
@@ -51,76 +52,86 @@ function initMap() {
   var current_pos = {lat: lat, lng: lang};
 
   // The map, centered at location
-  map = new google.maps.Map(document.getElementById('map'), {zoom: 15, center: current_pos});
+  var map_div = document.getElementById('map')
+  if(map_div != null)
+  {
 
-  var input = document.getElementById('product_address');
+    map = new google.maps.Map(map_div, {zoom: 15, center: current_pos});
 
-  var autocomplete = new google.maps.places.Autocomplete(input);
+    var input = document.getElementById('product_address');
 
-  var infowindow = new google.maps.InfoWindow();
-  var infowindowContent = document.getElementById('infowindow-content');
+    var autocomplete = new google.maps.places.Autocomplete(input);
 
-
-  // Bind the map's bounds (viewport) property to the autocomplete object,
-  // so that the autocomplete requests use the current map bounds for the
-  // bounds option in the request.
-  autocomplete.bindTo('bounds', map);
-
-  infowindow.setContent(infowindowContent);
-
-  marker = new google.maps.Marker({
-    draggable:true,
-    position: current_pos,
-    map: map,
-    title:"Drag me!"
-  });
-
-  // multiple marker
-  if(typeof products_array !== 'undefined' && products_array.length > 0){
-    geocoder = new google.maps.Geocoder();
-    for (i = 0; i < products_array.length; i++) {
-      geocodeAddress(products_array, i);
-    }
-  }
+    var infowindow = new google.maps.InfoWindow();
+    var infowindowContent = document.getElementById('infowindow-content');
 
 
-  autocomplete.addListener('place_changed', function() {
-    infowindow.close();
-    marker.setVisible(false);
-    var place = autocomplete.getPlace();
-    if (!place.geometry) {
-      // User entered the name of a Place that was not suggested and
-      // pressed the Enter key, or the Place Details request failed.
-      window.alert("No details available for input: '" + place.name + "'");
-      return;
-    }
+    // Bind the map's bounds (viewport) property to the autocomplete object,
+    // so that the autocomplete requests use the current map bounds for the
+    // bounds option in the request.
+    autocomplete.bindTo('bounds', map);
 
-    // If the place has a geometry, then present it on a map.
-    if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
-    } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(15);
-    }
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
+    infowindow.setContent(infowindowContent);
 
-    lat = JSON.parse(JSON.stringify(place.geometry.location)).lat;
-    lang = JSON.parse(JSON.stringify(place.geometry.location)).lng;
+    marker = new google.maps.Marker({
+      draggable:true,
+      position: current_pos,
+      map: map,
+      title:"Drag me!"
+    });
+ 
+    // multiple marker
+    if(typeof products_array !== 'undefined' && products_array.length > 0){
+      geocoder = new google.maps.Geocoder();
+      var timeout = 0;
+
+      products_array.forEach(function(element) {
+        timeout = timeout+1000;
+        setTimeout(function () {
+          geocodeAddress(element);
+        }, timeout);
+      });
+     }
+
+
+    autocomplete.addListener('place_changed', function() {
+      infowindow.close();
+      marker.setVisible(false);
+      var place = autocomplete.getPlace();
+      if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
+        // pressed the Enter key, or the Place Details request failed.
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+
+      // If the place has a geometry, then present it on a map.
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(15);
+      }
+      marker.setPosition(place.geometry.location);
+      marker.setVisible(true);
+
+      lat = JSON.parse(JSON.stringify(place.geometry.location)).lat;
+      lang = JSON.parse(JSON.stringify(place.geometry.location)).lng;
+      updatePosition(lat, lang);
+      update_user_location(lat, lang);
+
+    });
+
+    google.maps.event.addListener(marker, 'dragend', function (event) {
+      current_pos = {lat: event.latLng.lat(), lng: event.latLng.lng()};
+      updatePosition(event.latLng.lat(), event.latLng.lng());
+      update_user_location(event.latLng.lat(), event.latLng.lng());
+
+    });
+
     updatePosition(lat, lang);
     update_user_location(lat, lang);
-
-  });
-
-  google.maps.event.addListener(marker, 'dragend', function (event) {
-    current_pos = {lat: event.latLng.lat(), lng: event.latLng.lng()};
-    updatePosition(event.latLng.lat(), event.latLng.lng());
-    update_user_location(event.latLng.lat(), event.latLng.lng());
-
-  });
-
-  updatePosition(lat, lang);
-  update_user_location(lat, lang);
+  }
 
 }
 
@@ -138,18 +149,18 @@ function update_product_location(lat, lang){
     data: {latitude: lat, longitude: lang},
     dataType: 'JSON'
   }).done(function(data){
-    $('#product_country').val(data.product.country)
-    $('#product_state').val(data.product.state)
-    $('#product_city').val(data.product.city)
-    $('#product_pincode').val(data.product.pincode)
-    $('#product_address').val(data.product.address)
+    $('#product_country').val(data.product.country);
+    $('#product_state').val(data.product.state);
+    $('#product_city').val(data.product.city);
+    $('#product_pincode').val(data.product.pincode);
+    $('#product_address').val(data.product.address);
   });
 }
 
-function geocodeAddress(locations, i) {
 
+function geocodeAddress(locations) {
   var bounds = new google.maps.LatLngBounds();
-  var latlng = {lat: parseFloat(locations[i][0]), lng: parseFloat(locations[i][1])};
+  var latlng = {lat: parseFloat(locations[0]), lng: parseFloat(locations[1])};
 
   geocoder.geocode(
   {'location': latlng},
@@ -161,7 +172,7 @@ function geocodeAddress(locations, i) {
           position: results[0].geometry.location,
           setMap: map
       })
-      infoWindow(marker, map, locations[i][3], locations[i][4], window.location.origin+'/products/'+locations[i][2]);
+      infoWindow(marker, map, locations[3], locations[4], window.location.origin+'/products/'+locations[2]);
       bounds.extend(marker.getPosition());
       // map.fitBounds(bounds);
     }
@@ -183,20 +194,18 @@ function infoWindow(marker, map, title, price, url) {
 
 
 function update_user_location(lat, lang){
-  $.ajax({
-    url: window.location.origin+'/products/update_user_location',
-    type: 'PATCH',
-    data: {latitude: lat, longitude: lang},
-    dataType: 'JSON'
-  }).done(function(data){
-    $('#product_country').val(data.country)
-    $('#product_state').val(data.state)
-    $('#product_city').val(data.city)
-    $('#product_pincode').val(data.pincode)
-    $('#product_address').val(data.address)
-  });
+  if (role == 'user' ){
+    $.ajax({
+      url: window.location.origin+'/products/update_user_location',
+      type: 'PATCH',
+      data: {latitude: lat, longitude: lang},
+      dataType: 'JSON'
+    }).done(function(data){
+      $('#product_country').val(data.country)
+      $('#product_state').val(data.state)
+      $('#product_city').val(data.city)
+      $('#product_pincode').val(data.pincode)
+      $('#product_address').val(data.address)
+    });
+  }
 }
-
-$(document).on("click", "#manage_location", function(){
-  $("#map_wrapper").show();
-});

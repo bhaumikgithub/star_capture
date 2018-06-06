@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
     if current_user.admin?
       @resources = Product.order('created_at DESC').page(params[:page]).per(10)
     else
-      @resources = Product.near([current_user.latitude, current_user.longitude], 15).page(params[:page]).per(10)
+      @resources = Product.near([current_user.latitude, current_user.longitude], 5).page(params[:page]).per(10)
     end
   end
 
@@ -18,6 +18,7 @@ class ProductsController < ApplicationController
 
   def update_location
     @resource.update(latitude: params[:latitude], longitude: params[:longitude])
+    sleep 3
     render json: { product: @resource }
   end
 
@@ -27,7 +28,7 @@ class ProductsController < ApplicationController
   end
 
   def show_nearby_products
-    @nearby_products = Product.near([current_user.latitude, current_user.longitude], 15,{order: ""}).pluck(:latitude,:longitude,:id,:name,:price)
+    @nearby_products = Product.near([current_user.latitude, current_user.longitude], 5,{order: ""}).pluck(:latitude,:longitude,:id,:name,:price)
     @user_location = current_user.reverse_geocode
 
   end
