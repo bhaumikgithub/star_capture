@@ -3,6 +3,9 @@ var lat = '';
 var lang = '';
 var role = '';
 var products_array = '';
+var geocoder;
+var map;
+
 $( document ).ready(function() {
   initialize();
 });
@@ -46,7 +49,7 @@ function initMap() {
   var current_pos = {lat: lat, lng: lang};
 
   // The map, centered at location
-  var map = new google.maps.Map(document.getElementById('map'), {zoom: 17, center: current_pos});
+  map = new google.maps.Map(document.getElementById('map'), {zoom: 15, center: current_pos});
 
   var input = document.getElementById('product_address');
 
@@ -54,6 +57,7 @@ function initMap() {
 
   var infowindow = new google.maps.InfoWindow();
   var infowindowContent = document.getElementById('infowindow-content');
+
 
   // Bind the map's bounds (viewport) property to the autocomplete object,
   // so that the autocomplete requests use the current map bounds for the
@@ -68,6 +72,15 @@ function initMap() {
     map: map,
     title:"Drag me!"
   });
+
+  // multiple marker
+  if(typeof products_array !== 'undefined' && products_array.length > 0){
+    geocoder = new google.maps.Geocoder();
+    for (i = 0; i < products_array.length; i++) {
+      geocodeAddress(products_array, i);
+    }
+  }
+
 
   autocomplete.addListener('place_changed', function() {
     infowindow.close();
@@ -85,7 +98,7 @@ function initMap() {
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(17);
+      map.setZoom(15);
     }
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
@@ -130,6 +143,42 @@ function update_product_location(lat, lang){
     $('#product_address').val(data.product.address)
   });
 }
+
+function geocodeAddress(locations, i) {
+
+  var bounds = new google.maps.LatLngBounds();
+  var latlng = {lat: parseFloat(locations[i][0]), lng: parseFloat(locations[i][1])};
+
+  geocoder.geocode(
+  {'location': latlng},
+  function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      var marker = new google.maps.Marker({
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+          map: map,
+          position: results[0].geometry.location,
+          setMap: map
+      })
+      infoWindow(marker, map, locations[i][3], locations[i][4], window.location.origin+'/products/'+locations[i][2]);
+      bounds.extend(marker.getPosition());
+      map.fitBounds(bounds);
+    }
+  });
+}
+
+function infoWindow(marker, map, title, price, url) {
+  google.maps.event.addListener(marker, 'click', function () {
+    var html = "<div><b> Name: " + title + "</b><p>Price:  " + price + "<br></div><a href='" + url + "'>View Product</a></p></div>";
+    iw = new google.maps.InfoWindow({
+        content: html,
+        maxWidth: 350
+    });
+    iw.open(map, marker);
+  });
+}
+
+
+
 
 function update_user_location(lat, lang){
   $.ajax({

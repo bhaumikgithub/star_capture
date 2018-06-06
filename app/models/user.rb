@@ -10,8 +10,11 @@ class User < ApplicationRecord
       geo
     end
   end
-  def is_admin?
-    return true if self.role == 'admin'
+
+  ['admin', 'user'].each do |user_role|
+    define_method "#{user_role}?" do
+      self.role == user_role
+    end
   end
 
 end

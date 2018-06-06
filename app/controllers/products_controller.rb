@@ -3,6 +3,14 @@ class ProductsController < ApplicationController
   include InheritAction
   before_action :set_product, only: [:update_location, :update_address, :delete_image]
 
+  def index
+    if current_user.admin?
+      @resources = Product.order('created_at DESC').page(params[:page]).per(10)
+    else
+      @resources = Product.near([current_user.latitude, current_user.longitude], 15).page(params[:page]).per(10)
+    end
+  end
+
   def delete_image
     @resource.images.where(id: params[:image_id]).purge
     redirect_to product_path(@resource)
@@ -19,7 +27,7 @@ class ProductsController < ApplicationController
   end
 
   def show_nearby_products
-    @nearby_products = Product.near([current_user.latitude, current_user.longitude], 200,{order: ""}).pluck(:latitude,:longitude)
+    @nearby_products = Product.near([current_user.latitude, current_user.longitude], 15,{order: ""}).pluck(:latitude,:longitude,:id,:name,:price)
     @user_location = current_user.reverse_geocode
 
   end

@@ -9,7 +9,7 @@ module InheritAction
   end
 
   def index
-    @resources = resource_class.all.order('created_at DESC').page(params[:page]).per(5)
+    @resources = resource_class.all.order('created_at DESC').page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.json { render json: @resources }
@@ -20,10 +20,9 @@ module InheritAction
     @resource = resource_class.new
   end
 
-  def pre_creation_user
-    @resource = resource_class.new(resource_params)
-
-  end
+  # def pre_creation_user
+  #   @resource = resource_class.new(resource_params)
+  # end
 
   def create
     @resource = resource_class.new(resource_params)
