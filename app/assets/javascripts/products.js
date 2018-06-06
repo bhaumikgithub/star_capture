@@ -163,7 +163,7 @@ function geocodeAddress(locations, i) {
       })
       infoWindow(marker, map, locations[i][3], locations[i][4], window.location.origin+'/products/'+locations[i][2]);
       bounds.extend(marker.getPosition());
-      map.fitBounds(bounds);
+      // map.fitBounds(bounds);
     }
   });
 }
