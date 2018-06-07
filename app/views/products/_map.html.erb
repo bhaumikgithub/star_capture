@@ -2,7 +2,7 @@
 
 <div id="map_wrapper" style='width: 800px;'>
   <% if params[:action] == 'show' %>
-    <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@resource.latitude},#{@resource.longitude}&markers=#{@resource.latitude},#{@resource.longitude}&zoom=15&size=640x400&key=AIzaSyAimpQrqnB_pftBReNA94ZGYc7HPXYbqPw",
+    <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@resource.latitude},#{@resource.longitude}&markers=#{@resource.latitude},#{@resource.longitude}&zoom=15&style=feature:poi|element:labels|visibility:off&size=640x400&key=AIzaSyAimpQrqnB_pftBReNA94ZGYc7HPXYbqPw",
               class: 'img-fluid img-rounded', alt: "#{@resource.name} on the map"%>
   <% else %>
     <div id="map" style='width: 800px; height: 400px;'></div>
