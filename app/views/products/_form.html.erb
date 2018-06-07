@@ -9,7 +9,7 @@
     </div>
   <% end %>  
   <%= f.text_field :name, required: true %>
-  <%= f.text_field :price, required: true %>
+  <%= f.text_field :price, required: true, label: 'Price (in $)' %>
   <%= f.file_field :images, multiple: true %>
   <%#= exit %>
   <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your favorite category",:include_blank => false, include_hidden: false, :selected => params[:cat_id].present? ?  params[:cat_id] : f.object.categories.ids}, :multiple => true%>

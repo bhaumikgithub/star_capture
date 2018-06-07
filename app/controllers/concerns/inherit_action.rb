@@ -80,7 +80,11 @@ module InheritAction
   end
 
   def configure_redirect_path
-    redirect_to session[:redirect_back] || { controller: controller_name, action: :show, id: @resource.id}
+    if params[:action] == 'destroy'
+      redirect_to controller: controller_name, action: :index
+    else
+     redirect_to controller: controller_name, action: :show, id: @resource.id
+    end
   end
 
   def resource_name

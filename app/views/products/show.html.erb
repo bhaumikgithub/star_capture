@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col">
      <div class="wrap">
-        <div class="mb-3"><p><b>Procuct name: </b> <%= @resource.name %></p></div>
-        <div class="mb-3"><p><b>Product price: </b><%= @resource.price %></p></div>
-        <div class="mb-3"><p><b>Prodcut Categories</b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p></div>
+        <div class="mb-3"><p><b>Product name: </b> <%= @resource.name %></p></div>
+        <div class="mb-3"><p><b>Product price: </b>$<%= @resource.price %></p></div>
+        <div class="mb-3"><p><b>Product Categories</b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p></div>
         <div class="">
           <div class="d-block align-top mb-3"><b>Product Images:</b></div>
             <div class="d-block align-top">
