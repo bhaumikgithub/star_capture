@@ -11,9 +11,13 @@
                 <div class="d-inline-block ">
                   <%= image_tag image, class: 'product_image_size mr-3' %>
                   <span class="d-block">
-                  <%= link_to 'delete', delete_image_product_path(@resource, image),
+                    <% if @resource.images.count == 1 %>
+                      <%= link_to 'delete',{},:onclick => "imageWarning()" %>
+                    <% else %>
+                      <%= link_to 'delete', delete_image_product_path(@resource, image),
                         method: :delete,
                         data: { confirm: 'Are you sure?' } %>
+                    <% end %>
                   </span>
                 </div>
               <% end %>

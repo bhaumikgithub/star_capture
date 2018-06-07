@@ -1,5 +1,9 @@
-<h4><b>Showing results nearby  area of :   </b>  <%= current_user.reverse_geocode.address %></h4><br>
-<% if @resources.present? %>
+<% if current_user.user? %>
+  <h4><b>Showing results nearby  area of: </b>  <%= current_user.reverse_geocode.address %></h4><br> 
+<% end %>
+
+
+
   <div class="container">
     <h2>Product Listing</h2>
     <div class="col-12">
@@ -8,16 +12,17 @@
           <div class="form-group col-4">
             <%= select_tag :category_id,  options_for_select(Category.all.collect{ |u| [(u.name), u.id] }, selected: @category_id),{class: "form-control category_search", prompt: "All"}%>
           </div>
+
           <div class="col-4">
             <%= submit_tag "Search", class: "btn btn-outline-secondary mb-2" %>
           </div>
         </div>
-        <% end %>
-    <% if current_user.admin? %>
-        <%= link_to  "New Product", new_product_path, class: "btn  btn-outline-secondary btn-sm 
-      float-right mb-2" %>
       <% end %>
     </div>
+    <% if current_user.admin? %>
+      <%= link_to  "New Product", new_product_path, class: "btn  btn-outline-secondary btn-sm float-right mb-2" %>
+    <% end %>
+  <% if @resources.present? %>
     <table class=" table table-striped sortable">
       <thead>
         <tr>
@@ -42,17 +47,25 @@
         <% end %>
       </tbody>
     </table>
-   </div>
-  <div id="paginate">
-    <%= paginate @resources, theme: 'twitter-bootstrap-4' %>
-  </div>
-<% else %>
-  <div class="row">
-    <div class="col-4">
-      <h4>No products in nearby area.</h4>
+
+    <div id="paginate">
+      <%= paginate @resources, theme: 'twitter-bootstrap-4' %>
     </div>
-    <div class="col-4">
-      <%= link_to 'Change location', show_nearby_products_products_path, class: 'btn btn-outline-secondary' %>
-    </div>
-  </div>
-<% end %>
+
+  <% else %>
+    
+    <% if current_user.admin? %>
+      <h5>No products available</h5>
+    <% else %>
+
+      <div class="row">
+        <div class="col-4">
+          <h4>No products in nearby area.</h4>
+        </div>
+        <div class="col-4">
+          <%= link_to 'Change location', show_nearby_products_products_path, class: 'btn btn-outline-secondary' %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
