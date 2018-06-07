@@ -24,6 +24,7 @@ function initialize(){
   lat = parseFloat($('#product').data('latitude'));
   lang = parseFloat($('#product').data('longitude'));
   products_array = $('#product').data('array');
+  product_categories= $('#product').data('categories');
   role = $('#product').data('role');
   if ((lat == '' && lang == '') || (isNaN(lat) && isNaN(lang)) ) {
     getLocation();
@@ -181,16 +182,16 @@ function geocodeAddress(locations) {
           position: results[0].geometry.location,
           setMap: map
       })
-      infoWindow(marker, map, locations[3], locations[4], window.location.origin+'/products/'+locations[2]);
+      infoWindow(marker, map, locations[3], locations[4], window.location.origin+'/products/'+locations[2], locations[2]);
       bounds.extend(marker.getPosition());
       // map.fitBounds(bounds);
     }
   });
 }
 
-function infoWindow(marker, map, title, price, url) {
+function infoWindow(marker, map, title, price, url,categories) {
   google.maps.event.addListener(marker, 'click', function () {
-    var html = "<div><b> Name: " + title + "</b><br><p><b>Price:  </b> " + price + "<br></div><a href='" + url + "'>View Product</a></p></div>";
+    var html = "<p><b> Name:</b> " + title + "</p><p><b>Price:  </b> $" + price + "</p><p><b>Categories:</b> "+ product_categories[categories] +"</p><a href='" + url + "'>View Product</a>";
     iw = new google.maps.InfoWindow({
         content: html,
         maxWidth: 350

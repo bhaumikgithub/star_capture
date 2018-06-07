@@ -1,4 +1,4 @@
-<div id="product" data-role="<%= current_user.role %>" data-latitude="<%= current_user.latitude %>" data-longitude="<%= current_user.longitude %>" data-array="<%= @nearby_products %>"></div>
+<div id="product" data-role="<%= current_user.role %>" data-latitude="<%= current_user.latitude %>" data-longitude="<%= current_user.longitude %>" data-array="<%= @nearby_products %>" data-categories="<%= @product_categories.to_json %>"></div>
 
 <div style='width: 800px;'>
   <div id="map" style='width: 800px; height: 400px;'></div>
@@ -31,7 +31,7 @@
 
     <div class="form-group">
       <label>Pincode</label>
-      <input class="form-control" type="text" value=<%= @user_location.present? ? @user_location.postal_code : '-'%>  id="product_pincode">
+      <input readonly="readonly" class="form-control" type="text" value=<%= @user_location.present? ? @user_location.postal_code : '-'%>  id="product_pincode">
     </div>
 
   </div>

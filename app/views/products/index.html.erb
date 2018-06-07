@@ -1,46 +1,58 @@
-<div class="container">
-  <h2>Product Listing</h2>
-  <div class="col-12">
-    <%= form_tag({:action => 'index'}, {:method => :get}) do %>
-      <div class="row">
-        <div class="form-group col-4">
-          <%= select_tag :category_id,  options_for_select(Category.all.collect{ |u| [(u.name), u.id] }, selected: @category_id),{class: "form-control category_search", prompt: "All"}%>
+<h4><b>Showing results nearby  area of :   </b>  <%= current_user.reverse_geocode.address %></h4><br>
+<% if @resources.present? %>
+  <div class="container">
+    <h2>Product Listing</h2>
+    <div class="col-12">
+      <%= form_tag({:action => 'index'}, {:method => :get}) do %>
+        <div class="row">
+          <div class="form-group col-4">
+            <%= select_tag :category_id,  options_for_select(Category.all.collect{ |u| [(u.name), u.id] }, selected: @category_id),{class: "form-control category_search", prompt: "All"}%>
+          </div>
+          <div class="col-4">
+            <%= submit_tag "Search", class: "btn btn-outline-secondary mb-2" %>
+          </div>
         </div>
-        <div class="col-4">
-          <%= submit_tag "Search", class: "btn btn-outline-secondary mb-2" %>
-        </div>
-      </div>
+        <% end %>
+    <% if current_user.admin? %>
+        <%= link_to  "New Product", new_product_path, class: "btn  btn-outline-secondary btn-sm 
+      float-right mb-2" %>
       <% end %>
-  <% if current_user.admin? %>
-      <%= link_to  "New Product", new_product_path, class: "btn  btn-outline-secondary btn-sm 
-    float-right mb-2" %>
-    <% end %>
-  </div>
-  <table class=" table table-striped sortable">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Categories</th>
-        <th colspan="3">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @resources.each do |product| %>
+    </div>
+    <table class=" table table-striped sortable">
+      <thead>
         <tr>
-          <td><%= link_to product.name, product_path(product) %></td>
-          <td>$<%= product.price %></td>
-          <td><%= product.categories.map { |e| e.name }.join(', ') %></td>
-          <td><%= link_to("View", product_path(product)) %></td>
-          <% if current_user.admin? %>
-          <td><%= link_to("Edit", edit_product_path(product)) %></td>
-          <td><%= link_to "Delete", product_path(product), method: :delete, data: {confirm: "Are you sure?"} %></td>
-          <% end %>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Categories</th>
+          <th colspan="3">Actions</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
- </div>
-<div id="paginate">
-  <%= paginate @resources, theme: 'twitter-bootstrap-4' %>
-</div>
+      </thead>
+      <tbody>
+        <% @resources.each do |product| %>
+          <tr>
+            <td><%= link_to product.name, product_path(product) %></td>
+            <td>$<%= product.price %></td>
+            <td><%= product.categories.map { |e| e.name }.join(', ') %></td>
+            <td><%= link_to("View", product_path(product)) %></td>
+            <% if current_user.admin? %>
+            <td><%= link_to("Edit", edit_product_path(product)) %></td>
+            <td><%= link_to "Delete", product_path(product), method: :delete, data: {confirm: "Are you sure?"} %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+   </div>
+  <div id="paginate">
+    <%= paginate @resources, theme: 'twitter-bootstrap-4' %>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-4">
+      <h4>No products in nearby area.</h4>
+    </div>
+    <div class="col-4">
+      <%= link_to 'Change location', show_nearby_products_products_path, class: 'btn btn-outline-secondary' %>
+    </div>
+  </div>
+<% end %>
