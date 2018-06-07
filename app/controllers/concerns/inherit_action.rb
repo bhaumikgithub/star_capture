@@ -3,7 +3,7 @@ module InheritAction
   extend ActiveSupport::Concern
 
   included do
-    before_action :get_resource, only: [:show, :edit, :update, :destroy]
+    before_action :get_resource, only: [:show, :edit, :update, :destroy, :delete_category_with_products]
     before_action :remove_path_sessions, except: [:new, :create, :edit, :update, :destroy]
     after_action :remove_path_sessions, only: [:create, :update, :destroy] if @resource && !@resource.errors.any?
   end
@@ -80,7 +80,7 @@ module InheritAction
   end
 
   def configure_redirect_path
-    if params[:action] == 'destroy'
+    if action_name == 'destroy' || (controller_name == 'categories' &&  ['create', 'update'].include?(action_name))
       redirect_to controller: controller_name, action: :index
     else
      redirect_to controller: controller_name, action: :show, id: @resource.id

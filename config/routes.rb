@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
         sessions: 'users/sessions'
       }
-  resources :categories
+  resources :categories do
+    member do
+      delete :delete_category_with_products
+    end
+  end
   resources :products  do
     member do
       delete 'delete_image/:image_id', to: 'products#delete_image', as: 'delete_image'

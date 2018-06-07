@@ -37,7 +37,7 @@
           <tr>
             <td><%= link_to product.name, product_path(product) %></td>
             <td>$<%= product.price %></td>
-            <td><%= product.categories.map { |e| e.name }.join(', ') %></td>
+            <td><%= product.categories.present? ? product.categories.map { |e| e.name }.join(', ') : 'No category selected' %></td>
             <td><%= link_to("View", product_path(product)) %></td>
             <% if current_user.admin? %>
             <td><%= link_to("Edit", edit_product_path(product)) %></td>
