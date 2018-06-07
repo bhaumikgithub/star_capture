@@ -30,7 +30,6 @@ class ProductsController < ApplicationController
   def show_nearby_products
     @nearby_products = Product.near([current_user.latitude, current_user.longitude], 5,{order: ""}).pluck(:latitude,:longitude,:id,:name,:price)
     @user_location = current_user.reverse_geocode
-
   end
 
   def update_user_location
