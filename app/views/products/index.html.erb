@@ -1,6 +1,16 @@
 <div class="container">
   <h2>Product Listing</h2>
   <div class="col-12">
+    <%= form_tag({:action => 'index'}, {:method => :get}) do %>
+      <div class="row">
+        <div class="form-group col-4">
+          <%= select_tag :category_id,  options_for_select(Category.all.collect{ |u| [(u.name), u.id] }, selected: @category_id),{class: "form-control category_search", prompt: "All"}%>
+        </div>
+        <div class="col-4">
+          <%= submit_tag "Search", class: "btn btn-outline-secondary mb-2" %>
+        </div>
+      </div>
+      <% end %>
   <% if current_user.admin? %>
       <%= link_to  "New Product", new_product_path, class: "btn  btn-outline-secondary btn-sm 
     float-right mb-2" %>

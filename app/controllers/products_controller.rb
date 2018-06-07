@@ -5,9 +5,19 @@ class ProductsController < ApplicationController
 
   def index
     if current_user.admin?
-      @resources = Product.order('created_at DESC').page(params[:page]).per(10)
+      if params[:category_id].present?
+        @resources = Category.find_by(id: params[:category_id]).products.order('created_at DESC').page(params[:page]).per(10)
+        @category_id = params[:category_id]
+      else
+        @resources = Product.order('created_at DESC').page(params[:page]).per(10)
+      end
     else
-      @resources = Product.near([current_user.latitude, current_user.longitude], 5).page(params[:page]).per(10)
+      if params[:category_id].present?
+        @resources = Category.find_by(id: params[:category_id]).products.near([current_user.latitude, current_user.longitude], 5).page(params[:page]).per(10)
+        @category_id = params[:category_id]
+      else
+        @resources = Product.near([current_user.latitude, current_user.longitude], 5).page(params[:page]).per(10)
+      end
     end
   end
 
