@@ -221,3 +221,7 @@ function update_user_location(lat, lang){
     });
   }
 }
+
+function imageWarning() {
+  alert("You can not delete because product must have 1 image");
+}
