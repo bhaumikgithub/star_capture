@@ -18,7 +18,10 @@
                 </div>
               <% end %>
             </div>
-        </div>
+        </div><br>
+        <% if @resource.latitude.present? && @resource.longitude.present? %>
+          <%= render 'map' %>
+        <% end %>
         <div class="mt-4">
           <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
           <% if current_user.admin? %>
@@ -30,6 +33,3 @@
     </div>
 </div>
 <br><br>
-<% if @resource.latitude.present? && @resource.longitude.present? %>
-  <%= render 'map' %>
-<% end %>

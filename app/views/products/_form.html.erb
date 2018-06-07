@@ -13,10 +13,12 @@
   <%= f.file_field :images, multiple: true %>
   <%#= exit %>
   <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your favorite category",:include_blank => false, include_hidden: false, :selected => params[:cat_id].present? ?  params[:cat_id] : f.object.categories.ids}, :multiple => true%>
+  <br>
+  <% if @resource.persisted? %>
+    <%= render 'map' %>
+  <% end %>
   <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
   <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
 <% end %>
 
-<% if @resource.persisted? %>
-  <%= render 'map' %>
-<% end %>
+
