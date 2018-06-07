@@ -56,7 +56,15 @@ function initMap() {
   if(map_div != null)
   {
 
-    map = new google.maps.Map(map_div, {zoom: 15, center: current_pos});
+    var myStyles =[
+      {
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [ { visibility: "off" }]
+      }
+    ];
+
+    map = new google.maps.Map(map_div, {zoom: 15, center: current_pos,styles: myStyles });
 
     var input = document.getElementById('product_address');
 
@@ -64,6 +72,7 @@ function initMap() {
 
     var infowindow = new google.maps.InfoWindow();
     var infowindowContent = document.getElementById('infowindow-content');
+
 
 
     // Bind the map's bounds (viewport) property to the autocomplete object,
@@ -206,9 +215,9 @@ function update_user_location(lat, lang){
       $('#product_city').val(data.city)
       $('#product_pincode').val(data.pincode)
       $('#product_address').val(data.address)
-      // if(data.is_updated){
-      //   // window.location.reload(true)
-      // }
+      if(data.is_updated){
+        window.location.reload(true)
+      }
     });
   }
 }

@@ -19,7 +19,7 @@
       <% @resources.each do |product| %>
         <tr>
           <td><%= link_to product.name, product_path(product) %></td>
-          <td><%= product.price %></td>
+          <td>$<%= product.price %></td>
           <td><%= product.categories.map { |e| e.name }.join(', ') %></td>
           <td><%= link_to("View", product_path(product)) %></td>
           <% if current_user.admin? %>
