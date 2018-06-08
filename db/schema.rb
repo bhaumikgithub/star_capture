@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_05_091007) do
+ActiveRecord::Schema.define(version: 2018_06_08_113257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2018_06_05_091007) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
   create_table "categories_products", id: false, force: :cascade do |t|
@@ -63,6 +65,32 @@ ActiveRecord::Schema.define(version: 2018_06_05_091007) do
     t.string "pincode"
   end
 
+  create_table "templates", force: :cascade do |t|
+    t.string "template_name"
+    t.jsonb "name", default: {"optional"=>false, "required"=>false}
+    t.jsonb "price", default: {"optional"=>false, "required"=>false}
+    t.jsonb "description", default: {"optional"=>false, "required"=>false}
+    t.jsonb "short_description", default: {"optional"=>false, "required"=>false}
+    t.jsonb "image", default: {"optional"=>false, "required"=>false}
+    t.jsonb "multiple_images", default: {"optional"=>false, "required"=>false}
+    t.jsonb "google_map_link", default: {"optional"=>false, "required"=>false}
+    t.jsonb "product_type", default: {"optional"=>false, "required"=>false}
+    t.jsonb "map_location", default: {"optional"=>false, "required"=>false}
+    t.jsonb "location", default: {"optional"=>false, "required"=>false}
+    t.jsonb "mon_to_sat_on", default: {"optional"=>false, "required"=>false}
+    t.jsonb "mon_to_sat_open_time", default: {"optional"=>false, "required"=>false}
+    t.jsonb "mon_to_sat_close_time", default: {"optional"=>false, "required"=>false}
+    t.jsonb "entry_fee_adult", default: {"optional"=>false, "required"=>false}
+    t.jsonb "entry_fee_toddler", default: {"optional"=>false, "required"=>false}
+    t.jsonb "entry_fee_child", default: {"optional"=>false, "required"=>false}
+    t.jsonb "entry_fee_senior_citizen", default: {"optional"=>false, "required"=>false}
+    t.jsonb "ratings", default: {"optional"=>false, "required"=>false}
+    t.jsonb "parking_type", default: {"optional"=>false, "required"=>false}
+    t.jsonb "parking_fees", default: {"optional"=>false, "required"=>false}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -84,4 +112,5 @@ ActiveRecord::Schema.define(version: 2018_06_05_091007) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "categories", "users"
 end
