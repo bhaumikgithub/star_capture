@@ -1,24 +1,71 @@
-<%= bootstrap_form_for @resource, html: {multipart: true} do |f| %>
-  <% if @resource.errors.any? %>
-    <div id="error_explanation">
-      <ul>
-        <% @resource.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>  
-  <%= f.text_field :name, required: true %>
-  <%= f.text_field :price, required: true, label: 'Price (in $)' %>
-  <%= f.file_field :images, multiple: true %>
-  <%#= exit %>
-  <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your favorite category",:include_blank => false, include_hidden: false, :selected => params[:cat_id].present? ?  params[:cat_id] : f.object.categories.ids}, :multiple => true%>
-  <br>
-  <% if @resource.persisted? %>
-    <%= render 'map' %>
-  <% end %>
-  <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
-  <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
-<% end %>
+<div id="product_template_fields">
+  <%#= @resource.inspect %>
+  <%= bootstrap_form_for @resource, html: {multipart: true} do |f| %>
+    <% if @resource.errors.any? %>
+      <div id="error_explanation">
+        <ul>
+          <% @resource.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>  
 
+    <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your favorite category", :selected => params[:category_id].present? ?  params[:category_id] : f.object.categories.ids }%>
+    <%= f.text_field :name  if  @template.is_name? %>
+    <%= f.text_field :price, label: 'Price (in $)' if @template.is_price? %>
+    <%= f.text_area :description if @template.is_description? %>
+    <%= f.text_area :short_description if @template.is_short_description? %>
+    <%= f.file_field :image if @template.is_image? %>
+    <%= f.file_field :multiple_images, multiple: true if @template.is_multiple_images? %>
+    <%= f.text_field :google_map_link if @template.is_google_map_link? %>
+    <%= f.check_box :mon_to_sat_on  if @template.is_mon_to_sat_on?%>
+    <%= f.datetime_field :mon_to_sat_open_time if @template.is_mon_to_sat_open_time? %>
+    <%= f.datetime_field :mon_to_sat_close_time if @template.is_mon_to_sat_close_time? %>
+
+    <%= f.text_field :entry_fee_adult if @template.is_entry_fee_adult? %>
+
+    <%= f.text_field :entry_fee_toddler if @template.is_entry_fee_toddler? %>
+
+    <%= f.text_field :entry_fee_child if @template.is_entry_fee_child? %>
+
+    <%= f.text_field :entry_fee_senior_citizen if @template.is_entry_fee_senior_citizen? %>
+
+    <%= f.text_field :parking_type if @template.is_parking_type? %>
+
+    <%= f.text_field :parking_fees if @template.is_parking_fees? %>
+
+    <%= f.text_field :ratings if @template.is_ratings? %>
+
+
+    <br>
+    <% if @resource.persisted? %>
+      <%= render 'map' %>
+    <% end %>
+    <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
+    <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
+
+  <% end %>
+</div>
+
+
+<script type="text/javascript">
+  var category = $('#product_category_ids option:selected').val();
+  $("#product_category_ids").change(function(){
+    category = $('#product_category_ids option:selected').val();
+    get_category()
+  });
+
+  function get_category() {
+    // body...
+    $.ajax({
+      url: window.location.origin+'/products/new',
+      type: 'GET',
+      data: {category_id: category},
+      dataType: 'script'
+    });
+  }
+
+
+</script>
 

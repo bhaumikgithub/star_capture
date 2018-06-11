@@ -7,7 +7,7 @@
         <div class="">
           <div class="d-block align-top mb-3"><b>Product Images:</b></div>
             <div class="d-block align-top">
-              <% @resource.images.each do |image| %>
+              <% @resource.multiple_images.each do |image| %>
                 <div class="d-inline-block ">
                   <%= image_tag image, class: 'product_image_size mr-3' %>
                   <span class="d-block">

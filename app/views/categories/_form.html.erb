@@ -9,6 +9,7 @@
     </div>
   <% end %>
     <%= f.text_field :name, required: true %>
+    <%= f.select :category_template_id, CategoryTemplate.all.collect { |x| [x.template_name, x.id.to_i]}, {label: "Choose your favorite template" } %>
     <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
     <%= link_to "Back", categories_path, class: 'btn btn-sm btn-info' %>
 <% end %>

@@ -1,0 +1,170 @@
+<%= bootstrap_form_for @resource do |f| %>
+  <%= f.text_field :template_name %>
+
+  <div class="col-6">
+    <label>Name</label>
+    <%= check_box 'category_template[name]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[name]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+  <br>
+  <div class="col-6">
+    <label>Price</label>
+    <%= check_box 'category_template[price]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[price]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Description</label>
+    <%= check_box 'category_template[description]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[description]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+  <br>
+  <div class="col-6">
+    <label>Short Description</label>
+    <%= check_box 'category_template[short_description]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[short_description]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Image</label>
+    <%= check_box 'category_template[image]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[image]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+
+  <br>
+  <div class="col-6">
+    <label>Multiple Images</label>
+    <%= check_box 'category_template[multiple_images]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[multiple_images]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Google Map Link</label>
+    <%= check_box 'category_template[google_map_link]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[google_map_link]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Product Type</label>
+    <%= check_box 'category_template[product_type]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[product_type]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+
+  <br>
+  <div class="col-6">
+    <label>Map location</label>
+    <%= check_box 'category_template[map_location]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[map_location]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+
+  <br>
+  <div class="col-6">
+    <label>Location</label>
+    <%= check_box 'category_template[location]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[location]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Monday To Saturday On</label>
+    <%= check_box 'category_template[mon_to_sat_on]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[mon_to_sat_on]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Monday To Saturday Open Time</label>
+    <%= check_box 'category_template[mon_to_sat_open_time]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[mon_to_sat_open_time]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Monday To Saturday Close Time</label>
+    <%= check_box 'category_template[mon_to_sat_close_time]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[mon_to_sat_close_time]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Entry Fee Adult</label>
+    <%= check_box 'category_template[entry_fee_adult]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[entry_fee_adult]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Entry Fee Toddler</label>
+    <%= check_box 'category_template[entry_fee_toddler]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[entry_fee_toddler]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Entry Fee Child</label>
+    <%= check_box 'category_template[entry_fee_child]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[entry_fee_child]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Entry Fee Senior Citizen</label>
+    <%= check_box 'category_template[entry_fee_senior_citizen]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[entry_fee_senior_citizen]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+
+  <br>
+  <div class="col-6">
+    <label>Ratings</label>
+    <%= check_box 'category_template[ratings]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[ratings]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Parking Types</label>
+    <%= check_box 'category_template[parking_type]', 'required', {}, 'true', 'false' %>Required
+    <%= check_box 'category_template[parking_type]', 'optional', {}, 'true', 'false' %>Optional
+  </div>
+
+
+  <br>
+  <div class="col-6">
+    <label>Parking Fees</label>
+    <%= check_box 'category_template[parking_fees]', 'required', {}, 'true', 'true' %>Required
+    <%= check_box 'category_template[parking_fees]', 'optional', {}, 'true', 'true' %>Optional
+  </div>
+
+
+
+   <div class="col-6">
+    <%= f.submit "Submit" %>
+   </div>
+  
+<% end %>

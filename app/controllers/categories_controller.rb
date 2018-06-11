@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
   private
 
   def resource_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name, :category_template_id)
   end
 
 end
