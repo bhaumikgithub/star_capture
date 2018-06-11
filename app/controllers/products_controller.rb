@@ -12,6 +12,14 @@ class ProductsController < ApplicationController
     end
   end
 
+  def edit
+    if params[:category_id]
+      @template = Category.find_by(id: params[:category_id]).category_template
+    else
+      @template = @resource.categories.last.category_template
+    end
+  end
+
   def index
     if current_user.admin?
       if params[:category_id].present?
