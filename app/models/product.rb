@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   has_many_attached :multiple_images
   has_one_attached :image
   has_and_belongs_to_many :categories
+  belongs_to :product_type
 
   # validates :name, :price, :category_ids, presence: true
   # validate :product_images?
