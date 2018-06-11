@@ -1,7 +1,5 @@
 <%= bootstrap_form_for @resource do |f| %>
   <%= f.text_field :template_name %>
-  <%#= binding.pry %>
-  <%= @resource.name["required"].class %>
   <div class="col-6">
     <label>Name</label>
     <%= check_box 'category_template[name]', 'required', {checked: @resource.true?(@resource.name["required"])}, 'true', 'false'  %>Required
@@ -169,3 +167,27 @@
    </div>
   
 <% end %>
+
+
+
+
+
+
+<!-- <script type="text/javascript">
+
+  $(document).ready(function(){
+    $('.optional').attr('disabled', true)
+  })
+
+  $('input:checkbox').change(function() {
+    if(this.checked){
+      alert('hi')
+      $(this).closest('div').prev().find('input[type=checkbox]').prop('disabled', false);
+    }
+    else{
+     $(this).closest('input').prev().find('input[type=checkbox]').prop('disabled', true); 
+    }  
+     
+  });
+
+</script> -->
