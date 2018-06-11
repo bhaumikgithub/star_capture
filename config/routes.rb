@@ -20,5 +20,6 @@ Rails.application.routes.draw do
     end
   end
   resources :category_templates
+  resources :product_types
 end
 

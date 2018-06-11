@@ -34,7 +34,7 @@
     <%= f.text_field :parking_fees if @template.is_parking_fees? %>
 
     <%= f.text_field :ratings if @template.is_ratings? %>
-
+    <%= f.select :product_type_id, ProductType.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose product type"} if @template.is_product_type?  %>
 
     <br>
     <% if @resource.persisted? %>
