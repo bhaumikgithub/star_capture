@@ -1,7 +1,5 @@
 <%= bootstrap_form_for @resource do |f| %>
   <%= f.text_field :template_name %>
-  <%#= binding.pry %>
-  <%= @resource.name["required"].class %>
   <div class="col-6">
     <label>Name</label>
     <%= check_box 'category_template[name]', 'required', {checked: @resource.true?(@resource.name["required"]), class: 'required_checkbox'}, 'true', 'false'  %>Required
@@ -167,5 +165,4 @@
    <div class="col-6">
     <%= f.submit "Submit" %>
    </div>
-  
 <% end %>
