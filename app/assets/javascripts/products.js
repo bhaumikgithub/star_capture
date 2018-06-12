@@ -10,11 +10,13 @@ var flag = true;
 $( document ).ready(function() {
   if (flag == false) {
     initialize();
+    $('.optional_checkbox').attr('disabled', true)
   }
 });
 
 $(document).on('turbolinks:load', function() {
   if (typeof google != 'undefined') {
+    $('.optional_checkbox').attr('disabled', true)
     initialize();
   }
 });
@@ -226,3 +228,12 @@ function update_user_location(lat, lang){
 function imageWarning() {
   alert("You can not delete because product must have 1 image");
 }
+
+$(document).on('change', '.required_checkbox', function () {
+  if (this.checked) {
+    $(this).siblings(".optional_checkbox").attr('disabled', false)
+  }
+  else{
+    $(this).siblings(".optional_checkbox").attr('disabled', true)
+  }
+})
