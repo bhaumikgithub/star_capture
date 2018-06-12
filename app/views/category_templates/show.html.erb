@@ -1,4 +1,13 @@
-<h5><b><%= @resource.template_name %></b></h5><br>
+<div class="row">
+  <div class="col-8">  
+    <h5><b><%= @resource.template_name %></b></h5>
+  </div>
+  <div class="col-4">
+    <%= link_to 'Back', category_templates_path, class: 'btn btn-sm btn-info' %>
+    <%= link_to 'Edit', edit_category_template_path(@resource), class: 'btn btn-sm btn-primary' %>
+  </div>
+</div>
+<br>
 <table class="table">
   <thead>
     <tr>
@@ -134,3 +143,7 @@
     
   </tbody>
 </table>
+
+<script type="text/javascript">
+  $('[type=checkbox]').attr('disabled', true)
+</script>

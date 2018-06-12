@@ -231,9 +231,9 @@ function imageWarning() {
 
 $(document).on('change', '.required_checkbox', function () {
   if (this.checked) {
-    $(this).siblings(".optional_checkbox").attr('disabled', false)
+    $(this).closest('tr').find('.optional_checkbox:checkbox').attr('disabled', false)
   }
   else{
-    $(this).siblings(".optional_checkbox").attr('disabled', true)
+    $(this).closest('tr').find('.optional_checkbox:checkbox').attr('disabled', true)
   }
 })

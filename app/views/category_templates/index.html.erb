@@ -19,6 +19,7 @@
           <td><%= link_to template.template_name, category_template_path(template) %></td>
           <td><%= template.created_at.strftime("%d-%b-%-y") %></td>
           <% if current_user.admin? %>
+            <td><%= link_to 'View', category_template_path(template) %></td>
             <td><%= link_to("Edit", edit_category_template_path(template)) %></td>
             <td><%#= link_to "Delete only template", category_template_path(template), method: :delete, data: {confirm: "Are you sure?"} %></td>
           <% end %>
