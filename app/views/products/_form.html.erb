@@ -1,5 +1,4 @@
 <div id="product_template_fields">
-  <%#= @resource.inspect %>
   <%= bootstrap_form_for @resource, html: {multipart: true} do |f| %>
     <% if @resource.errors.any? %>
       <div id="error_explanation">
@@ -10,7 +9,6 @@
         </ul>
       </div>
     <% end %>  
-
     <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your favorite category", :selected => params[:category_id].present? ?  params[:category_id] : f.object.categories.ids }%>
     <%= f.text_field :name  if  @template.is_name? %>
     <%= f.text_field :price, label: 'Price (in $)' if @template.is_price? %>
@@ -36,7 +34,7 @@
     <%= f.text_field :parking_fees if @template.is_parking_fees? %>
 
     <%= f.text_field :ratings if @template.is_ratings? %>
-
+    <%= f.select :product_type_id, ProductType.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose product type"} if @template.is_product_type?  %>
 
     <br>
     <% if @resource.persisted? %>
@@ -48,6 +46,11 @@
   <% end %>
 </div>
 
+<% if params[:action] == 'edit' %>
+  <% action = @resource.id.to_s+'/edit' %>
+<% else %>
+  <% action = '/new' %>
+<% end %>
 
 <script type="text/javascript">
   var category = $('#product_category_ids option:selected').val();
@@ -59,13 +62,12 @@
   function get_category() {
     // body...
     $.ajax({
-      url: window.location.origin+'/products/new',
+      url: window.location.origin+'/products/<%= action %>',
       type: 'GET',
       data: {category_id: category},
       dataType: 'script'
     });
   }
-
 
 </script>
 

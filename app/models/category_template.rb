@@ -22,5 +22,9 @@ class CategoryTemplate < ApplicationRecord
       return true if self.get_requied_true.include? template_field
     end
   end
+
+  def true?(obj)
+    obj.to_s == "true"
+  end
   
 end
