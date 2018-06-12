@@ -18,13 +18,25 @@
           <div class="mb-3"><p><b>Product short description: </b><%= @resource.short_description %></p></div>
         <% end %>
 
-        <% if @resource.google_map_link.present? %>
-          <div class="mb-3"><p><b>Google map link: </b> <%= @resource.google_map_link %></p></div>
+        <% if @resource.product_type.present? %>
+          <div class="mb-3"><p><b>Product type: </b> <%= @resource.product_type.name %></p></div>
         <% end %>
 
         <% if @resource.mon_to_sat_on %>
           <div class="mb-3"><p><b>Monday to Sunday Open time: </b><%= @resource.mon_to_sat_open_time %></p></div>
           <div class="mb-3"><p><b>Monday to Sunday close time: </b><%= @resource.mon_to_sat_close_time %></p></div>
+        <% end %>
+
+        <% if @resource.google_map_link.present? %>
+          <div class="mb-3"><p><b>Google map link: </b> <%= @resource.google_map_link %></p></div>
+        <% end %>
+
+        <% if @resource.map_location.present? %>
+          <div class="mb-3"><p><b>Map location: </b> <%= @resource.map_location %></p></div>
+        <% end %>
+
+        <% if @resource.location.present? %>
+          <div class="mb-3"><p><b>Location: </b> <%= @resource.location %></p></div>
         <% end %>
 
         <% if @resource.entry_fee_adult.present? %>
@@ -45,6 +57,10 @@
 
         <% if @resource.ratings.present? %>
           <div class="mb-3"><p><b>Rating: </b><%= @resource.ratings %></p></div>
+        <% end %>
+
+        <% if @resource.parking_type.present? %>
+          <div class="mb-3"><p><b>Parking Type: </b><%= @resource.parking_type %></p></div>
         <% end %>
 
         <% if @resource.parking_fees.present? %>
