@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  temp_name: 
+  name: 
+  price: 
+  description: 
+  short_description: 
+
+two:
+  temp_name: 
+  name: 
+  price: 
+  description: 
+  short_description: 

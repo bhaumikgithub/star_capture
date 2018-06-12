@@ -19,5 +19,7 @@ Rails.application.routes.draw do
       patch :update_user_location
     end
   end
+  resources :category_templates
+  resources :product_types
 end
 

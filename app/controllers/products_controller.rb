@@ -3,13 +3,41 @@ class ProductsController < ApplicationController
   include InheritAction
   before_action :set_product, only: [:update_location, :update_address, :delete_image]
 
+  def new
+    @resource = Product.new
+    if params[:category_id]
+      @template = Category.find_by(id: params[:category_id]).category_template
+    else
+      @template = Category.first.category_template
+    end
+  end
+
+  def create
+    if params[:category_id]
+      @template = Category.find_by(id: params[:category_id]).category_template
+    elsif params[:product][:category_ids]
+        @template = Category.find_by(id: params[:product][:category_ids]).category_template
+    else
+      @template = Category.first.category_template
+    end
+    super
+  end
+
+  def edit
+    if params[:category_id]
+      @template = Category.find_by(id: params[:category_id]).category_template
+    else
+      @template = @resource.categories.last.category_template
+    end
+  end
+
   def index
     if current_user.admin?
       if params[:category_id].present?
-        @resources = Category.find_by(id: params[:category_id]).products.order('created_at DESC').page(params[:page]).per(10)
+        @resources = Category.find_by(id: params[:category_id]).products.includes(:categories).order('created_at DESC').page(params[:page]).per(10)
         @category_id = params[:category_id]
       else
-        @resources = Product.order('created_at DESC').page(params[:page]).per(10)
+        @resources = Product.includes(:categories).order('created_at DESC').page(params[:page]).per(10)
       end
     else
       if params[:category_id].present?
@@ -61,7 +89,7 @@ class ProductsController < ApplicationController
   private
 
   def resource_params
-    params.require(:product).permit(:name, :price, :city, :state, :country, :pincode, :address, :images => [], :category_ids => [])
+    params.require(:product).permit!
   end
 
   def set_product

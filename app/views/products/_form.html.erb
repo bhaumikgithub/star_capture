@@ -1,24 +1,75 @@
-<%= bootstrap_form_for @resource, html: {multipart: true} do |f| %>
-  <% if @resource.errors.any? %>
-    <div id="error_explanation">
-      <ul>
-        <% @resource.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>  
-  <%= f.text_field :name, required: true %>
-  <%= f.text_field :price, required: true, label: 'Price (in $)' %>
-  <%= f.file_field :images, multiple: true %>
-  <%#= exit %>
-  <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your favorite category",:include_blank => false, include_hidden: false, :selected => params[:cat_id].present? ?  params[:cat_id] : f.object.categories.ids}, :multiple => true%>
-  <br>
-  <% if @resource.persisted? %>
-    <%= render 'map' %>
+<div id="product_template_fields">
+  <%= bootstrap_form_for @resource, html: {multipart: true} do |f| %>
+    <% if @resource.errors.any? %>
+      <div id="error_explanation">
+        <ul>
+          <% @resource.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %> 
+    <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your favorite category", :selected => params[:category_id].present? ?  params[:category_id] : params[:product].present? ? params[:product][:category_ids] : f.object.categories.ids }%>
+    <%= f.text_field :name, required: @template.is_name_optional?  if  @template.is_name? %>
+    <%= f.text_field :price, label: 'Price (in $)', required: @template.is_price_optional? if @template.is_price? %>
+    <%= f.text_area :description if @template.is_description? %>
+    <%= f.text_area :short_description if @template.is_short_description? %>
+    <%= f.file_field :image, required: @template.is_image_optional? if @template.is_image? %>
+    <%= f.file_field :multiple_images, multiple: true, required: @template.is_multiple_images_optional? if @template.is_multiple_images? %>
+    <%= f.text_field :google_map_link, required: @template.is_google_map_link_optional? if @template.is_google_map_link? %>
+    <%= f.text_field :map_location, required: @template.is_map_location_optional? if @template.is_map_location? %>
+    <%= f.text_field :location, required: @template.is_location_optional? if @template.is_location? %>
+    <%= f.check_box :mon_to_sat_on, required: @template.is_mon_to_sat_on_optional?  if @template.is_mon_to_sat_on?%>
+    <%= f.datetime_field :mon_to_sat_open_time, required: @template.is_mon_to_sat_open_time_optional? if @template.is_mon_to_sat_open_time? %>
+    <%= f.datetime_field :mon_to_sat_close_time, required: @template.is_mon_to_sat_close_time_optional? if @template.is_mon_to_sat_close_time? %>
+
+    <%= f.text_field :entry_fee_adult, required: @template.is_entry_fee_adult_optional? if @template.is_entry_fee_adult? %>
+
+    <%= f.text_field :entry_fee_toddler, required: @template.is_entry_fee_toddler_optional? if @template.is_entry_fee_toddler? %>
+
+    <%= f.text_field :entry_fee_child, required: @template.is_entry_fee_child_optional? if @template.is_entry_fee_child? %>
+
+    <%= f.text_field :entry_fee_senior_citizen, required: @template.is_entry_fee_senior_citizen_optional? if @template.is_entry_fee_senior_citizen? %>
+
+    <%= f.text_field :parking_type, required: @template.is_parking_type_optional? if @template.is_parking_type? %>
+
+    <%= f.text_field :parking_fees, required: @template.is_parking_fees_optional? if @template.is_parking_fees? %>
+
+    <%= f.text_field :ratings, required: @template.is_ratings_optional? if @template.is_ratings? %>
+    <%= f.select :product_type_id, ProductType.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose product type"} if @template.is_product_type?  %>
+
+    <br>
+    <% if @resource.persisted? %>
+      <%= render 'map' %>
+    <% end %>
+    <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
+    <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
+
   <% end %>
-  <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
-  <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
+</div>
+
+<% if params[:action] == 'edit' %>
+  <% action = @resource.id.to_s+'/edit' %>
+<% else %>
+  <% action = '/new' %>
 <% end %>
 
+<script type="text/javascript">
+  var category = $('#product_category_ids option:selected').val();
+  $("#product_category_ids").change(function(){
+    category = $('#product_category_ids option:selected').val();
+    get_category()
+  });
+
+  function get_category() {
+    // body...
+    $.ajax({
+      url: window.location.origin+'/products/<%= action %>',
+      type: 'GET',
+      data: {category_id: category},
+      dataType: 'script'
+    });
+  }
+
+</script>
 

@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-8">  
+    <h5><b><%= @resource.template_name %></b></h5>
+  </div>
+  <div class="col-4">
+    <%= link_to 'Back', category_templates_path, class: 'btn btn-sm btn-info' %>
+    <%= link_to 'Edit', edit_category_template_path(@resource), class: 'btn btn-sm btn-primary' %>
+  </div>
+</div>
+<br>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Field Type</th>
+      <th>Add to template</th>
+      <th>Optional</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td><%= check_box 'category_template[name]', 'required', {checked: @resource.true?(@resource.name["required"])}, 'true', 'false'  %></td>
+      <td><%= check_box 'category_template[name]', 'optional', {checked: @resource.true?(@resource.name["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Price</td>
+      <td><%= check_box 'category_template[price]', 'required', {checked: @resource.true?(@resource.price["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[price]', 'optional', {checked: @resource.true?(@resource.price["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Description</td>
+      <td><%= check_box 'category_template[description]', 'required', {checked: @resource.true?(@resource.description["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[description]', 'optional', {checked: @resource.true?(@resource.description["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+
+    <tr>
+      <td>Short Description</td>
+      <td><%= check_box 'category_template[short_description]', 'required', {checked: @resource.true?(@resource.short_description["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[short_description]', 'optional', {checked: @resource.true?(@resource.short_description["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+
+    <tr>
+      <td>Image</td>
+      <td><%= check_box 'category_template[image]', 'required', {checked: @resource.true?(@resource.image["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[image]', 'optional', {checked: @resource.true?(@resource.image["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    
+    <tr>
+      <td>Multiple Images</td>
+      <td><%= check_box 'category_template[multiple_images]', 'required', {checked: @resource.true?(@resource.multiple_images["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[multiple_images]', 'optional', {checked: @resource.true?(@resource.multiple_images["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Google Map Link</td>
+      <td><%= check_box 'category_template[google_map_link]', 'required', {checked: @resource.true?(@resource.google_map_link["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[google_map_link]', 'optional', {checked: @resource.true?(@resource.google_map_link["optional"])}, 'true', 'false' %></td>
+    </tr>
+    
+    <tr>
+      <td>Product Type</td>
+      <td><%= check_box 'category_template[product_type]', 'required', {checked: @resource.true?(@resource.product_type["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[product_type]', 'optional', {checked: @resource.true?(@resource.product_type["optional"])}, 'true', 'false' %></td>
+    </tr>
+    
+    <tr>
+      <td>Map location</td>
+      <td><%= check_box 'category_template[map_location]', 'required', {checked: @resource.true?(@resource.map_location["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[map_location]', 'optional', {checked: @resource.true?(@resource.map_location["optional"])}, 'true', 'false' %></td>
+    </tr>
+    
+    <tr>
+      <td>Location</td>
+      <td><%= check_box 'category_template[location]', 'required', {checked: @resource.true?(@resource.location["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[location]', 'optional', {checked: @resource.true?(@resource.location["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Monday To Saturday On</td>
+      <td><%= check_box 'category_template[mon_to_sat_on]', 'required', {checked: @resource.true?(@resource.mon_to_sat_on["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[mon_to_sat_on]', 'optional', {checked: @resource.true?(@resource.mon_to_sat_on["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Monday To Saturday Open Time</td>
+      <td><%= check_box 'category_template[mon_to_sat_open_time]', 'required', {checked: @resource.true?(@resource.mon_to_sat_open_time["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[mon_to_sat_open_time]', 'optional', {checked: @resource.true?(@resource.mon_to_sat_open_time["optional"])}, 'true', 'false' %></td>
+    </tr>
+    
+    <tr>
+      <td>Monday To Saturday Close Time</td>
+      <td><%= check_box 'category_template[mon_to_sat_close_time]', 'required', {checked: @resource.true?(@resource.mon_to_sat_close_time["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[mon_to_sat_close_time]', 'optional', {checked: @resource.true?(@resource.mon_to_sat_close_time["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Entry Fee Adult</td>
+      <td><%= check_box 'category_template[entry_fee_adult]', 'required', {checked: @resource.true?(@resource.entry_fee_adult["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[entry_fee_adult]', 'optional', {checked: @resource.true?(@resource.entry_fee_adult["optional"])}, 'true', 'false' %></td>
+    </tr>
+    
+    <tr>
+      <td>Entry Fee Toddler</td>
+      <td><%= check_box 'category_template[entry_fee_toddler]', 'required', {checked: @resource.true?(@resource.entry_fee_toddler["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[entry_fee_toddler]', 'optional', {checked: @resource.true?(@resource.entry_fee_toddler["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Entry Fee Child</td>
+      <td><%= check_box 'category_template[entry_fee_child]', 'required', {checked: @resource.true?(@resource.entry_fee_child["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[entry_fee_child]', 'optional', {checked: @resource.true?(@resource.entry_fee_child["optional"])}, 'true', 'false' %></td>
+    </tr>
+    
+    <tr>
+      <td>Entry Fee Senior Citizen</td>
+      <td><%= check_box 'category_template[entry_fee_senior_citizen]', 'required', {checked: @resource.true?(@resource.entry_fee_senior_citizen["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[entry_fee_senior_citizen]', 'optional', {checked: @resource.true?(@resource.entry_fee_senior_citizen["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Ratings</td>
+      <td><%= check_box 'category_template[ratings]', 'required', {checked: @resource.true?(@resource.ratings["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[ratings]', 'optional', {checked: @resource.true?(@resource.ratings["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Parking Types</td>
+      <td><%= check_box 'category_template[parking_type]', 'required', {checked: @resource.true?(@resource.parking_type["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[parking_type]', 'optional', {checked: @resource.true?(@resource.parking_type["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Parking Fees</td>
+      <td><%= check_box 'category_template[parking_fees]', 'required', {checked: @resource.true?(@resource.parking_fees["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[parking_fees]', 'optional', {checked: @resource.true?(@resource.parking_fees["optional"])}, 'true', 'false' %></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<script type="text/javascript">
+  $('[type=checkbox]').attr('disabled', true)
+</script>

@@ -1,26 +1,71 @@
 <div class="row">
   <div class="col">
      <div class="wrap">
-        <div class="mb-3"><p><b>Product name: </b> <%= @resource.name %></p></div>
-        <div class="mb-3"><p><b>Product price: </b>$<%= @resource.price %></p></div>
-        <div class="mb-3"><p><b>Product Categories</b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p></div>
+        <% if @resource.name.present? %>
+          <div class="mb-3"><p><b>Product name: </b> <%= @resource.name %></p></div>
+        <% end %>
+
+        <% if @resource.price.present? %>
+          <div class="mb-3"><p><b>Product price: </b>$<%= @resource.price %></p></div>
+        <% end %>
+        <div class="mb-3"><p><b>Product Categories: </b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p></div>
+
+        <% if @resource.description.present? %>
+          <div class="mb-3"><p><b>Product description: </b><%= @resource.description %></p></div>
+        <% end %>
+
+        <% if @resource.short_description.present? %>
+          <div class="mb-3"><p><b>Product short description: </b><%= @resource.short_description %></p></div>
+        <% end %>
+
+        <% if @resource.google_map_link.present? %>
+          <div class="mb-3"><p><b>Google map link: </b> <%= @resource.google_map_link %></p></div>
+        <% end %>
+
+        <% if @resource.mon_to_sat_on %>
+          <div class="mb-3"><p><b>Monday to Sunday Open time: </b><%= @resource.mon_to_sat_open_time %></p></div>
+          <div class="mb-3"><p><b>Monday to Sunday close time: </b><%= @resource.mon_to_sat_close_time %></p></div>
+        <% end %>
+
+        <% if @resource.entry_fee_adult.present? %>
+          <div class="mb-3"><p><b>Entry Fee Adult: </b><%= @resource.entry_fee_adult %></p></div>
+        <% end %>
+
+        <% if @resource.entry_fee_toddler.present? %>
+          <div class="mb-3"><p><b>Entry Fee Toddler: </b><%= @resource.entry_fee_toddler %></p></div>
+        <% end %>
+
+        <% if @resource.entry_fee_child.present? %>
+          <div class="mb-3"><p><b>Entry Fee Child: </b><%= @resource.entry_fee_child %></p></div>
+        <% end %>
+
+        <% if @resource.entry_fee_senior_citizen.present? %>
+          <div class="mb-3"><p><b>Entry Fee Senior citizen: </b><%= @resource.entry_fee_senior_citizen %></p></div>
+        <% end %>
+
+        <% if @resource.ratings.present? %>
+          <div class="mb-3"><p><b>Rating: </b><%= @resource.ratings %></p></div>
+        <% end %>
+
+        <% if @resource.parking_fees.present? %>
+          <div class="mb-3"><p><b>Parking Fees: </b><%= @resource.parking_fees %></p></div>
+        <% end %>
+
+
         <div class="">
           <div class="d-block align-top mb-3"><b>Product Images:</b></div>
             <div class="d-block align-top">
-              <% @resource.images.each do |image| %>
+              <% @resource.multiple_images.each do |image| %>
                 <div class="d-inline-block ">
                   <%= image_tag image, class: 'product_image_size mr-3' %>
                   <span class="d-block">
-                    <% if @resource.images.count == 1 %>
-                      <%= link_to 'delete',{},:onclick => "imageWarning()" %>
-                    <% else %>
-                      <%= link_to 'delete', delete_image_product_path(@resource, image),
+                    <%= link_to 'delete', delete_image_product_path(@resource, image),
                         method: :delete,
                         data: { confirm: 'Are you sure?' } %>
-                    <% end %>
                   </span>
                 </div>
               <% end %>
+              <%= image_tag @resource.image, class: 'product_image_size mr-3' if @resource.image.attached? %>
             </div>
         </div><br>
         <% if @resource.latitude.present? && @resource.longitude.present? %>
