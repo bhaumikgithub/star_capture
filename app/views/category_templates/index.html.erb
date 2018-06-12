@@ -21,7 +21,7 @@
           <% if current_user.admin? %>
             <td><%= link_to 'View', category_template_path(template) %></td>
             <td><%= link_to("Edit", edit_category_template_path(template)) %></td>
-            <td><%#= link_to "Delete only template", category_template_path(template), method: :delete, data: {confirm: "Are you sure?"} %></td>
+            <td><%= !template.category.present? ? (link_to "Delete only template", category_template_path(template), method: :delete, data: {confirm: "Are you sure?"}) : "Can't be deleted" %></td>
           <% end %>
         </tr>
       <% end %>
