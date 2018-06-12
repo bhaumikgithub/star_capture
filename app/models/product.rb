@@ -6,6 +6,7 @@ class Product < ApplicationRecord
 
 
   # after_validation :remove_images
+  validate :add_errors
 
   geocoded_by :full_address
   after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
@@ -33,4 +34,15 @@ class Product < ApplicationRecord
     end
     images.purge #Purge attachment
   end
+
+  def validate_fields
+    self.categories.last.category_template.get_optional_fields
+  end
+
+  def add_errors
+    validate_fields.each do |field|
+      errors.add(:base, "#{field.capitalize} can't be blank!") unless self.send(field).present?
+    end
+  end
+
 end

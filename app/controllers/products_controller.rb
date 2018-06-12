@@ -12,6 +12,17 @@ class ProductsController < ApplicationController
     end
   end
 
+  def create
+    if params[:category_id]
+      @template = Category.find_by(id: params[:category_id]).category_template
+    elsif params[:product][:category_ids]
+        @template = Category.find_by(id: params[:product][:category_ids]).category_template
+    else
+      @template = Category.first.category_template
+    end
+    super
+  end
+
   def edit
     if params[:category_id]
       @template = Category.find_by(id: params[:category_id]).category_template
