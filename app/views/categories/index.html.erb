@@ -21,7 +21,7 @@
         <tr>
           <td><%= link_to category.name, category_path(category) %></td>
           <td><%= category.created_at.strftime("%d-%b-%-y") %></td>
-          <td><%= category.products.count %></td>
+          <td><%= category.product_count %></td>
           <td><%= category.category_template.template_name if category.category_template %></td>
           <td><%= link_to "View products", products_path(category_id: category.id) %></td>
           <% if current_user.admin? %>

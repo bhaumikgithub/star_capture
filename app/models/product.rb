@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   has_one_attached :image
   has_and_belongs_to_many :categories
   belongs_to :product_type
+  delegate :category_template, :to => :categories, :allow_nil => true
 
 
   # after_validation :remove_images
