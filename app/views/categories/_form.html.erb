@@ -9,7 +9,7 @@
     </div>
   <% end %>
     <%= f.text_field :name, required: true %>
-    <% if params[:action] == 'new' %>
+    <% if ['new','create'].include? params[:action] %>
       <%= f.select :category_template_id, CategoryTemplate.all.collect { |x| [x.template_name, x.id.to_i]}, {label: "Choose your favorite template" } %>
     <% else %>
     <p>Template: <%= @resource.category_template.template_name %></p>
