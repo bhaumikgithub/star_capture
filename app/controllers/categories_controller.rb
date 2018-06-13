@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
 
   def index
     # @resources = Category.all.order('created_at DESC').page(params[:page]).per(10)
-    @resources = Category.joins(:products).select("categories.* ,count(products.id) as product_count").group('categories.id').order('created_at DESC').page(params[:page]).per(10)
+    @resources = Category.left_outer_joins(:products).includes(:category_template).select("categories.*, COUNT(products.*) as product_count").group('categories.id').order('created_at DESC').page(params[:page]).per(10)
   end
 
   def delete_category_with_products
