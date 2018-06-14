@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
 
+  load_and_authorize_resource
+
   include InheritAction
   before_action :set_product, only: [:update_location, :update_address, :delete_image]
 
