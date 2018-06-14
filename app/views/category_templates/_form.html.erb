@@ -136,7 +136,14 @@
     </tbody>
   </table>
 
-   <div>
-    <%= f.submit "Submit" %>
+   <div class="row">
+    <div class="col-2">
+      <%= f.submit "Submit" %>
+    </div>
+    <% if @resource.persisted? %>
+      <div class="col-2">
+        <%= link_to 'Cancel', category_template_path(@resource), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
    </div>
 <% end %>

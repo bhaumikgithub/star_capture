@@ -4,6 +4,8 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :categories
   belongs_to :product_type
 
+  PARKING_TYPE = ['No Parking', 'Free', 'Paid', 'Valet']
+  WEEK_DAYS = ['Monday', 'Tudeday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
   # after_validation :remove_images
   validate :add_errors
@@ -36,7 +38,7 @@ class Product < ApplicationRecord
   end
 
   def validate_fields
-    self.categories.last.category_template.get_optional_fields
+    self.categories.last.category_template.get_optional_fields - ['mon_to_sat_on' , 'mon_to_sat_open_time', 'mon_to_sat_close_time']
   end
 
   def add_errors

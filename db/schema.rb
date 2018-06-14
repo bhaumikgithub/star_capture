@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_11_064524) do
+ActiveRecord::Schema.define(version: 2018_06_14_083311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 2018_06_11_064524) do
     t.string "ratings"
     t.string "parking_type"
     t.float "parking_fees"
+    t.jsonb "timings"
     t.index ["product_type_id"], name: "index_products_on_product_type_id"
   end
 
