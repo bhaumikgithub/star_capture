@@ -36,7 +36,7 @@
         <% @resources.each do |product| %>
           <tr>
             <td><%= link_to product.name, product_path(product) %></td>
-            <td>$<%= product.price %></td>
+            <td><%= (product.categories.last.category_template.currency.present? ? product.categories.last.category_template.currency : '')  + product.price.to_s %></td>
             <td><%= product.categories.present? ? product.categories.map { |e| e.name }.join(', ') : 'No category selected' %></td>
             <td><%= link_to("View", product_path(product)) %></td>
             <% if current_user.admin? %>
