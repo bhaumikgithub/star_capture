@@ -48,10 +48,10 @@
           <div class="col-8 timings <%= day %>">
             <div class="row">
               <div class="col-6">
-                Open Time <%= datetime_field_tag "product[timings][#{day}][open_time]", @resource.timings.present? ? @resource.timings[day]['open_time'] : ''  %>
+                Open Time <%= time_field_tag "product[timings][#{day}][open_time]", @resource.timings.present? ? @resource.timings[day]['open_time'] : ''  %>
               </div>
               <div class="col-6">
-                Close Time <%= datetime_field_tag "product[timings][#{day}][close_time]", @resource.timings.present? ? @resource.timings[day]['close_time'] : '' %>
+                Close Time <%= time_field_tag "product[timings][#{day}][close_time]", @resource.timings.present? ? @resource.timings[day]['close_time'] : '' %>
               </div>
             </div>
           </div>
@@ -113,6 +113,12 @@
     $(this).closest('.row').find('.timings').toggle();
   })
 
+  $(document).on('turbolinks:load', function() {
+    $(document).on('change', '.day', function () {
+      $(this).closest('.row').find('.timings').toggle();
+    })
+  })
+
 </script>
 
 
@@ -121,10 +127,7 @@
     content:" *";
     color: red;
   }
-
-  .timings{
-    display: none;
-  }
-
 </style>
+
+
 

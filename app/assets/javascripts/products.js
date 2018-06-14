@@ -7,7 +7,9 @@ var geocoder;
 var map;
 var flag = true;
 
+
 $( document ).ready(function() {
+  $('.timings').hide();
   if (flag == false) {
     initialize();
     $('.optional_checkbox').attr('disabled', true)
@@ -25,6 +27,7 @@ $( document ).ready(function() {
 });
 
 $(document).on('turbolinks:load', function() {
+  $('.timings').hide();
   if (typeof google != 'undefined') {
     $('.optional_checkbox').attr('disabled', true)
       $.each($("input[type=checkbox]:checked"), function(){            
@@ -32,10 +35,6 @@ $(document).on('turbolinks:load', function() {
       });
     initialize();
   }
-
-  $(document).on('change', '.day', function () {
-    $(this).closest('.row').find('.timings').toggle();
-  })
 
   $.each($("input[type=checkbox]:checked"), function(){            
       $(this).closest('.row').find('.timings').show();
