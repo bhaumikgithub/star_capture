@@ -13,7 +13,7 @@
 
     <%= f.text_field :name, required: @template.is_name_optional?, label_class: @template.is_name_optional? ?  "required" : '' if @template.is_name? %>
 
-    <%= f.text_field :price, label: 'Price (in $)', required: @template.is_price_optional?, label_class: @template.is_price_optional? ?  "required" : '' if @template.is_price? %>
+    <%= f.text_field :price, required: @template.is_price_optional?, label_class: @template.is_price_optional? ?  "required" : '' if @template.is_price? %>
 
     <%= f.text_area :description, required: @template.is_description_optional?, label_class: @template.is_description_optional? ?  "required" : '' if @template.is_description? %>
 

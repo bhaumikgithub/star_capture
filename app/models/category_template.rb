@@ -5,6 +5,8 @@ class CategoryTemplate < ApplicationRecord
   has_one :category, dependent: :nullify
   has_many :products, through: :category
 
+  CURRENCY = {usd:  '$', euro:  '€'}
+
   def get_template_fields
     self.attributes.except('id', 'created_at', 'template_name', 'updated_at')
   end
@@ -12,7 +14,9 @@ class CategoryTemplate < ApplicationRecord
   def get_required_true
     arr = []
     get_template_fields.each do |key, value|
-      arr << key if value['required'] == 'true'
+      if value.present?
+        arr << key if value['required'] == 'true' 
+      end
     end
     arr
   end
@@ -21,7 +25,9 @@ class CategoryTemplate < ApplicationRecord
   def get_optional_fields
     arr = []
     get_template_fields.each do |key, value|
-      arr << key if value['optional'] == 'false' && value['required'] == 'true'
+      if value.present?
+        arr << key if value['optional'] == 'false' && value['required'] == 'true'
+      end
     end
     arr
   end

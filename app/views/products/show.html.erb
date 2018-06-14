@@ -6,7 +6,7 @@
         <% end %>
 
         <% if @resource.price.present? %>
-          <div class="mb-3"><p><b> Price: </b>$<%= @resource.price %></p></div>
+          <div class="mb-3"><p><b> Price: </b><%= @resource.categories.last.category_template.currency+@resource.price.to_s %></p></div>
         <% end %>
         <div class="mb-3"><p><b> Categories: </b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p></div>
 

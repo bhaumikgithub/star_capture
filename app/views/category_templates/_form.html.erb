@@ -1,5 +1,6 @@
 <%= bootstrap_form_for @resource do |f| %>
   <%= f.text_field :template_name %>
+  <%= f.select :currency, CategoryTemplate::CURRENCY.map { |k, v| [k, v] }, selected: :first %>
   <table class="table">
     <thead>
       <tr>
