@@ -3,6 +3,17 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.html { redirect_to current_user.admin? ? root_path : products_path , notice: exception.message }
+    end
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user)
+  end
+
   protected
 
   def after_sign_in_path_for(resource)
