@@ -5,7 +5,6 @@ class CategoryTemplate < ApplicationRecord
   has_one :category, dependent: :nullify
   has_many :products, through: :category
 
-  CURRENCY = {usd:  '$', euro:  '€'}
 
   def get_template_fields
     self.attributes.except('id', 'created_at', 'template_name', 'updated_at')
