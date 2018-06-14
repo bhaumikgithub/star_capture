@@ -1,5 +1,6 @@
 <%= bootstrap_form_for @resource do |f| %>
   <%= f.text_field :template_name %>
+  <%= f.select :currency, CategoryTemplate::CURRENCY.map { |k, v| [k, v] }, selected: :first %>
   <table class="table">
     <thead>
       <tr>
@@ -136,7 +137,14 @@
     </tbody>
   </table>
 
-   <div>
-    <%= f.submit "Submit" %>
+   <div class="row">
+    <div class="col-2">
+      <%= f.submit "Submit" %>
+    </div>
+    <% if @resource.persisted? %>
+      <div class="col-2">
+        <%= link_to 'Cancel', category_template_path(@resource), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
    </div>
 <% end %>

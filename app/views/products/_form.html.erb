@@ -10,37 +10,75 @@
       </div>
     <% end %> 
     <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your favorite category", :selected => params[:category_id].present? ?  params[:category_id] : params[:product].present? ? params[:product][:category_ids] : f.object.categories.ids }%>
-    <%= f.text_field :name, required: @template.is_name_optional?  if  @template.is_name? %>
-    <%= f.text_field :price, label: 'Price (in $)', required: @template.is_price_optional? if @template.is_price? %>
-    <%= f.text_area :description if @template.is_description? %>
-    <%= f.text_area :short_description if @template.is_short_description? %>
-    <%= f.file_field :image, required: @template.is_image_optional? if @template.is_image? %>
-    <%= f.file_field :multiple_images, multiple: true, required: @template.is_multiple_images_optional? if @template.is_multiple_images? %>
-    <%= f.text_field :google_map_link, required: @template.is_google_map_link_optional? if @template.is_google_map_link? %>
-    <%= f.text_field :map_location, required: @template.is_map_location_optional? if @template.is_map_location? %>
-    <%= f.text_field :location, required: @template.is_location_optional? if @template.is_location? %>
-    <%= f.check_box :mon_to_sat_on, required: @template.is_mon_to_sat_on_optional?  if @template.is_mon_to_sat_on?%>
-    <%= f.datetime_field :mon_to_sat_open_time, required: @template.is_mon_to_sat_open_time_optional? if @template.is_mon_to_sat_open_time? %>
-    <%= f.datetime_field :mon_to_sat_close_time, required: @template.is_mon_to_sat_close_time_optional? if @template.is_mon_to_sat_close_time? %>
 
-    <%= f.text_field :entry_fee_adult, required: @template.is_entry_fee_adult_optional? if @template.is_entry_fee_adult? %>
+    <%= f.text_field :name, required: @template.is_name_optional?, label_class: @template.is_name_optional? ?  "required" : '' if @template.is_name? %>
 
-    <%= f.text_field :entry_fee_toddler, required: @template.is_entry_fee_toddler_optional? if @template.is_entry_fee_toddler? %>
+    <%= f.text_field :price, required: @template.is_price_optional?, label_class: @template.is_price_optional? ?  "required" : '' if @template.is_price? %>
 
-    <%= f.text_field :entry_fee_child, required: @template.is_entry_fee_child_optional? if @template.is_entry_fee_child? %>
+    <%= f.text_area :description, required: @template.is_description_optional?, label_class: @template.is_description_optional? ?  "required" : '' if @template.is_description? %>
 
-    <%= f.text_field :entry_fee_senior_citizen, required: @template.is_entry_fee_senior_citizen_optional? if @template.is_entry_fee_senior_citizen? %>
+    <%= f.text_area :short_description, required: @template.is_short_description_optional?, label_class: @template.is_short_description_optional? ?  "required" : '' if @template.is_short_description? %>
 
-    <%= f.text_field :parking_type, required: @template.is_parking_type_optional? if @template.is_parking_type? %>
+    <% if @resource.image.attached? %>
+      <%= f.file_field :image if @template.is_image? %>
+    <% else %>
+      <%= f.file_field :image, required: @template.is_image_optional?, label_class: @template.is_image_optional? ?  "required" : '' if @template.is_image? %>
+    <% end %>
 
-    <%= f.text_field :parking_fees, required: @template.is_parking_fees_optional? if @template.is_parking_fees? %>
+    <% if @resource.multiple_images.present? %>
+      <%= f.file_field :multiple_images, multiple: true if @template.is_multiple_images? %>
+    <% else %>
+      <%= f.file_field :multiple_images, multiple: true, required: @template.is_multiple_images_optional?, label_class: @template.is_multiple_images_optional? ?  "required" : '' if @template.is_multiple_images? %>
+    <% end %>
 
-    <%= f.text_field :ratings, required: @template.is_ratings_optional? if @template.is_ratings? %>
+    <%= f.text_field :google_map_link, required: @template.is_google_map_link_optional?, label_class: @template.is_google_map_link_optional? ?  "required" : '' if @template.is_google_map_link? %>
+
+    <%= f.text_field :map_location, required: @template.is_map_location_optional?, label_class: @template.is_map_location_optional? ?  "required" : '' if @template.is_map_location? %>
+
+    <%= f.text_field :location, required: @template.is_location_optional?, label_class: @template.is_location_optional? ?  "required" : '' if @template.is_location? %>
+
+    <% if @template.is_mon_to_sat_on? %>
+      <label>Timings</label>
+      <% Product::WEEK_DAYS.each do |day| %>
+        <div class="row">
+          <div class="mb-3 col-4 day">
+            <%= check_box_tag "#{day.downcase}", '', @resource.timings.try(:[], day).try(:[], 'open_time').present? ? true : false %>
+            <%= day %>
+          </div>
+          <div class="col-8 timings <%= day %>">
+            <div class="row">
+              <div class="col-6">
+                Open Time <%= datetime_field_tag "product[timings][#{day}][open_time]", @resource.timings.present? ? @resource.timings[day]['open_time'] : ''  %>
+              </div>
+              <div class="col-6">
+                Close Time <%= datetime_field_tag "product[timings][#{day}][close_time]", @resource.timings.present? ? @resource.timings[day]['close_time'] : '' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+
+    <%= f.text_field :entry_fee_adult, required: @template.is_entry_fee_adult_optional?, label_class: @template.is_entry_fee_adult_optional? ?  "required" : '' if @template.is_entry_fee_adult? %>
+
+    <%= f.text_field :entry_fee_toddler, required: @template.is_entry_fee_toddler_optional?, label_class: @template.is_entry_fee_toddler_optional? ?  "required" : '' if @template.is_entry_fee_toddler? %>
+
+    <%= f.text_field :entry_fee_child, required: @template.is_entry_fee_child_optional?, label_class: @template.is_entry_fee_child_optional? ?  "required" : '' if @template.is_entry_fee_child? %>
+
+    <%= f.text_field :entry_fee_senior_citizen, required: @template.is_entry_fee_senior_citizen_optional?, label_class: @template.is_entry_fee_senior_citizen_optional? ?  "required" : '' if @template.is_entry_fee_senior_citizen? %>
+
+    <%= f.select :parking_type , Product::PARKING_TYPE, required: @template.is_parking_type_optional?, label_class: @template.is_parking_type_optional? ?  "required" : '' if @template.is_parking_type? %>
+
+    <%= f.text_field :parking_fees, required: @template.is_parking_fees_optional?, label_class: @template.is_parking_fees_optional? ?  "required" : '' if @template.is_parking_fees? %>
+
+    <%= f.text_field :ratings, required: @template.is_ratings_optional?, label_class: @template.is_ratings_optional? ?  "required" : '' if @template.is_ratings? %>
+
     <%= f.select :product_type_id, ProductType.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose product type"} if @template.is_product_type?  %>
 
     <br>
     <% if @resource.persisted? %>
-      <%= render 'map' %>
+      <%#= render 'map' %>
     <% end %>
     <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
     <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
@@ -71,5 +109,22 @@
     });
   }
 
+  $(document).on('change', '.day', function () {
+    $(this).closest('.row').find('.timings').toggle();
+  })
+
 </script>
+
+
+<style type="text/css">
+  label.required:after {
+    content:" *";
+    color: red;
+  }
+
+  .timings{
+    display: none;
+  }
+
+</style>
 

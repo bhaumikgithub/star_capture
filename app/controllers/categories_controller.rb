@@ -5,7 +5,6 @@ class CategoriesController < ApplicationController
   include InheritAction
 
   def create
-    # binding.pry
     super
   end
 

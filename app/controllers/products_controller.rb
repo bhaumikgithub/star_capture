@@ -43,10 +43,10 @@ class ProductsController < ApplicationController
       end
     else
       if params[:category_id].present?
-        @resources = Category.find_by(id: params[:category_id]).products.near([current_user.latitude, current_user.longitude], 5).page(params[:page]).per(10)
+        @resources = Category.find_by(id: params[:category_id]).products.includes(:categories).near([current_user.latitude, current_user.longitude], 5).page(params[:page]).per(10)
         @category_id = params[:category_id]
       else
-        @resources = Product.near([current_user.latitude, current_user.longitude], 5).page(params[:page]).per(10)
+        @resources = Product.includes(:categories).near([current_user.latitude, current_user.longitude], 5).page(params[:page]).per(10)
       end
     end
   end

@@ -11,14 +11,35 @@ $( document ).ready(function() {
   if (flag == false) {
     initialize();
     $('.optional_checkbox').attr('disabled', true)
+      $.each($("input[type=checkbox]:checked"), function(){            
+          $(this).attr('disabled', false)
+      });
   }
+  $(document).on('change', '.day', function () {
+    $(this).closest('.row').find('.timings').toggle();
+  })
+
+  $.each($("input[type=checkbox]:checked"), function(){            
+      $(this).closest('.row').find('.timings').show();
+  });
 });
 
 $(document).on('turbolinks:load', function() {
   if (typeof google != 'undefined') {
     $('.optional_checkbox').attr('disabled', true)
+      $.each($("input[type=checkbox]:checked"), function(){            
+          $(this).attr('disabled', false)
+      });
     initialize();
   }
+
+  $(document).on('change', '.day', function () {
+    $(this).closest('.row').find('.timings').toggle();
+  })
+
+  $.each($("input[type=checkbox]:checked"), function(){            
+      $(this).closest('.row').find('.timings').show();
+  });
 });
 
 function initialize(){

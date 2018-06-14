@@ -2,30 +2,49 @@
   <div class="col">
      <div class="wrap">
         <% if @resource.name.present? %>
-          <div class="mb-3"><p><b>Product name: </b> <%= @resource.name %></p></div>
+          <div class="mb-3"><p><b>Name: </b> <%= @resource.name %></p></div>
         <% end %>
 
         <% if @resource.price.present? %>
-          <div class="mb-3"><p><b>Product price: </b>$<%= @resource.price %></p></div>
+          <div class="mb-3"><p><b> Price: </b><%= @resource.categories.last.category_template.currency+@resource.price.to_s %></p></div>
         <% end %>
-        <div class="mb-3"><p><b>Product Categories: </b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p></div>
+        <div class="mb-3"><p><b> Categories: </b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p></div>
 
         <% if @resource.description.present? %>
-          <div class="mb-3"><p><b>Product description: </b><%= @resource.description %></p></div>
+          <div class="mb-3"><p><b> Description: </b><%= @resource.description %></p></div>
         <% end %>
 
         <% if @resource.short_description.present? %>
-          <div class="mb-3"><p><b>Product short description: </b><%= @resource.short_description %></p></div>
+          <div class="mb-3"><p><b> Short description: </b><%= @resource.short_description %></p></div>
         <% end %>
 
         <% if @resource.product_type.present? %>
-          <div class="mb-3"><p><b>Product type: </b> <%= @resource.product_type.name %></p></div>
+          <div class="mb-3"><p><b>Type: </b> <%= @resource.product_type.name %></p></div>
         <% end %>
 
-        <% if @resource.mon_to_sat_on %>
-          <div class="mb-3"><p><b>Monday to Sunday Open time: </b><%= @resource.mon_to_sat_open_time %></p></div>
-          <div class="mb-3"><p><b>Monday to Sunday close time: </b><%= @resource.mon_to_sat_close_time %></p></div>
-        <% end %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Open Time</th>
+              <th>Close Time</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% Product::WEEK_DAYS.each do |day| %>
+              <% if @resource.timings.try(:[], day).try(:[], 'open_time').present? %>
+                <tr>
+                  <th><%= day %></th>
+                  <th><%= @resource.timings.try(:[], day).try(:[], 'open_time') %></th>
+                  <th><%= @resource.timings.try(:[], day).try(:[], 'close_time') %></th>
+                </tr>
+              <% end %>
+            <% end %>
+
+          </tbody>
+        </table>
+
 
         <% if @resource.google_map_link.present? %>
           <div class="mb-3"><p><b>Google map link: </b> <%= @resource.google_map_link %></p></div>
@@ -69,7 +88,7 @@
 
 
         <div class="">
-          <div class="d-block align-top mb-3"><b>Product Images:</b></div>
+          <div class="d-block align-top mb-3"><b>Images:</b></div>
             <div class="d-block align-top">
               <% @resource.multiple_images.each do |image| %>
                 <div class="d-inline-block ">
