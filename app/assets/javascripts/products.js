@@ -277,7 +277,12 @@ function enable_optional_checkbox() {
 
 
 function show_open_close_time() {
-  $(document).on('change', '.day', function () {
-    $(this).closest('.row').find('.timings').toggle();
+  $(document).on('change', '.day_name', function () {
+    if (this.checked) {
+      $(this).closest('.row').find('.timings').show();
+    }
+    else{
+      $(this).closest('.row').find('.timings').hide();
+    }
   })
 }

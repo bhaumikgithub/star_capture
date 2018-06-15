@@ -42,16 +42,16 @@
       <% Product::WEEK_DAYS.each do |day| %>
         <div class="row">
           <div class="mb-3 col-4 day">
-            <%= check_box_tag "#{day.downcase}", '', @resource.timings.try(:[], day).try(:[], 'open_time').present? ? true : false %>
+            <%= check_box_tag "#{day}", '', @resource.timings.try(:[], day).try(:[], 'open_time').present? ? true : false, {class: 'day_name'} %>
             <%= day %>
           </div>
           <div class="col-8 timings <%= day %>">
             <div class="row">
               <div class="col-6">
-                Open Time <%= time_field_tag "product[timings][#{day}][open_time]", @resource.timings.present? ? @resource.timings[day]['open_time'] : ''  %>
+                Open Time <%= time_field_tag "product[timings][#{day}][open_time]", @resource.timings.try(:[], day).present? ? @resource.timings[day]['open_time'] : ''  %>
               </div>
               <div class="col-6">
-                Close Time <%= time_field_tag "product[timings][#{day}][close_time]", @resource.timings.present? ? @resource.timings[day]['close_time'] : '' %>
+                Close Time <%= time_field_tag "product[timings][#{day}][close_time]", @resource.timings.try(:[], day).present? ? @resource.timings[day]['close_time'] : '' %>
               </div>
             </div>
           </div>
@@ -100,13 +100,12 @@
   });
 
   function get_category() {
-    // body...
     $.ajax({
       url: window.location.origin+'/products/<%= action %>',
       type: 'GET',
       data: {category_id: category},
       dataType: 'script'
-    }).done(function(){
+    }).done(function(data){
       $('.timings').hide();
     });
   }
@@ -119,6 +118,3 @@
     color: red;
   }
 </style>
-
-
-
