@@ -60,7 +60,7 @@ class ProductsController < ApplicationController
   end
 
   def delete_image
-    @resource.images.where(id: params[:image_id]).purge
+    @resource.multiple_images.where(id: params[:image_id]).purge
     redirect_to product_path(@resource)
   end
 
