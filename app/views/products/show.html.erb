@@ -102,7 +102,7 @@
                   </span>
                 </div>
               <% end %>
-              <%= link_to(image_tag(@resource.image, class: 'product_image_size mr-3'), @resource.image, 'data-lightbox' => 'roadtrip') %>
+              <%= link_to(image_tag(@resource.image, class: 'product_image_size mr-3'), @resource.image, 'data-lightbox' => 'roadtrip') if @resource.image.attached? %>
               <%#= image_tag @resource.image, class: 'product_image_size mr-3' if @resource.image.attached? %>
             </div>
         </div><br>
