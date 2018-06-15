@@ -9,17 +9,18 @@ var flag = true;
 
 
 $( document ).ready(function() {
+
   $('.timings').hide();
+
   if (flag == false) {
     initialize();
-    $('.optional_checkbox').attr('disabled', true)
-      $.each($("input[type=checkbox]:checked"), function(){            
-          $(this).attr('disabled', false)
-      });
   }
-  $(document).on('change', '.day', function () {
-    $(this).closest('.row').find('.timings').toggle();
-  })
+
+  disable_optional_checkbox();
+
+  enable_optional_checkbox();
+
+  show_open_close_time();
 
   $.each($("input[type=checkbox]:checked"), function(){            
       $(this).closest('.row').find('.timings').show();
@@ -27,14 +28,18 @@ $( document ).ready(function() {
 });
 
 $(document).on('turbolinks:load', function() {
+
   $('.timings').hide();
+
   if (typeof google != 'undefined') {
-    $('.optional_checkbox').attr('disabled', true)
-      $.each($("input[type=checkbox]:checked"), function(){            
-          $(this).attr('disabled', false)
-      });
     initialize();
   }
+
+  disable_optional_checkbox();
+
+  enable_optional_checkbox();
+
+  // show_open_close_time();
 
   $.each($("input[type=checkbox]:checked"), function(){            
       $(this).closest('.row').find('.timings').show();
@@ -257,3 +262,22 @@ $(document).on('change', '.required_checkbox', function () {
     $(this).closest('tr').find('.optional_checkbox:checkbox').attr('disabled', true)
   }
 })
+
+function disable_optional_checkbox() {
+  $('.optional_checkbox').attr('disabled', true);
+}
+
+function enable_optional_checkbox() {
+  $.each($(".required_checkbox:checkbox:checked"), function(){            
+    // $(this).attr('disabled', false)
+    $(this).closest('tr').find('.optional_checkbox:checkbox').attr('disabled', false)
+
+  });
+}
+
+
+function show_open_close_time() {
+  $(document).on('change', '.day', function () {
+    $(this).closest('.row').find('.timings').toggle();
+  })
+}

@@ -96,7 +96,7 @@
   var category = $('#product_category_ids option:selected').val();
   $("#product_category_ids").change(function(){
     category = $('#product_category_ids option:selected').val();
-    get_category()
+    get_category();
   });
 
   function get_category() {
@@ -106,19 +106,10 @@
       type: 'GET',
       data: {category_id: category},
       dataType: 'script'
+    }).done(function(){
+      $('.timings').hide();
     });
   }
-
-  $(document).on('change', '.day', function () {
-    $(this).closest('.row').find('.timings').toggle();
-  })
-
-  $(document).on('turbolinks:load', function() {
-    $(document).on('change', '.day', function () {
-      $(this).closest('.row').find('.timings').toggle();
-    })
-  })
-
 </script>
 
 
