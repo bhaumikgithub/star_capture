@@ -285,6 +285,8 @@ function show_open_close_time() {
     }
     else{
       $(this).closest('.row').find('.timings').hide();
+      // debugger
+      $(this).closest('.row').find('.timings input').val('');
     }
   })
 }
