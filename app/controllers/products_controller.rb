@@ -16,7 +16,6 @@ class ProductsController < ApplicationController
 
   def create
     params[:product][:timings] =  params[:product][:timings].to_h.each { |k,v|  v.delete_if {|key, value| value.empty? && value.empty? }    }.delete_if {|k,v| v.empty?}
-    binding.pry
     if params[:category_id]
       @template = Category.find_by(id: params[:category_id]).category_template
     elsif params[:product][:category_ids]
