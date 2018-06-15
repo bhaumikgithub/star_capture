@@ -37,3 +37,6 @@ gem 'geocoder'
 
 #for authorization
 gem 'cancancan', '~> 2.0'
+
+#image slider
+gem 'lightbox2-rails'

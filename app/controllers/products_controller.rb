@@ -35,7 +35,9 @@ class ProductsController < ApplicationController
   end
 
   def update
-    params[:product][:timings] =  params[:product][:timings].permit!.to_h.each { |k,v|  v.delete_if {|key, value| value.empty? && value.empty? }    }.delete_if {|k,v| v.empty?}
+    if params[:product]['timings'].present?
+      params[:product][:timings] =  params[:product][:timings].permit!.to_h.each { |k,v|  v.delete_if {|key, value| value.empty? && value.empty? }    }.delete_if {|k,v| v.empty?}
+    end
     super
   end
 

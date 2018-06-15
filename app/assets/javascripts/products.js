@@ -22,6 +22,8 @@ $( document ).ready(function() {
 
   show_open_close_time();
 
+  init_lightbox();
+
   $.each($("input[type=checkbox]:checked"), function(){            
       $(this).closest('.row').find('.timings').show();
   });
@@ -284,5 +286,13 @@ function show_open_close_time() {
     else{
       $(this).closest('.row').find('.timings').hide();
     }
+  })
+}
+
+
+function init_lightbox() {
+  lightbox.init();
+  lightbox.option({
+    'positionFromTop': 100
   })
 }
