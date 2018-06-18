@@ -19092,7 +19092,14 @@ function initMap() {
       geocoder = new google.maps.Geocoder();
       var timeout = 0;
 
-      products_array.forEach(function(element) {
+      // products_array.forEach(function(element) {
+      //   timeout = timeout+1000;
+      //   setTimeout(function () {
+      //     geocodeAddress(element);
+      //   }, timeout);
+      // });
+
+      $.each(products_array, function(index,element) {
         timeout = timeout+1000;
         setTimeout(function () {
           geocodeAddress(element);
