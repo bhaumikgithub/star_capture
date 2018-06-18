@@ -31,6 +31,12 @@
     </tr>
 
     <tr>
+      <td>Currency</td>
+      <td><%= check_box 'category_template[currency]', 'required', {checked: @resource.true?(@resource.currency["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[currency]', 'optional', {checked: @resource.true?(@resource.currency["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
       <td>Description</td>
       <td><%= check_box 'category_template[description]', 'required', {checked: @resource.true?(@resource.description["required"])}, 'true', 'false' %></td>
       <td><%= check_box 'category_template[description]', 'optional', {checked: @resource.true?(@resource.description["optional"])}, 'true', 'false' %></td>
@@ -58,25 +64,25 @@
     </tr>
 
     <tr>
-      <td>Google Map Link</td>
-      <td><%= check_box 'category_template[google_map_link]', 'required', {checked: @resource.true?(@resource.google_map_link["required"])}, 'true', 'false' %></td>
-      <td><%= check_box 'category_template[google_map_link]', 'optional', {checked: @resource.true?(@resource.google_map_link["optional"])}, 'true', 'false' %></td>
-    </tr>
-    
-    <tr>
       <td>Product Type</td>
       <td><%= check_box 'category_template[product_type]', 'required', {checked: @resource.true?(@resource.product_type["required"])}, 'true', 'false' %></td>
       <td><%= check_box 'category_template[product_type]', 'optional', {checked: @resource.true?(@resource.product_type["optional"])}, 'true', 'false' %></td>
     </tr>
-    
-    <tr>
-      <td>Map location</td>
-      <td><%= check_box 'category_template[map_location]', 'required', {checked: @resource.true?(@resource.map_location["required"])}, 'true', 'false' %></td>
-      <td><%= check_box 'category_template[map_location]', 'optional', {checked: @resource.true?(@resource.map_location["optional"])}, 'true', 'false' %></td>
+
+<!--     <tr>
+      <td>Google Map Link</td>
+      <td><%#= check_box 'category_template[google_map_link]', 'required', {checked: @resource.true?(@resource.google_map_link["required"])}, 'true', 'false' %></td>
+      <td><%#= check_box 'category_template[google_map_link]', 'optional', {checked: @resource.true?(@resource.google_map_link["optional"])}, 'true', 'false' %></td>
     </tr>
     
     <tr>
-      <td>Location</td>
+      <td>Map location</td>
+      <td><%#= check_box 'category_template[map_location]', 'required', {checked: @resource.true?(@resource.map_location["required"])}, 'true', 'false' %></td>
+      <td><%#= check_box 'category_template[map_location]', 'optional', {checked: @resource.true?(@resource.map_location["optional"])}, 'true', 'false' %></td>
+    </tr> -->
+    
+    <tr>
+      <td>Allow Map</td>
       <td><%= check_box 'category_template[location]', 'required', {checked: @resource.true?(@resource.location["required"])}, 'true', 'false' %></td>
       <td><%= check_box 'category_template[location]', 'optional', {checked: @resource.true?(@resource.location["optional"])}, 'true', 'false' %></td>
     </tr>
@@ -121,6 +127,12 @@
       <td>Entry Fee Senior Citizen</td>
       <td><%= check_box 'category_template[entry_fee_senior_citizen]', 'required', {checked: @resource.true?(@resource.entry_fee_senior_citizen["required"])}, 'true', 'false' %></td>
       <td><%= check_box 'category_template[entry_fee_senior_citizen]', 'optional', {checked: @resource.true?(@resource.entry_fee_senior_citizen["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Entry Fee Foreigner</td>
+      <td><%= check_box 'category_template[entry_fee_foreigner]', 'required', {checked: @resource.true?(@resource.entry_fee_foreigner["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[entry_fee_foreigner]', 'optional', {checked: @resource.true?(@resource.entry_fee_foreigner["optional"])}, 'true', 'false' %></td>
     </tr>
 
     <tr>

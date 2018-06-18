@@ -1,6 +1,5 @@
 <%= bootstrap_form_for @resource do |f| %>
   <%= f.text_field :template_name %>
-  <%= f.text_field :currency %>
   <table class="table">
     <thead>
       <tr>
@@ -21,6 +20,12 @@
         <td>Price</td>
         <td><%= check_box 'category_template[price]', 'required', {checked: @resource.true?(@resource.price["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
         <td><%= check_box 'category_template[price]', 'optional', {checked: @resource.true?(@resource.price["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
+      </tr>
+
+      <tr>
+        <td>Currency</td>
+        <td><%= check_box 'category_template[currency]', 'required', {checked: @resource.true?(@resource.currency["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
+        <td><%= check_box 'category_template[currency]', 'optional', {checked: @resource.true?(@resource.currency["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
       </tr>
 
       <tr>
@@ -51,25 +56,26 @@
       </tr>
 
       <tr>
-        <td>Google Map Link</td>
-        <td><%= check_box 'category_template[google_map_link]', 'required', {checked: @resource.true?(@resource.google_map_link["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
-        <td><%= check_box 'category_template[google_map_link]', 'optional', {checked: @resource.true?(@resource.google_map_link["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
-      </tr>
-      
-      <tr>
         <td>Product Type</td>
         <td><%= check_box 'category_template[product_type]', 'required', {checked: @resource.true?(@resource.product_type["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
         <td><%= check_box 'category_template[product_type]', 'optional', {checked: @resource.true?(@resource.product_type["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
       </tr>
+
+<!--       <tr>
+        <td>Google Map Link</td>
+        <td><%#= check_box 'category_template[google_map_link]', 'required', {checked: @resource.true?(@resource.google_map_link["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
+        <td><%#= check_box 'category_template[google_map_link]', 'optional', {checked: @resource.true?(@resource.google_map_link["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
+      </tr>
+      
       
       <tr>
         <td>Map location</td>
-        <td><%= check_box 'category_template[map_location]', 'required', {checked: @resource.true?(@resource.map_location["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
-        <td><%= check_box 'category_template[map_location]', 'optional', {checked: @resource.true?(@resource.map_location["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
-      </tr>
+        <td><%#= check_box 'category_template[map_location]', 'required', {checked: @resource.true?(@resource.map_location["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
+        <td><%#= check_box 'category_template[map_location]', 'optional', {checked: @resource.true?(@resource.map_location["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
+      </tr> -->
       
       <tr>
-        <td>Location</td>
+        <td>Allow Map</td>
         <td><%= check_box 'category_template[location]', 'required', {checked: @resource.true?(@resource.location["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
         <td><%= check_box 'category_template[location]', 'optional', {checked: @resource.true?(@resource.location["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
       </tr>
@@ -117,9 +123,9 @@
       </tr>
 
       <tr>
-        <td>Ratings</td>
-        <td><%= check_box 'category_template[ratings]', 'required', {checked: @resource.true?(@resource.ratings["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
-        <td><%= check_box 'category_template[ratings]', 'optional', {checked: @resource.true?(@resource.ratings["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
+        <td>Entry Fee Foreginer</td>
+        <td><%= check_box 'category_template[entry_fee_foreigner]', 'required', {checked: @resource.true?(@resource.entry_fee_foreigner["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
+        <td><%= check_box 'category_template[entry_fee_foreigner]', 'optional', {checked: @resource.true?(@resource.entry_fee_foreigner["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
       </tr>
 
       <tr>
@@ -132,6 +138,30 @@
         <td>Parking Fees</td>
         <td><%= check_box 'category_template[parking_fees]', 'required', {checked: @resource.true?(@resource.parking_fees["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
         <td><%= check_box 'category_template[parking_fees]', 'optional', {checked: @resource.true?(@resource.parking_fees["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
+      </tr>
+
+      <tr>
+        <td>Allow Ratings</td>
+        <td><%= check_box 'category_template[allow_ratings]', 'required', {checked: @resource.true?(@resource.allow_ratings["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
+        <td><%= check_box 'category_template[allow_ratings]', 'optional', {checked: @resource.true?(@resource.allow_ratings["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
+      </tr>
+
+      <tr>
+        <td>Allow Ratings Comment</td>
+        <td><%= check_box 'category_template[allow_ratings_comment]', 'required', {checked: @resource.true?(@resource.allow_ratings_comment["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
+        <td><%= check_box 'category_template[allow_ratings_comment]', 'optional', {checked: @resource.true?(@resource.allow_ratings_comment["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
+      </tr>
+
+      <tr>
+        <td>Allow Like</td>
+        <td><%= check_box 'category_template[allow_like]', 'required', {checked: @resource.true?(@resource.allow_like["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
+        <td><%= check_box 'category_template[allow_like]', 'optional', {checked: @resource.true?(@resource.allow_like["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
+      </tr>
+
+      <tr>
+        <td>Allow Comment</td>
+        <td><%= check_box 'category_template[allow_comment]', 'required', {checked: @resource.true?(@resource.allow_comment["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
+        <td><%= check_box 'category_template[allow_comment]', 'optional', {checked: @resource.true?(@resource.allow_comment["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
       </tr>
       
     </tbody>

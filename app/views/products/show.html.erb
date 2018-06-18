@@ -6,7 +6,7 @@
         <% end %>
 
         <% if @resource.price.present? %>
-          <div class="mb-3"><p><b> Price: </b><%= (@resource.categories.last.category_template.currency.present? ? @resource.categories.last.category_template.currency : '')  + @resource.price.to_s %></p></div>
+          <div class="mb-3"><p><b> Price: </b><%= (@resource.currency.present? ? @resource.currency : '')  + @resource.price.to_s %></p></div>
         <% end %>
         <div class="mb-3"><p><b> Categories: </b> <%= @resource.categories.map { |e| e.name  }.join(', ') %></p></div>
 
@@ -47,19 +47,6 @@
           </table>
         <% end %>
 
-
-        <% if @resource.google_map_link.present? %>
-          <div class="mb-3"><p><b>Google map link: </b> <%= @resource.google_map_link %></p></div>
-        <% end %>
-
-        <% if @resource.map_location.present? %>
-          <div class="mb-3"><p><b>Map location: </b> <%= @resource.map_location %></p></div>
-        <% end %>
-
-        <% if @resource.location.present? %>
-          <div class="mb-3"><p><b>Location: </b> <%= @resource.location %></p></div>
-        <% end %>
-
         <% if @resource.entry_fee_adult.present? %>
           <div class="mb-3"><p><b>Entry Fee Adult: </b><%= @resource.entry_fee_adult %></p></div>
         <% end %>
@@ -74,6 +61,10 @@
 
         <% if @resource.entry_fee_senior_citizen.present? %>
           <div class="mb-3"><p><b>Entry Fee Senior citizen: </b><%= @resource.entry_fee_senior_citizen %></p></div>
+        <% end %>
+
+        <% if @resource.entry_fee_foreigner.present? %>
+          <div class="mb-3"><p><b>Entry Fee Foreigners: </b><%= @resource.entry_fee_foreigner %></p></div>
         <% end %>
 
         <% if @resource.ratings.present? %>

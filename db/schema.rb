@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_14_131746) do
+ActiveRecord::Schema.define(version: 2018_06_18_133219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,7 +77,12 @@ ActiveRecord::Schema.define(version: 2018_06_14_131746) do
     t.jsonb "parking_fees", default: {"optional"=>false, "required"=>false}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "currency"
+    t.jsonb "currency", default: {"optional"=>false, "required"=>false}
+    t.jsonb "entry_fee_foreigner", default: {"optional"=>false, "required"=>false}
+    t.jsonb "allow_like", default: {"optional"=>false, "required"=>false}
+    t.jsonb "allow_comment", default: {"optional"=>false, "required"=>false}
+    t.jsonb "allow_ratings", default: {"optional"=>false, "required"=>false}
+    t.jsonb "allow_ratings_comment", default: {"optional"=>false, "required"=>false}
   end
 
   create_table "product_types", force: :cascade do |t|
@@ -115,6 +120,8 @@ ActiveRecord::Schema.define(version: 2018_06_14_131746) do
     t.string "parking_type"
     t.float "parking_fees"
     t.jsonb "timings"
+    t.string "currency"
+    t.float "entry_fee_foreigner"
     t.index ["product_type_id"], name: "index_products_on_product_type_id"
   end
 
