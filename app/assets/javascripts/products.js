@@ -120,17 +120,17 @@ function initMap() {
     });
  
     // multiple marker
-    if(typeof products_array !== 'undefined' && products_array.length > 0){
-      geocoder = new google.maps.Geocoder();
-      var timeout = 0;
+    // if(typeof products_array !== 'undefined' && products_array.length > 0){
+    //   geocoder = new google.maps.Geocoder();
+    //   var timeout = 0;
 
-      products_array.forEach(function(element) {
-        timeout = timeout+1000;
-        setTimeout(function () {
-          geocodeAddress(element);
-        }, timeout);
-      });
-     }
+    //   products_array.forEach(function(element) {
+    //     timeout = timeout+1000;
+    //     setTimeout(function () {
+    //       geocodeAddress(element);
+    //     }, timeout);
+    //   });
+    //  }
 
 
     autocomplete.addListener('place_changed', function() {
