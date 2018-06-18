@@ -1,5 +1,6 @@
 <div class="container">
   <p><b>Categoryt name: </b> <%= @resource.name %></p>
+  <p><b>Template Name: </b> <%= @resource.category_template.template_name %> </p>
   <p><b>Products associated: </b> <%= @resource.products.present? ? @resource.products.map { |e| e.name  }.join(', ') : 'No product associated'%></p>
   <%= link_to "Back", categories_path, class: 'btn btn-sm btn-info' %>
   <%= link_to "Edit", edit_category_path(@resource), class: 'btn btn-sm btn-primary' %>

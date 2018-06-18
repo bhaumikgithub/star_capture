@@ -75,19 +75,19 @@
       </tr>
 
       <tr>
-        <td>Monday To Saturday On</td>
+        <td>Monday To Sunday On</td>
         <td><%= check_box 'category_template[mon_to_sat_on]', 'required', {checked: @resource.true?(@resource.mon_to_sat_on["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
         <td><%= check_box 'category_template[mon_to_sat_on]', 'optional', {checked: @resource.true?(@resource.mon_to_sat_on["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
       </tr>
 
       <tr>
-        <td>Monday To Saturday Open Time</td>
+        <td>Monday To Sunday Open Time</td>
         <td><%= check_box 'category_template[mon_to_sat_open_time]', 'required', {checked: @resource.true?(@resource.mon_to_sat_open_time["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
         <td><%= check_box 'category_template[mon_to_sat_open_time]', 'optional', {checked: @resource.true?(@resource.mon_to_sat_open_time["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
       </tr>
       
       <tr>
-        <td>Monday To Saturday Close Time</td>
+        <td>Monday To Sunday Close Time</td>
         <td><%= check_box 'category_template[mon_to_sat_close_time]', 'required', {checked: @resource.true?(@resource.mon_to_sat_close_time["required"]),class: 'required_checkbox'}, 'true', 'false' %></td>
         <td><%= check_box 'category_template[mon_to_sat_close_time]', 'optional', {checked: @resource.true?(@resource.mon_to_sat_close_time["optional"]), class: 'optional_checkbox'}, 'true', 'false' %></td>
       </tr>

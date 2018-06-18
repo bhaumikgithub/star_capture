@@ -9,10 +9,10 @@
     </div>
   <% end %>
     <%= f.text_field :name, required: true %>
-    <% if ['new','create'].include? params[:action] %>
-      <%= f.select :category_template_id, CategoryTemplate.all.collect { |x| [x.template_name, x.id.to_i]}, {label: "Choose your favorite template" } %>
+    <% if @resource.products.count > 0 %>
+      <p>Template: <%= @resource.category_template.template_name %></p>
     <% else %>
-    <p>Template: <%= @resource.category_template.template_name %></p>
+      <%= f.select :category_template_id, CategoryTemplate.all.collect { |x| [x.template_name, x.id.to_i]}, {label: "Choose your favorite template" } %>
     <% end %>
     <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
     <%= link_to "Back", categories_path, class: 'btn btn-sm btn-info' %>
