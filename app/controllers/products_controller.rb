@@ -78,6 +78,7 @@ class ProductsController < ApplicationController
   def show_nearby_products
     @nearby_products = Product.eager_load(:categories).near([current_user.latitude, current_user.longitude], 5,{order: ""}).pluck(:latitude,:longitude,:id,:name,:price, :"categories.name")
     @product_categories = @nearby_products.each_with_object({ }) do |item, result|
+      item[4] = item[4]  ? item[4] : 0
       (result[item[2]] ||= [ ]) << item[5]
     end
     @user_location = current_user.reverse_geocode
