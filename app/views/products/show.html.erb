@@ -109,6 +109,11 @@
         <% if @resource.latitude.present? && @resource.longitude.present? %>
           <%= render 'map' %>
         <% end %>
+        Rating  : <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, data: { turbolinks: false }  %>
+        <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put}) do %>
+          Comment: <%= text_field_tag :comment  %>
+          <%= submit_tag "Submit" %>
+        <% end %>
         <div class="mt-4">
           <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
           <% if current_user.admin? %>

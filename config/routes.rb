@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post '/rate' => 'rater#create', :as => 'rate'
   root to: 'categories#index'
   devise_for :users, controllers: {
         sessions: 'users/sessions',
@@ -22,5 +23,6 @@ Rails.application.routes.draw do
   end
   resources :category_templates
   resources :product_types
+  resources :rater, only: [:update]
 end
 
