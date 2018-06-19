@@ -116,13 +116,13 @@
     </div>
 </div>
 <br>
-<% if  current_user.user? %>
+<% if  current_user.user? && @resource.categories.last.category_template.is_allow_like? %>
   <%  if current_user.voted_up_on? @resource %>
     <%= image_tag asset_path('liked.png'), class: 'product_like'%>
-    <span class="like_count ml-2"><%= @resource.get_likes.size %></span>
+    <span class="like_count ml-2"> <b>likes: </b> <%= @resource.get_likes.size if @resource.view_likes %></span>
   <% else %>
-   <%= link_to (image_tag asset_path('like.png'), class: 'product_like'), like_product_path(@resource), method: :put, remote: true %>
-   <span class="like_count ml-2"><%= @resource.get_likes.size %></span>
+   <%= link_to (image_tag asset_path('like.png'), class: 'product_like'), like_product_path(@resource), method: :put, remote: true if @resource.allow_like %>
+   <span class="like_count ml-2"><b>likes: </b><%= @resource.get_likes.size if @resource.view_likes %></span>
   <% end %>
 <% end %>
 <br><br>

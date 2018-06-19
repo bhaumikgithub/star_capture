@@ -152,6 +152,31 @@
       <td><%= check_box 'category_template[parking_fees]', 'required', {checked: @resource.true?(@resource.parking_fees["required"])}, 'true', 'false' %></td>
       <td><%= check_box 'category_template[parking_fees]', 'optional', {checked: @resource.true?(@resource.parking_fees["optional"])}, 'true', 'false' %></td>
     </tr>
+
+    <tr>
+      <td>Allow Ratings</td>
+      <td><%= check_box 'category_template[allow_ratings]', 'required', {checked: @resource.true?(@resource.allow_ratings["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[allow_ratings]', 'optional', {checked: @resource.true?(@resource.allow_ratings["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Allow Ratings Comment</td>
+      <td><%= check_box 'category_template[allow_ratings_comment]', 'required', {checked: @resource.true?(@resource.allow_ratings_comment["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[allow_ratings_comment]', 'optional', {checked: @resource.true?(@resource.allow_ratings_comment["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Allow Like</td>
+      <td><%= check_box 'category_template[allow_like]', 'required', {checked: @resource.true?(@resource.allow_like["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[allow_like]', 'optional', {checked: @resource.true?(@resource.allow_like["optional"])}, 'true', 'false' %></td>
+    </tr>
+
+    <tr>
+      <td>Allow Comment</td>
+      <td><%= check_box 'category_template[allow_comment]', 'required', {checked: @resource.true?(@resource.allow_comment["required"])}, 'true', 'false' %></td>
+      <td><%= check_box 'category_template[allow_comment]', 'optional', {checked: @resource.true?(@resource.allow_comment["optional"])}, 'true', 'false' %></td>
+    </tr>
+
     
   </tbody>
 </table>

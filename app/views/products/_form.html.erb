@@ -64,15 +64,25 @@
 
     <%= f.text_field :entry_fee_senior_citizen, required: @template.is_entry_fee_senior_citizen_optional?, label_class: @template.is_entry_fee_senior_citizen_optional? ?  "required" : '' if @template.is_entry_fee_senior_citizen? %>
 
-      <%= f.text_field :entry_fee_foreigner, required: @template.is_entry_fee_foreigner_optional?, label_class: @template.is_entry_fee_foreigner_optional? ?  "required" : '' if @template.is_entry_fee_foreigner? %>
+    <%= f.text_field :entry_fee_foreigner, required: @template.is_entry_fee_foreigner_optional?, label_class: @template.is_entry_fee_foreigner_optional? ?  "required" : '' if @template.is_entry_fee_foreigner? %>
 
     <%= f.select :parking_type , Product::PARKING_TYPE, required: @template.is_parking_type_optional?, label_class: @template.is_parking_type_optional? ?  "required" : '' if @template.is_parking_type? %>
 
     <%= f.text_field :parking_fees, required: @template.is_parking_fees_optional?, label_class: @template.is_parking_fees_optional? ?  "required" : '' if @template.is_parking_fees? %>
 
-    <%#= f.text_field :ratings, required: @template.is_ratings_optional?, label_class: @template.is_ratings_optional? ?  "required" : '' if @template.is_ratings? %>
-
     <%= f.select :product_type_id, ProductType.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose product type"} if @template.is_product_type?  %>
+
+    <% if @template.is_allow_like? %>
+      <div class="row">
+        <div class="col-4">
+          <%= f.check_box :allow_like %>
+        </div>
+
+        <div class="col-4">
+          <%= f.check_box :view_likes %>
+        </div>
+      </div>
+    <% end %>
 
     <br>
     <% if @resource.persisted? && @resource.categories.last.category_template.is_location? %>
