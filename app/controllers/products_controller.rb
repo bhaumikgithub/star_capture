@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   load_and_authorize_resource
 
   include InheritAction
-  before_action :set_product, only: [:update_location, :update_address, :delete_image]
+  before_action :set_product, only: [:update_location, :update_address, :delete_image, :liked_by_user]
 
   def new
     @resource = Product.new
@@ -102,6 +102,11 @@ class ProductsController < ApplicationController
       sleep 4
       render json: {city: @user_location.city, country: @user_location.country, state: @user_location.state, pincode: @user_location.postal_code, address: @user_location.address,is_updated: is_updated}
     end
+  end
+
+  #like
+  def liked_by_user
+    @resource.liked_by current_user
   end
 
   private

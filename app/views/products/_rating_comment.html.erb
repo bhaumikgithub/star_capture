@@ -2,9 +2,9 @@
   <div>
     <% (1..5).each do |i| %>
       <% if i <= rate.stars.to_i %>             
-        <%= image_tag("star-on.png") %>
+        <%= image_tag("/images/ratyrate/star-on.png") %>
       <% else %>
-      <%= image_tag("star-off.png") %>
+      <%= image_tag("/images/ratyrate/star-off.png") %>
       <% end %>
     <% end %><br>
     <h5><b><%= rate.comment %></b></h5>

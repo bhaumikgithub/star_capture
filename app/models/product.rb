@@ -5,6 +5,8 @@ class Product < ApplicationRecord
   belongs_to :product_type
   ratyrate_rateable "ratings"
 
+  acts_as_votable
+
   PARKING_TYPE = ['No Parking', 'Free', 'Paid', 'Valet']
   WEEK_DAYS = ['Monday', 'Tudeday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 

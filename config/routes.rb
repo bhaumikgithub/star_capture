@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       delete 'delete_image/:image_id', to: 'products#delete_image', as: 'delete_image'
       patch :update_location
       patch :update_address
+      put "like", to: "products#liked_by_user"
     end
     collection do
       get :show_nearby_products

@@ -8,6 +8,7 @@ class Ability
       can :show_nearby_products, Product
       can :update_user_location, Product
       can :read, Product
+      can :liked_by_user, Product
     end
   end
 end
