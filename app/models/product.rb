@@ -20,6 +20,7 @@ class Product < ApplicationRecord
       obj.country = geo.country
       obj.state = geo.state
       obj.address = geo.formatted_address
+      obj.location = geo.formatted_address
     end
   end
   after_validation :reverse_geocode
@@ -39,7 +40,7 @@ class Product < ApplicationRecord
   end
 
   def validate_fields
-    self.categories.last.category_template.get_optional_fields - ['mon_to_sat_on' , 'mon_to_sat_open_time', 'mon_to_sat_close_time']
+    self.categories.last.category_template.get_optional_fields - ['mon_to_sat_on' , 'mon_to_sat_open_time', 'mon_to_sat_close_time', 'location']
   end
 
   def add_errors
