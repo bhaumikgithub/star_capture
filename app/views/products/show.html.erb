@@ -100,10 +100,26 @@
         <% if @resource.latitude.present? && @resource.longitude.present? %>
           <%= render 'map' %>
         <% end %>
-        Rating  : <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, data: { turbolinks: false }  %>
-        <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put}) do %>
-          Comment: <%= text_field_tag :comment  %>
-          <%= submit_tag "Submit" %>
+        <div class="rating_form">
+          <% if current_user.user? %>
+            <% unless @comment %>
+              <% if @template.is_allow_ratings? %>
+                Rating <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id} %>
+              <% end %>
+              <% if @template.is_allow_ratings_comment? %>
+                <div class="form-group">
+                  <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put, remote: true}) do %>
+                    <%= label_tag "Comment" %>
+                    <%= text_area_tag :comment, nil, class: "form-control"  %>
+                  </div>
+                  <%= submit_tag "Submit", class: "btn btn-sm btn-primary" %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class= "rating_div">
+          <%= render "rating_comment", rates: @rates %>
+        </div>
         <% end %>
         <div class="mt-4">
           <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>

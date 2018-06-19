@@ -1,0 +1,15 @@
+<% rates.each do |rate| %>
+  <div>
+    <% (1..5).each do |i| %>
+      <% if i <= rate.stars.to_i %>             
+        <%= image_tag("star-on.png") %>
+      <% else %>
+      <%= image_tag("star-off.png") %>
+      <% end %>
+    <% end %><br>
+    <h5><b><%= rate.comment %></b></h5>
+    <span class= "rating_comment_user_info">By <%= rate.rater.name %> on <%= rate.created_at.strftime('%d %B %Y') %></span>
+    <br>
+  </div>
+  <hr>
+<% end %>

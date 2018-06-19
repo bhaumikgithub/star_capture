@@ -18,5 +18,9 @@ class RaterController < ApplicationController
     else
       flash[:alert] = "Please give rating first"
     end
+    @rates = Rate.all.order('created_at DESC')
+    respond_to do |format|
+      format.js
+    end
   end
 end
