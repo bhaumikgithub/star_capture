@@ -100,8 +100,8 @@
         <% if @resource.latitude.present? && @resource.longitude.present? %>
           <%= render 'map' %>
         <% end %>
-        <div class="rating_form">
-          <% if current_user.user? %>
+        <% if current_user.user? %>
+          <div class="rating_form">
             <% unless @comment %>
               <% if @template.is_allow_ratings? %>
                 Rating <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, star_path: '/images/ratyrate' %>
@@ -115,11 +115,15 @@
                   <%= submit_tag "Submit", class: "btn btn-sm btn-primary" %>
               <% end %>
             <% end %>
-          <% end %>
-        </div>
+         </div>
         <div class= "rating_div">
           <%= render "rating_comment", rates: @rates %>
         </div>
+        <div id="comments" class="mt-2">
+          <%= render 'comments', comments: @comments %>
+        </div>
+        <% end %>
+
       <% end %>
       <div class="mt-4">
         <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>

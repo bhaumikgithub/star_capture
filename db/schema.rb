@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_18_140801) do
+ActiveRecord::Schema.define(version: 2018_06_19_104608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,15 @@ ActiveRecord::Schema.define(version: 2018_06_18_140801) do
     t.jsonb "allow_ratings_comment", default: {"optional"=>false, "required"=>false}
   end
 
+  create_table "overall_averages", force: :cascade do |t|
+    t.string "rateable_type"
+    t.bigint "rateable_id"
+    t.float "overall_avg", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rateable_type", "rateable_id"], name: "index_overall_averages_on_rateable_type_and_rateable_id"
+  end
+
   create_table "product_comments", force: :cascade do |t|
     t.bigint "product_id"
     t.text "comment"
@@ -104,15 +113,6 @@ ActiveRecord::Schema.define(version: 2018_06_18_140801) do
     t.bigint "user_id"
     t.index ["product_id"], name: "index_product_comments_on_product_id"
     t.index ["user_id"], name: "index_product_comments_on_user_id"
-  end
-  
-  create_table "overall_averages", force: :cascade do |t|
-    t.string "rateable_type"
-    t.bigint "rateable_id"
-    t.float "overall_avg", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["rateable_type", "rateable_id"], name: "index_overall_averages_on_rateable_type_and_rateable_id"
   end
 
   create_table "product_types", force: :cascade do |t|

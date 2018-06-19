@@ -69,6 +69,9 @@ class ProductsController < ApplicationController
 
   def show
     super
+    @template = @resource.categories.first.category_template
+    @rate = Rate.find_by(rater_id: current_user.id, rateable_id: params[:id])
+    @rates = Rate.where(rateable_id: params[:id]).where.not(comment: nil).order('created_at DESC')
     @comments = current_user.product_comments.where(product_id:@resource.id).order(created_at: :desc).limit(10)
   end
 
@@ -121,6 +124,7 @@ class ProductsController < ApplicationController
     if @comment_count == @comments.count
       @all = true
     end
+  end
   
   #like
   def liked_by_user
