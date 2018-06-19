@@ -100,7 +100,7 @@
         <% if @resource.latitude.present? && @resource.longitude.present? %>
           <%= render 'map' %>
         <% end %>
-        Rating  : <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, data: { turbolinks: false }  %>
+        Rating  : <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, data: { turbolinks: false }, star_path: '/images/ratyrate'  %>
         <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put}) do %>
           Comment: <%= text_field_tag :comment  %>
           <%= submit_tag "Submit" %>
