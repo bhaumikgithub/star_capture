@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_052244) do
+ActiveRecord::Schema.define(version: 2018_06_19_104608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,10 @@ ActiveRecord::Schema.define(version: 2018_06_19_052244) do
     t.jsonb "timings"
     t.string "currency"
     t.float "entry_fee_foreigner"
+    t.boolean "allow_comment", default: false
+    t.boolean "view_comments", default: false
+    t.boolean "allow_like", default: false
+    t.boolean "view_likes", default: false
     t.index ["product_type_id"], name: "index_products_on_product_type_id"
   end
 
