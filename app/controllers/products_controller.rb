@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
   def show
     @template = @resource.categories.first.category_template
     @comment = Rate.find_by(rater_id: current_user.id, rateable_id: params[:id])&.comment
-    @rates = Rate.all.order('created_at DESC')
+    @rates = Rate.where(rateable_id: params[:id]).order('created_at DESC')
     super
   end
 
