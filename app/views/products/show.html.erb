@@ -102,26 +102,41 @@
         <% end %>
         <% if current_user.user? %>
           <div class="rating_form">
-            <% unless @comment %>
-              <% if @template.is_allow_ratings? %>
-                Rating <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, star_path: '/images/ratyrate' %>
+            <% if @template.is_allow_ratings? %>
+              <% unless @rate && @rate.comment %>
+                <% if @rate %>
+                  <% (1..5).each do |i| %>
+                    <% if i <= @rate.stars.to_i %>             
+                      <%= image_tag("/images/ratyrate/star-on.png") %>
+                    <% else %>
+                    <%= image_tag("/images/ratyrate/star-off.png") %>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  Rating <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, star_path: '/images/ratyrate', cancel: false %>
+                <% end %>
               <% end %>
-              <% if @template.is_allow_ratings_comment? %>
+            </div>
+            <%# end %>
+              <% if @template.is_allow_ratings_comment? && ((@rate && !@rate.comment) || (!@rate)) %>
                 <div class="form-group">
                   <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put, remote: true}) do %>
                     <%= label_tag "Comment" %>
-                    <%= text_area_tag :comment, nil, class: "form-control"  %>
+                    <%= text_area_tag :comment, nil, value: nil, class: "form-control"  %>
                   </div>
                   <%= submit_tag "Submit", class: "btn btn-sm btn-primary" %>
               <% end %>
             <% end %>
-         </div>
+          </div>
         <div class= "rating_div">
           <%= render "rating_comment", rates: @rates %>
         </div>
-        <div id="comments" class="mt-2">
-          <%= render 'comments', comments: @comments %>
-        </div>
+        <% if @template.is_allow_comment? %>
+          <div id="comments" class="mt-2">
+            <%= render 'comments', comments: @comments %>
+          </div>
+        <% end %>
+        
         <% end %>
 
       <% end %>
@@ -132,17 +147,21 @@
           <td><%= link_to "Delete", product_path(@resource), method: :delete, data: {confirm: "Are you sure?"},class: 'btn btn-sm btn-danger' %></td>
         <% end %>
       </div>
+      <% if  current_user.user? && @template.is_allow_like? %>
+        <%  if current_user.voted_up_on? @resource %>
+          <%= image_tag asset_path('liked.png'), class: 'product_like'%>
+          <span class="like_count ml-2"> <b>likes: </b> <%= @resource.get_likes.size if @resource.view_likes %></span>
+        <% else %>
+         <%= link_to (image_tag asset_path('like.png'), class: 'product_like'), like_product_path(@resource), method: :put, remote: true if @resource.allow_like %>
+         <span class="like_count ml-2"><b>likes: </b><%= @resource.get_likes.size if @resource.view_likes %></span>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
 <br>
-<% if  current_user.user? && @resource.categories.last.category_template.is_allow_like? %>
-  <%  if current_user.voted_up_on? @resource %>
-    <%= image_tag asset_path('liked.png'), class: 'product_like'%>
-    <span class="like_count ml-2"> <b>likes: </b> <%= @resource.get_likes.size if @resource.view_likes %></span>
-  <% else %>
-   <%= link_to (image_tag asset_path('like.png'), class: 'product_like'), like_product_path(@resource), method: :put, remote: true if @resource.allow_like %>
-   <span class="like_count ml-2"><b>likes: </b><%= @resource.get_likes.size if @resource.view_likes %></span>
-  <% end %>
-<% end %>
+
 <br><br>
+
+
+

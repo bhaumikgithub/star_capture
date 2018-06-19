@@ -8,7 +8,7 @@
 <div class="col-6">
   <% comments.each do |comment| %>
     <span><%= comment.comment %></span><br>
-    <span>By <b><%= current_user.name %></b> On <%= comment.created_at.strftime("%d %B %Y") %></span><br><hr>
+    <span class="rating_comment_user_info">By <b><%= current_user.name %></b> On <%= comment.created_at.strftime("%d %B %Y") %></span><br><hr>
   <% end %>
   <% @count = params[:count].present? ? params[:count].to_i : 20 %>
   <% params[:count].present?  ? @count += 10 : @count if @count <= comments.count %>
