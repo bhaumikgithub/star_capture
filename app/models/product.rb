@@ -6,6 +6,8 @@ class Product < ApplicationRecord
   has_many :product_comments
   ratyrate_rateable "ratings"
 
+  acts_as_votable
+
   PARKING_TYPE = ['No Parking', 'Free', 'Paid', 'Valet']
   WEEK_DAYS = ['Monday', 'Tudeday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
@@ -41,7 +43,7 @@ class Product < ApplicationRecord
   end
 
   def validate_fields
-    self.categories.last.category_template.get_optional_fields - ['mon_to_sat_on' , 'mon_to_sat_open_time', 'mon_to_sat_close_time', 'location']
+    self.categories.last.category_template.get_optional_fields - ['mon_to_sat_on' , 'mon_to_sat_open_time', 'mon_to_sat_close_time', 'location', 'allow_ratings', 'allow_ratings_comment', 'allow_like', 'allow_comment']
   end
 
   def add_errors

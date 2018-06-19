@@ -152,6 +152,10 @@ ActiveRecord::Schema.define(version: 2018_06_18_140801) do
     t.jsonb "timings"
     t.string "currency"
     t.float "entry_fee_foreigner"
+    t.boolean "allow_comment", default: false
+    t.boolean "view_comments", default: false
+    t.boolean "allow_like", default: false
+    t.boolean "view_likes", default: false
     t.index ["product_type_id"], name: "index_products_on_product_type_id"
   end
 
@@ -200,6 +204,22 @@ ActiveRecord::Schema.define(version: 2018_06_18_140801) do
     t.float "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.string "votable_type"
+    t.bigint "votable_id"
+    t.string "voter_type"
+    t.bigint "voter_id"
+    t.boolean "vote_flag"
+    t.string "vote_scope"
+    t.integer "vote_weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id"
+    t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+    t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
   end
 
   add_foreign_key "categories", "category_templates"

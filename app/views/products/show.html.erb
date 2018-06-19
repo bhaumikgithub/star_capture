@@ -100,24 +100,45 @@
         <% if @resource.latitude.present? && @resource.longitude.present? %>
           <%= render 'map' %>
         <% end %>
-        <% if current_user.user? %>
-          Rating  : <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, data: { turbolinks: false }  %>
-          <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put}) do %>
-            Comment: <%= text_field_tag :comment  %>
-            <%= submit_tag "Submit" %>
-          <% end %>
-          <div id="comments" class="mt-2">
-            <%= render 'comments', comments: @comments %>
-          </div>
-          <div class="mt-4">
-            <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
-            <% if current_user.admin? %>
-              <td><%= link_to "Edit", edit_product_path(@resource) , class: 'btn btn-sm btn-primary'  %></td>
-              <td><%= link_to "Delete", product_path(@resource), method: :delete, data: {confirm: "Are you sure?"},class: 'btn btn-sm btn-danger' %></td>
+        <div class="rating_form">
+          <% if current_user.user? %>
+            <% unless @comment %>
+              <% if @template.is_allow_ratings? %>
+                Rating <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, star_path: '/images/ratyrate' %>
+              <% end %>
+              <% if @template.is_allow_ratings_comment? %>
+                <div class="form-group">
+                  <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put, remote: true}) do %>
+                    <%= label_tag "Comment" %>
+                    <%= text_area_tag :comment, nil, class: "form-control"  %>
+                  </div>
+                  <%= submit_tag "Submit", class: "btn btn-sm btn-primary" %>
+              <% end %>
             <% end %>
-          </div>
+          <% end %>
+        </div>
+        <div class= "rating_div">
+          <%= render "rating_comment", rates: @rates %>
+        </div>
+      <% end %>
+      <div class="mt-4">
+        <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
+        <% if current_user.admin? %>
+          <td><%= link_to "Edit", edit_product_path(@resource) , class: 'btn btn-sm btn-primary'  %></td>
+          <td><%= link_to "Delete", product_path(@resource), method: :delete, data: {confirm: "Are you sure?"},class: 'btn btn-sm btn-danger' %></td>
         <% end %>
       </div>
     </div>
+  </div>
 </div>
+<br>
+<% if  current_user.user? && @resource.categories.last.category_template.is_allow_like? %>
+  <%  if current_user.voted_up_on? @resource %>
+    <%= image_tag asset_path('liked.png'), class: 'product_like'%>
+    <span class="like_count ml-2"> <b>likes: </b> <%= @resource.get_likes.size if @resource.view_likes %></span>
+  <% else %>
+   <%= link_to (image_tag asset_path('like.png'), class: 'product_like'), like_product_path(@resource), method: :put, remote: true if @resource.allow_like %>
+   <span class="like_count ml-2"><b>likes: </b><%= @resource.get_likes.size if @resource.view_likes %></span>
+  <% end %>
+<% end %>
 <br><br>

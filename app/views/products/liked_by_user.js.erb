@@ -1,0 +1,2 @@
+$('.product_like').attr({ src: "<%= asset_path('liked.png') %>" });
+$('.like_count').html('<b>likes: </b><%= @resource.get_likes.size %>');

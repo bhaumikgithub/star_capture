@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   load_and_authorize_resource
 
   include InheritAction
-  before_action :set_product, only: [:update_location, :update_address, :delete_image,:create_product_comments, :load_more_comments]
+  before_action :set_product, only: [:update_location, :update_address, :delete_image,:create_product_comments, :load_more_comments, :liked_by_user]
   before_action :get_comment_count, only: [:show, :create_product_comments, :load_more_comments]
 
   def new
@@ -24,6 +24,13 @@ class ProductsController < ApplicationController
     else
       @template = Category.first.category_template
     end
+    super
+  end
+
+  def show
+    @template = @resource.categories.first.category_template
+    @comment = Rate.find_by(rater_id: current_user.id, rateable_id: params[:id])&.comment
+    @rates = Rate.where(rateable_id: params[:id]).order('created_at DESC')
     super
   end
 
@@ -114,6 +121,10 @@ class ProductsController < ApplicationController
     if @comment_count == @comments.count
       @all = true
     end
+  
+  #like
+  def liked_by_user
+    @resource.liked_by current_user
   end
 
   private

@@ -10,6 +10,7 @@ class Ability
       can :create_product_comments, Product
       can :load_more_comments, Product
       can :read, Product
+      can :liked_by_user, Product
     end
   end
 end
