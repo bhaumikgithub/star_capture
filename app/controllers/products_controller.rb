@@ -26,6 +26,13 @@ class ProductsController < ApplicationController
     super
   end
 
+  def show
+    @template = @resource.categories.first.category_template
+    @comment = Rate.find_by(rater_id: current_user.id, rateable_id: params[:id])&.comment
+    @rates = Rate.where(rateable_id: params[:id]).order('created_at DESC')
+    super
+  end
+
   def edit
     if params[:category_id]
       @template = Category.find_by(id: params[:category_id]).category_template
