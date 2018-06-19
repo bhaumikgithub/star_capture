@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   has_one_attached :image
   has_and_belongs_to_many :categories
   belongs_to :product_type
+  ratyrate_rateable "ratings"
 
   acts_as_votable
 

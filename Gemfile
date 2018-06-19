@@ -43,3 +43,7 @@ gem 'lightbox2-rails'
 
 #like, vote
 gem 'acts_as_votable', '~> 0.11.1'
+
+#for ratings
+gem 'ratyrate'
+

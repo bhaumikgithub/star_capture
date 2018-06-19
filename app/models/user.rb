@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
         :rememberable, :trackable, :validatable
   # Email validation
+  ratyrate_rater
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   acts_as_voter
   reverse_geocoded_by :latitude, :longitude do |obj,results|
