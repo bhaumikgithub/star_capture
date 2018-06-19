@@ -110,4 +110,14 @@
       </div>
     </div>
 </div>
+<br>
+<% if  current_user.user? %>
+  <%  if current_user.voted_up_on? @resource %>
+    <%= image_tag 'liked.png', class: 'product_like'%>
+    <span class="like_count ml-2"><%= @resource.get_likes.size %></span>
+  <% else %>
+   <%= link_to (image_tag 'like.png', class: 'product_like'), like_product_path(@resource), method: :put, remote: true %>
+   <span class="like_count ml-2"><%= @resource.get_likes.size %></span>
+  <% end %>
+<% end %>
 <br><br>
