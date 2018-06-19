@@ -4,7 +4,7 @@ class RaterController < ApplicationController
     if user_signed_in?
       obj = params[:klass].classify.constantize.find(params[:id])
       obj.rate params[:score].to_f, current_user, params[:dimension]
-
+      RatingCache.last.destroy
       render :json => true
     else
       render :json => false
@@ -18,7 +18,7 @@ class RaterController < ApplicationController
     else
       flash[:alert] = "Please give rating first"
     end
-    @rates = Rate.where(rateable_id: params[:id]).order('created_at DESC')
+    @rates = Rate.where(rateable_id: params[:id]).where.not(comment: nil).order('created_at DESC')
     respond_to do |format|
       format.js
     end

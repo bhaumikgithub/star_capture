@@ -102,20 +102,30 @@
         <% end %>
         <div class="rating_form">
           <% if current_user.user? %>
-            <% unless @comment %>
-              <% if @template.is_allow_ratings? %>
-                Rating <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, star_path: '/images/ratyrate' %>
+            <% if @template.is_allow_ratings? %>
+              <% unless @rate && @rate.comment %>
+                <% if @rate %>
+                  <% (1..5).each do |i| %>
+                    <% if i <= @rate.stars.to_i %>             
+                      <%= image_tag("/images/ratyrate/star-on.png") %>
+                    <% else %>
+                    <%= image_tag("/images/ratyrate/star-off.png") %>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  Rating <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, star_path: '/images/ratyrate', cancel: false %>
+                <% end %>
               <% end %>
-              <% if @template.is_allow_ratings_comment? %>
+            <% end %>
+              <% if @template.is_allow_ratings_comment? && ((@rate && !@rate.comment) || (!@rate)) %>
                 <div class="form-group">
                   <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put, remote: true}) do %>
                     <%= label_tag "Comment" %>
-                    <%= text_area_tag :comment, nil, class: "form-control"  %>
+                    <%= text_area_tag :comment, nil, value: nil, class: "form-control"  %>
                   </div>
                   <%= submit_tag "Submit", class: "btn btn-sm btn-primary" %>
               <% end %>
             <% end %>
-          <% end %>
         </div>
         <div class= "rating_div">
           <%= render "rating_comment", rates: @rates %>
