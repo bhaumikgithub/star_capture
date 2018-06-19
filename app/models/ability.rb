@@ -7,6 +7,8 @@ class Ability
     else
       can :show_nearby_products, Product
       can :update_user_location, Product
+      can :create_product_comments, Product
+      can :load_more_comments, Product
       can :read, Product
     end
   end

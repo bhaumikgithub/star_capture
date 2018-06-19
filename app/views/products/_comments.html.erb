@@ -1,0 +1,19 @@
+<div class="col-6">
+  <%= bootstrap_form_tag url: create_product_comments_product_path, remote: true do |f| %>
+    <%= f.text_area :comment, hide_label: true, placeholder: "Leave a comment..." %>
+    <%= f.submit "Add"%>
+  <% end %>
+</div><br>
+<h4>Comments</h4>
+<div class="col-6">
+  <% comments.each do |comment| %>
+    <span><%= comment.comment %></span><br>
+    <span>By <b><%= current_user.name %></b> On <%= comment.created_at.strftime("%d %B %Y") %></span><br><hr>
+  <% end %>
+  <% @count = params[:count].present? ? params[:count].to_i : 20 %>
+  <% params[:count].present?  ? @count += 10 : @count if @count <= comments.count %>
+  <% if !@all && @comment_count > 10 %>
+    <%= link_to "Load more comments",load_more_comments_product_path(count: @count) ,remote: true
+    %>
+  <% end %>
+</div>

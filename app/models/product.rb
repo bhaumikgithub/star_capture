@@ -3,6 +3,8 @@ class Product < ApplicationRecord
   has_one_attached :image
   has_and_belongs_to_many :categories
   belongs_to :product_type
+  has_many :product_comments
+  ratyrate_rateable "ratings"
 
   PARKING_TYPE = ['No Parking', 'Free', 'Paid', 'Valet']
   WEEK_DAYS = ['Monday', 'Tudeday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']

@@ -3,7 +3,8 @@ class ProductsController < ApplicationController
   load_and_authorize_resource
 
   include InheritAction
-  before_action :set_product, only: [:update_location, :update_address, :delete_image]
+  before_action :set_product, only: [:update_location, :update_address, :delete_image,:create_product_comments, :load_more_comments]
+  before_action :get_comment_count, only: [:show, :create_product_comments, :load_more_comments]
 
   def new
     @resource = Product.new
@@ -59,6 +60,11 @@ class ProductsController < ApplicationController
     end
   end
 
+  def show
+    super
+    @comments = current_user.product_comments.where(product_id:@resource.id).order(created_at: :desc).limit(10)
+  end
+
   def delete_image
     @resource.multiple_images.where(id: params[:image_id]).purge
     redirect_to product_path(@resource)
@@ -97,6 +103,19 @@ class ProductsController < ApplicationController
     end
   end
 
+  def create_product_comments
+    current_user.product_comments.create(comment:params[:comment],product_id:params[:id])
+    @comments = current_user.product_comments.where(product_id:@resource.id).order(created_at: :desc).limit(10)
+  end
+
+  def load_more_comments
+    @all = false
+    @comments = current_user.product_comments.where(product_id:@resource.id).order(created_at: :desc).limit(params[:count])
+    if @comment_count == @comments.count
+      @all = true
+    end
+  end
+
   private
 
   def resource_params
@@ -105,5 +124,9 @@ class ProductsController < ApplicationController
 
   def set_product
     @resource = Product.find_by(id: params[:id])
+  end
+
+  def get_comment_count
+    @comment_count = current_user.product_comments.where(product_id:@resource.id).count
   end
 end
