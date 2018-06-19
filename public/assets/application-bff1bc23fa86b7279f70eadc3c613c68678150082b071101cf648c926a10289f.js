@@ -18618,8 +18618,8 @@ var Button = function ($) {
     cancel       : false,
     cancelClass  : 'raty-cancel',
     cancelHint   : 'Cancel this rating!',
-    cancelOff    : "<%= asset_path('cancel-off.png') %>",
-    cancelOn     : "<%= asset_path('cancel-on.png') %>" ,
+    cancelOff    : 'cancel-off.png',
+    cancelOn     : 'cancel-on.png',
     cancelPlace  : 'left',
     click        : undefined,
     half         : false,
@@ -18639,9 +18639,9 @@ var Button = function ($) {
     scoreName    : 'score',
     single       : false,
     space        : true,
-    starHalf     : "<%= asset_path('star-half.png') %>",
-    starOff      : "<%= asset_path('star-off.png') %>",
-    starOn       : "<%= asset_path('star-on.png') %>",
+    starHalf     : 'star-half.png',
+    starOff      : 'star-off.png',
+    starOn       : 'star-on.png',
     starType     : 'img',
     target       : undefined,
     targetFormat : '{score}',
@@ -18656,8 +18656,8 @@ $.fn.raty.defaults.half = false;
 $.fn.raty.defaults.halfShow = true;
 $.fn.raty.defaults.path = "/assets";
 $.fn.raty.defaults.cancel = false;
-
-$(function(){
+function initstars(argument) {
+  // body...
   $(".star").each(function() {
     var $readonly = ($(this).attr('data-readonly') == 'true');
     var $half     = ($(this).attr('data-enable-half') == 'true');
@@ -18713,7 +18713,14 @@ $(function(){
       }
     });
   });
+}
+$( document ).ready(function() {
+  initstars();
 });
+$(document).on('turbolinks:load', function() {
+  initstars();
+});
+
 /*!
  * Lightbox v2.8.2
  * by Lokesh Dhakar
