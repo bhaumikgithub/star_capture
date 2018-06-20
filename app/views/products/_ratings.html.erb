@@ -10,7 +10,7 @@
     <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put, remote: true, class: 'rating_comment_form'}) do %>
       <div class="form-group">
         <%= label_tag "Comment" %>
-        <%= text_area_tag :comment, nil, value: nil, class: "form-control"  %>
+        <%= text_area_tag :comment, nil, value: nil, class: "form-control rating_comment_textarea", required: true  %>
       </div>
       <%= submit_tag "Submit", class: "btn btn-sm btn-primary submit_btn" %>
     <% end %>

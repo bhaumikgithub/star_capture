@@ -105,7 +105,7 @@
             <%= render "ratings" %>
           </div>
           <div class= "rating_div">
-            <%= render "rating_comment", rates: @rates %>
+            <%= render "rating_comment", rates: @rates, error: nil %>
           </div>
           <% if @template.is_allow_comment? %>
             <div id="comments" class="mt-2">
@@ -135,8 +135,3 @@
 <br>
 
 <br><br>
-<script>
-  $('.submit_btn').on('click', function(){
-    $('.rating_comment_form').submit();
-  })
-</script>

@@ -1,3 +1,8 @@
+ <% if error %>
+  <div class= "error_message">
+    <span><%= error %></span>
+  </div>
+<% end %>
 <% rates.each do |rate| %>
   <div>
     <%= render "products/rating_star_image", rate: rate %>

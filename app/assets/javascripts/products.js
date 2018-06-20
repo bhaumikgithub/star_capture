@@ -305,3 +305,6 @@ function init_lightbox() {
     'positionFromTop': 100
   })
 }
+$(document).on('click','.submit_btn', function(){
+  $('.rating_comment_form').submit();
+})
