@@ -2,8 +2,8 @@
   <h2>Category Listing</h2>
   <div class="col-12">
     <% if current_user.admin? %>
-      <%= link_to "New Category", new_category_path, class: "btn  btn-outline-secondary btn-sm float-right mb-2" %>
-      <%= link_to "New Product", new_product_path, class: "btn  btn-outline-secondary btn-sm float-right mb-2 mr-2" %>
+      <%= link_to "New Category", new_category_path, class: "btn  btn-outline-secondary btn-sm float-right mb-2"%>
+      <%= link_to "New Product", new_product_path, class: "btn  btn-outline-secondary btn-sm float-right mb-2 mr-2"  if is_category? %>
     <% end %>
   </div>
   <table class=" table table-striped sortable">

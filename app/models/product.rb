@@ -3,7 +3,7 @@ class Product < ApplicationRecord
   has_one_attached :image
   has_and_belongs_to_many :categories
   belongs_to :product_type
-  has_many :product_comments
+  has_many :product_comments, dependent: :destroy
   ratyrate_rateable "ratings"
 
   acts_as_votable
@@ -50,6 +50,10 @@ class Product < ApplicationRecord
     validate_fields.each do |field|
       errors.add(:base, "#{field.capitalize} can't be blank!") unless self.send(field).present?
     end
+  end
+
+  def category_present?
+    return Category.first.present?
   end
 
 end
