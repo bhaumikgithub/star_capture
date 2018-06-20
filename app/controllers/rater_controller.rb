@@ -16,7 +16,7 @@ class RaterController < ApplicationController
     if @rate
       @rate.update(comment: params[:comment])
     else
-      flash[:alert] = "Please give rating first"
+      @error = "Please give rating first"
     end
     @rates = Rate.where(rateable_id: params[:id]).where.not(comment: nil).order('created_at DESC')
     respond_to do |format|

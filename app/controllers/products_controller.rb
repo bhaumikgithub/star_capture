@@ -3,8 +3,7 @@ class ProductsController < ApplicationController
   load_and_authorize_resource
 
   include InheritAction
-  before_action :set_product, only: [:update_location, :update_address, :delete_image,:create_product_comments, :load_more_comments, :liked_by_user]
-  before_action :get_comment_count, only: [:show, :create_product_comments, :load_more_comments]
+  before_action :set_product, only: [:update_location, :update_address, :delete_image,:create_product_comments, :load_more_comments, :liked_by_user, :delete_product_comment]
 
   def new
     @resource = Product.new
@@ -24,13 +23,6 @@ class ProductsController < ApplicationController
     else
       @template = Category.first.category_template
     end
-    super
-  end
-
-  def show
-    @template = @resource.categories.first.category_template
-    @rate = Rate.find_by(rater_id: current_user.id, rateable_id: params[:id])
-    @rates = Rate.where(rateable_id: params[:id]).where.not(comment: nil).order('created_at DESC')
     super
   end
 
@@ -72,7 +64,8 @@ class ProductsController < ApplicationController
     @template = @resource.categories.first.category_template
     @rate = Rate.find_by(rater_id: current_user.id, rateable_id: params[:id])
     @rates = Rate.where(rateable_id: params[:id]).where.not(comment: nil).order('created_at DESC')
-    @comments = current_user.product_comments.where(product_id:@resource.id).order(created_at: :desc).limit(10)
+    @comments = @resource.product_comments.order(created_at: :desc).limit(10)
+    @comment_count = @resource.comment_count
   end
 
   def delete_image
@@ -113,19 +106,39 @@ class ProductsController < ApplicationController
     end
   end
 
+  
+  #product comments methods start
   def create_product_comments
     current_user.product_comments.create(comment:params[:comment],product_id:params[:id])
-    @comments = current_user.product_comments.where(product_id:@resource.id).order(created_at: :desc).limit(10)
+    @comments = @resource.product_comments.order(created_at: :desc).limit(10)
+    @comment_count = @resource.comment_count
+    respond_to do |format|
+      format.js {render 'load_comments.js.erb'}
+    end
   end
 
   def load_more_comments
     @all = false
-    @comments = current_user.product_comments.where(product_id:@resource.id).order(created_at: :desc).limit(params[:count])
+    @comments = @resource.product_comments.order(created_at: :desc).limit(params[:count])
+    @comment_count = @resource.comment_count
     if @comment_count == @comments.count
       @all = true
     end
+    respond_to do |format|
+      format.js {render  'load_comments.js.erb'}
+    end
   end
-  
+
+  def delete_product_comment
+    ProductComment.find(params[:comment_id]).destroy
+    @comments = @resource.product_comments.order(created_at: :desc).limit(10)
+    @comment_count = @resource.comment_count
+    respond_to do |format|
+      format.js {render  'load_comments.js.erb'}
+    end
+  end
+  # product comments methods end
+
   #like
   def liked_by_user
     @resource.liked_by current_user
@@ -139,9 +152,5 @@ class ProductsController < ApplicationController
 
   def set_product
     @resource = Product.find_by(id: params[:id])
-  end
-
-  def get_comment_count
-    @comment_count = current_user.product_comments.where(product_id:@resource.id).count
   end
 end

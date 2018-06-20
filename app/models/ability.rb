@@ -11,6 +11,7 @@ class Ability
       can :load_more_comments, Product
       can :read, Product
       can :liked_by_user, Product
+      can :delete_product_comment, Product
     end
   end
 end

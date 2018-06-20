@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       post :create_product_comments
       get :load_more_comments
       put "like", to: "products#liked_by_user"
+      delete :delete_product_comment
     end
     collection do
       get :show_nearby_products

@@ -1,2 +1,4 @@
-$('.rating_form').hide();
-$('.rating_div').html('<%= escape_javascript(render partial: "products/rating_comment", locals: { rates: @rates}) %>');
+<% unless @error %>
+  $('.rating_form').hide();
+<% end %>
+$('.rating_div').html('<%= escape_javascript(render partial: "products/rating_comment", locals: { rates: @rates, error: @error}) %>');

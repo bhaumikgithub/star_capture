@@ -15,6 +15,7 @@ $( document ).ready(function() {
   if (flag == false) {
     initialize();
   }
+  validate_comment()
 
   disable_optional_checkbox();
 
@@ -37,6 +38,7 @@ $(document).on('turbolinks:load', function() {
     initialize();
   }
 
+  validate_comment()
   disable_optional_checkbox();
 
   enable_optional_checkbox();
@@ -298,10 +300,32 @@ function show_open_close_time() {
   })
 }
 
-
+// init lightbox popup
 function init_lightbox() {
   lightbox.init();
   lightbox.option({
     'positionFromTop': 100
   })
 }
+
+// comment textarea validation
+function validate_comment() {
+  $('.submit_btn,.add_comment').attr('disabled', true);
+  $('.rating_comment_textarea, .comment_text_area').on('keyup',function() {
+    var rating_comment = $('.rating_comment_textarea').val();
+    var comment = $(".comment_text_area").val();
+    if(rating_comment != '')
+      $('.submit_btn').attr('disabled', false);
+    else
+      $('.submit_btn').attr('disabled', true);
+    if (comment != '' ) 
+      $('.add_comment').attr('disabled',false);
+    else 
+      $('.add_comment').attr('disabled',true);      
+  })
+}
+
+$(document).on('click','.submit_btn', function(){
+  $('.rating_comment_form').submit();
+})
+

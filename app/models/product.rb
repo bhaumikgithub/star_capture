@@ -52,8 +52,9 @@ class Product < ApplicationRecord
     end
   end
 
-  def category_present?
-    return Category.first.present?
+  #get comment count for product
+  def comment_count
+    self.product_comments.count
   end
 
 end
