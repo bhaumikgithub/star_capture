@@ -102,44 +102,17 @@
         <% end %>
         <% if current_user.user? %>
           <div class="rating_form">
-            <% if @template.is_allow_ratings? %>
-              <% unless @rate && @rate.comment %>
-                <% if @rate %>
-                  <% (1..5).each do |i| %>
-                    <% if i <= @rate.stars.to_i %>             
-                      <%= image_tag("/images/ratyrate/star-on.png") %>
-                    <% else %>
-                    <%= image_tag("/images/ratyrate/star-off.png") %>
-                    <% end %>
-                  <% end %>
-                <% else %>
-                  Rating <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, star_path: '/images/ratyrate', cancel: false %>
-                <% end %>
-              <% end %>
+            <%= render "ratings" %>
+          </div>
+          <div class= "rating_div">
+            <%= render "rating_comment", rates: @rates, error: nil %>
+          </div>
+          <% if @template.is_allow_comment? %>
+            <div id="comments" class="mt-2">
+              <%= render 'comments', comments: @comments %>
             </div>
-            <%# end %>
-              <% if @template.is_allow_ratings_comment? && ((@rate && !@rate.comment) || (!@rate)) %>
-                <div class="form-group">
-                  <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put, remote: true}) do %>
-                    <%= label_tag "Comment" %>
-                    <%= text_area_tag :comment, nil, value: nil, class: "form-control"  %>
-                  </div>
-                  <%= submit_tag "Submit", class: "btn btn-sm btn-primary" %>
-              <% end %>
-            <% end %>
-          </div>
-        <div class= "rating_div">
-          <%= render "rating_comment", rates: @rates %>
-        </div>
-        <% if @template.is_allow_comment? %>
-          <div id="comments" class="mt-2">
-            <%= render 'comments', comments: @comments %>
-          </div>
+          <% end %>
         <% end %>
-        
-        <% end %>
-
-      <% end %>
       <div class="mt-4">
         <%= link_to "Back", products_path, class: 'btn btn-sm btn-info' %>
         <% if current_user.admin? %>
@@ -163,6 +136,3 @@
 <br>
 
 <br><br>
-
-
-

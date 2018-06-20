@@ -324,3 +324,8 @@ function validate_comment() {
       $('.add_comment').attr('disabled',true);      
   })
 }
+
+$(document).on('click','.submit_btn', function(){
+  $('.rating_comment_form').submit();
+})
+
