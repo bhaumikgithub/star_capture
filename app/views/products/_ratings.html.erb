@@ -1,0 +1,18 @@
+<% if @template.is_allow_ratings? %>
+  <% unless @rate && @rate.comment %>
+    <% if @rate %>
+      <%= render "products/rating_star_image", rate: @rate %>
+    <% else %>
+      Rating <%= rating_for @resource, 'ratings', star: 5, params: {id: @resource.id}, star_path: '/images/ratyrate', cancel: false %>
+    <% end %>
+  <% end %>
+  <% if @template.is_allow_ratings_comment? && ((@rate && !@rate.comment) || (!@rate)) %>
+    <%= form_tag({:controller => "rater", :action => 'update'}, {:method => :put, remote: true, class: 'rating_comment_form'}) do %>
+      <div class="form-group">
+        <%= label_tag "Comment" %>
+        <%= text_area_tag :comment, nil, value: nil, class: "form-control"  %>
+      </div>
+      <%= submit_tag "Submit", class: "btn btn-sm btn-primary submit_btn" %>
+    <% end %>
+  <% end %>
+<% end %>
