@@ -52,4 +52,9 @@ class Product < ApplicationRecord
     end
   end
 
+  #get comment count for product
+  def comment_count
+    self.product_comments.count
+  end
+
 end

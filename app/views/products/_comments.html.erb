@@ -1,17 +1,20 @@
 <div class="col-6">
   <%= bootstrap_form_tag url: create_product_comments_product_path, remote: true do |f| %>
-    <%= f.text_area :comment, hide_label: true, placeholder: "Leave a comment..." %>
-    <%= f.submit "Add"%>
+    <%= f.text_area :comment, hide_label: true, placeholder: "Leave a comment...", required: true , class: "comment_text_area" %>
+    <%= f.submit "Add", class: 'add_comment btn btn-secondary'%>
   <% end %>
 </div><br>
 <h4>Comments</h4>
 <div class="col-6">
   <% comments.each do |comment| %>
     <span><%= comment.comment %></span><br>
-    <span class="rating_comment_user_info">By <b><%= current_user.name %></b> On <%= comment.created_at.strftime("%d %B %Y") %></span><br><hr>
+    <span class="rating_comment_user_info">By <b><%= comment.user.name %></b> On <%= comment.created_at.strftime("%d %B %Y") %></span>
+    <span><%= link_to 'Delete', delete_product_comment_product_path(comment_id: comment.id), method: :delete, data: {confirm: "Are you sure?"}, remote: true if current_user.id == comment.user.id %></span>
+    <br><hr>
   <% end %>
   <% @count = params[:count].present? ? params[:count].to_i : 20 %>
   <% params[:count].present?  ? @count += 10 : @count if @count <= comments.count %>
+  
   <% if !@all && @comment_count > 10 %>
     <%= link_to "Load more comments",load_more_comments_product_path(count: @count) ,remote: true
     %>
