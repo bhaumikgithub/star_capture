@@ -1,0 +1,7 @@
+<div class="container">
+  <p><b>Transport type name: </b> <%= @resource.name %></p>
+  <%= link_to "Back", transport_types_path, class: 'btn btn-sm btn-info' %>
+  <%= link_to "Edit", edit_transport_type_path(@resource), class: 'btn btn-sm btn-primary' %>
+  <%= link_to "Delete", transport_type_path(@resource), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-sm btn-danger' %>
+</div>
+
