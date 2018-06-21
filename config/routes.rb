@@ -26,7 +26,11 @@ Rails.application.routes.draw do
       patch :update_user_location
     end
   end
-  resources :itineraries
+  resources :itineraries do
+    collection do
+      get :create_itinerary_products
+    end
+  end
   resources :category_templates
   resources :product_types
   resources :itinerary_schedules

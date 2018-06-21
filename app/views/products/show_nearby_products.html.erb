@@ -36,3 +36,18 @@
 
   </div>
 </div>
+<br>
+<div class="row">
+  <div class="col-6">
+    <span><h4>Product Listing</h4></span>
+  </div>
+  <div class="col-6">
+    <button type="button" class="btn btn-primary add_itinarary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add Itinarary</button>
+
+    <%#= link_to "Add Itinarary", '#',class: 'btn btn-info add_itinarary float-right', id: 'itinarary_modal' %>
+  </div>
+  <br>
+</div>
+<dir class="row">
+  <%= render 'product_listing', resources: @resources %>
+</div>

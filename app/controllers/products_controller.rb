@@ -85,6 +85,7 @@ class ProductsController < ApplicationController
   end
 
   def show_nearby_products
+    index()
     @nearby_products = Product.eager_load(:categories).near([current_user.latitude, current_user.longitude], 5,{order: ""}).pluck(:latitude,:longitude,:id,:name,:price, :"categories.name")
     @product_categories = @nearby_products.each_with_object({ }) do |item, result|
       item[4] = item[4]  ? item[4] : 0
