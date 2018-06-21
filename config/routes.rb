@@ -30,10 +30,13 @@ Rails.application.routes.draw do
     collection do
       get :create_itinerary_products
     end
+    member do
+      post :create_itinerary_schedules
+    end
   end
   resources :category_templates
   resources :product_types
-  resources :itinerary_schedules
+  # resources :itinerary_schedules
   resources :rater, only: [:update]
   resources :transport_types
   scope "/operator" do
