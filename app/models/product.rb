@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :categories
   belongs_to :product_type
   has_many :product_comments, dependent: :destroy
+  has_many :itinerary_products
   ratyrate_rateable "ratings"
 
   acts_as_votable
