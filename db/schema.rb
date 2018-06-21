@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_104608) do
+ActiveRecord::Schema.define(version: 2018_06_20_134006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,49 @@ ActiveRecord::Schema.define(version: 2018_06_19_104608) do
     t.jsonb "allow_comment", default: {"optional"=>false, "required"=>false}
     t.jsonb "allow_ratings", default: {"optional"=>false, "required"=>false}
     t.jsonb "allow_ratings_comment", default: {"optional"=>false, "required"=>false}
+  end
+
+  create_table "itineraries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "start_date"
+    t.string "duration"
+    t.datetime "end_date"
+    t.string "price"
+    t.string "expenses"
+    t.string "members"
+    t.boolean "not_fixed"
+    t.bigint "transport_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "client_id"
+    t.bigint "user_id"
+    t.string "duration_type"
+    t.string "status", default: "pending"
+    t.index ["transport_type_id"], name: "index_itineraries_on_transport_type_id"
+    t.index ["user_id"], name: "index_itineraries_on_user_id"
+  end
+
+  create_table "itinerary_products", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "itinerary_schedule_id"
+    t.datetime "timing"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["itinerary_schedule_id"], name: "index_itinerary_products_on_itinerary_schedule_id"
+    t.index ["product_id"], name: "index_itinerary_products_on_product_id"
+  end
+
+  create_table "itinerary_schedules", force: :cascade do |t|
+    t.datetime "pickup_time"
+    t.text "pickup_location"
+    t.boolean "no_pickup"
+    t.datetime "drop_time"
+    t.text "drop_location"
+    t.boolean "no_drop"
+    t.bigint "itinerary_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["itinerary_id"], name: "index_itinerary_schedules_on_itinerary_id"
   end
 
   create_table "overall_averages", force: :cascade do |t|
@@ -185,6 +228,12 @@ ActiveRecord::Schema.define(version: 2018_06_19_104608) do
     t.index ["cacheable_type", "cacheable_id"], name: "index_rating_caches_on_cacheable_type_and_cacheable_id"
   end
 
+  create_table "transport_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -224,6 +273,11 @@ ActiveRecord::Schema.define(version: 2018_06_19_104608) do
 
   add_foreign_key "categories", "category_templates"
   add_foreign_key "categories", "users"
+  add_foreign_key "itineraries", "transport_types"
+  add_foreign_key "itineraries", "users"
+  add_foreign_key "itinerary_products", "itinerary_schedules"
+  add_foreign_key "itinerary_products", "products"
+  add_foreign_key "itinerary_schedules", "itineraries"
   add_foreign_key "product_comments", "products"
   add_foreign_key "product_comments", "users"
   add_foreign_key "products", "product_types"

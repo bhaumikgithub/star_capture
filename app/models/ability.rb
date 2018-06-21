@@ -14,6 +14,7 @@ class Ability
       can :delete_product_comment, Product
       can :create, User
       can :read, User
+      can :manage, TransportType
     end
   end
 end

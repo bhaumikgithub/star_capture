@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   post '/rate' => 'rater#create', :as => 'rate'
   root to: 'categories#index'
   devise_for :users, controllers: {
@@ -25,9 +26,12 @@ Rails.application.routes.draw do
       patch :update_user_location
     end
   end
+  resources :itineraries
   resources :category_templates
   resources :product_types
+  resources :itinerary_schedules
   resources :rater, only: [:update]
+  resources :transport_types
   scope "/operator" do
     resources :users
   end

@@ -5,6 +5,8 @@ class User < ApplicationRecord
         :rememberable, :trackable, :validatable
   # Email validation
   has_many :product_comments
+  has_many :itineraries, foreign_key: :user_id
+  has_one :itinerary, foreign_key: :client_id
   ratyrate_rater
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   acts_as_voter

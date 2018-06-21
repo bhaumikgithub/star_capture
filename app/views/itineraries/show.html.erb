@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-12">
+    <span class="d-inline-block"><h5><b>Name: </b> <%= @resource.name %></h5></span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <div class="row">
+      <div class="col-6">
+       <span class="d-inline-block"><b>Expences: </b><%= @resource.expenses %></span>
+     </div>
+    <div class="col-6">
+      <span class="d-inline-block"><b>Price: </b><%= @resource.members %></span>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <div class="row">
+      <div class="col-6">
+       <span class="d-inline-block"><b>Expences: </b><%= @resource.expenses %></span>
+     </div>
+    <div class="col-6">
+      <span class="d-inline-block"><b>Price: </b><%= @resource.price %></span>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <div class="row">
+      <div class="col-6">
+       <span class="d-inline-block"><b>Duration: </b><%= @resource.duration %></span>
+     </div>
+    <div class="col-6">
+      <span class="d-inline-block"><b>Client: </b><%= @resource.client.name %></span>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <div class="row">
+      <div class="col-6">
+       <span class="d-inline-block"><b>Transport Type: </b><%= @resource.transport_type.name %></span>
+     </div>
+    <div class="col-6">
+    </div>
+  </div>
+  </div>
+</div>
+<br>
+<% @duration_count =  @resource.duration_type == "Hours" ? 1 : @resource.duration.to_i  %>
+<%= bootstrap_form_tag  do |f| %>
+  <% for i in 1..@duration_count %>
+    <div class="row">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-header">
+            Day <%= i %> - <b><%= (@resource.start_date.to_date+i-1).strftime("%d %B %Y") %></b>
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-4">
+                <%= f.time_field :pickup_time, hide_label: true %>
+              </div>
+              <div class="col-8"> 
+                <%= f.text_field :pickup_location, hide_label: true, placeholder: 'Pickup location' %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4">
+                <%= f.time_field :drop_time, hide_label: true %>
+              </div>
+              <div class="col-8"> 
+                <%= f.text_field :drop_location, hide_label: true, placeholder: 'Drop location' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br>
+  <% end %>
+<% end %>
+
+
+
+
+

@@ -18,6 +18,7 @@
           <li class="nav-item"><%= link_to 'Product types', product_types_path, class: 'nav-link' %></li>
         <% else %>
           <li class="nav-item"><%= link_to 'Nearby products', show_nearby_products_products_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'Transport Type', transport_types_path, class: 'nav-link' %></li>
         <% end %>
         <li class="nav-item"><%= link_to 'Products', products_path, class: 'nav-link' %></li>
         <li class="nav-item"><%= link_to 'Clients', users_path, class: 'nav-link' if current_user.user? %></li>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pickup_time: 2018-06-20 16:19:13
+  pickup_location: MyText
+  no_pickup: false
+  drop_time: 2018-06-20 16:19:13
+  drop_location: MyText
+  no_drop: false
+  itinerary: one
+
+two:
+  pickup_time: 2018-06-20 16:19:13
+  pickup_location: MyText
+  no_pickup: false
+  drop_time: 2018-06-20 16:19:13
+  drop_location: MyText
+  no_drop: false
+  itinerary: two

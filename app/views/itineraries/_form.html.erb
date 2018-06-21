@@ -1,0 +1,55 @@
+<%= bootstrap_form_for(@resource) do |f| %>
+  <% if @resource.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @resource.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.text_field :name, required: true %>
+    <div class="row">
+      <div class="col-6">
+        <%= f.date_field :start_date %>
+      </div>
+      <div class="col-6 mt-5">
+        <%= f.check_box :not_fixed %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <%= f.number_field :duration, min: 1, max: 24 %>
+      </div>
+      <div class="col-6">
+        <%= f.select :duration_type, ['Days', 'Hours'].map { |e| e  }  %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <%= f.select :client_id, User.where(role: 'client').all.collect { |x| [x.name, x.id.to_i]}, {label: "Select client" } %>
+      </div>
+      <div class="col-6">
+        <%= f.text_field :members %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <%= f.text_field :price %>
+      </div>
+      <div class="col-6">
+        <%= f.text_field :expenses %>
+      </div>
+    </div>
+
+
+
+
+
+    <%= f.select :transport_type_id, TransportType.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your transport type" } %>
+    <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
+    <%= link_to "Back", categories_path, class: 'btn btn-sm btn-info' %>
+<% end %>
