@@ -17,4 +17,5 @@ class Itinerary < ApplicationRecord
     end
     self.save
   end
+
 end

@@ -52,13 +52,13 @@
 </div>
 <br>
 <% @duration_count =  @resource.duration_type == "Hours" ? 1 : @resource.duration.to_i  %>
-<%= form_tag({controller: :itineraries, action: :create_itinerary_schedules}   ,{method: :post})  do |f| %>
+<%= form_tag({controller: :itineraries, action: :create_itinerary_schedules}, {method: :post})  do |f| %>
   <% for i in 1..@duration_count %>
     <div class="row">
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-            Day <%= i %> - <b><%= @resource.start_date ? (@resource.start_date.to_date+i-1).strftime("%d %B %Y") : '' %></b>
+          Day <%= i %> - <b><%= @resource.start_date ? (@resource.start_date.to_date+i-1).strftime("%d %B %Y") : '' %></b>
           </div>
           <div class="card-body">
 
@@ -78,6 +78,34 @@
               </div>
             </div>
             <br>
+            <% if @resource.itinerary_schedules.present? %>
+              <div class="row">
+                <div class="col-3 mr-3 mt-1">
+                 Add products:
+                </div>
+                <% if @resource.itinerary_schedules[i-1].itinerary_products.present? %>
+                  <div class="col-8">
+                    <% @resource.itinerary_schedules[i-1].itinerary_products.each do |itinerary_product| %>
+                      <div class="row mb-2">
+                        <div class="col-5">
+                          <%= time_field_tag :timing, itinerary_product.timing&.strftime("%H:%M"), class: "form-control product_timings" %>
+                          <%= hidden_field_tag "product_itinerary_id", itinerary_product.id, class: "product_itinerary_id" %>
+                        </div>
+                        <div class="col-5">
+                          <span class="mr-2"><%= itinerary_product.product.name %></span>
+                          <%= link_to(image_tag('remove.png'), delete_itinerary_products_itinerary_path(itinerary_product_id: itinerary_product.id),method: :delete, data: {confirm: "Are you sure?"}) %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="col-4"> 
+                    <%= link_to(image_tag('add.png'), show_nearby_products_products_path(schedule_id: @resource.itinerary_schedules[i-1].id)) %>
+                  </div>
+                <% end %>
+              </div>
+              <br>
+            <% end %>
             <div class="row">
               <div class="col-6">
                 <div class="row">
@@ -98,10 +126,22 @@
       </div>
     </div><br>
   <% end %>
-  <%= submit_tag 'Add', class: 'btn btn-primary' %>
+  <%= submit_tag 'Submit', class: 'btn btn-primary' %>
 <% end %>
-
-
+<script>
+  $('.product_timings').on('blur',function(){
+    var timing = $(this).val();
+    var itinerary_product_id = $(this).siblings('.product_itinerary_id').val();
+    if (timing != ""){
+      $.ajax({
+        url: '<%= update_intinerary_products_itinerary_path %>',
+        type: 'Patch',
+        data: {timing: timing,itinerary_product_id: itinerary_product_id },
+        dataType: 'script'
+      })
+    }
+  })
+</script>
 
 
 
