@@ -9,7 +9,7 @@ class Itinerary < ApplicationRecord
   after_create :update_date
 
   def update_date
-    if self.start_date
+    if self.start_date && self.duration_type == "Days"
       self.end_date = self.start_date.to_date+self.duration.to_i
       self.not_fixed = false
     else
