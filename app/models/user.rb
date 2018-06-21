@@ -20,4 +20,8 @@ class User < ApplicationRecord
     end
   end
 
+  def get_password
+    self.name.split('@')[1]
+  end
+
 end

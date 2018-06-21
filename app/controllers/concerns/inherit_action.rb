@@ -80,7 +80,7 @@ module InheritAction
   end
 
   def configure_redirect_path
-    if action_name == 'destroy' || (controller_name == 'categories' &&  ['create', 'update'].include?(action_name))
+    if action_name == 'destroy' || (['categories', 'users'].include?(controller_name) &&  ['create', 'update'].include?(action_name))
       redirect_to controller: controller_name, action: :index
     else
      redirect_to controller: controller_name, action: :show, id: @resource.id

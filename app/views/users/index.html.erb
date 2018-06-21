@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Client Listing</h2>
+  <div class="col-12">
+    <% if current_user.user? %>
+      <%= link_to "New Client", new_user_path, class: "btn  btn-outline-secondary btn-sm float-right mb-2 mr-2"  %>
+    <% end %>
+  </div>
+  <table class=" table table-striped sortable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th colspan="1">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @resources.each do |client| %>
+        <tr>
+          <td><%= client.name.split('@').first %></td>
+          <td><%= client.email %></td>
+          <td><%= client.get_password %></td>
+          <td><%= link_to 'Delete', client, method: :delete, data: {confirm: "Are you sure?"}  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div id="paginate">
+    <%= paginate @resources, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

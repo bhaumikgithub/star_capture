@@ -28,5 +28,8 @@ Rails.application.routes.draw do
   resources :category_templates
   resources :product_types
   resources :rater, only: [:update]
+  scope "/operator" do
+    resources :users
+  end
 end
 

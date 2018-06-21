@@ -12,6 +12,8 @@ class Ability
       can :read, Product
       can :liked_by_user, Product
       can :delete_product_comment, Product
+      can :create, User
+      can :read, User
     end
   end
 end
