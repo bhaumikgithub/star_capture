@@ -28,7 +28,9 @@ Rails.application.routes.draw do
   end
   resources :itineraries do
     collection do
-      get :create_itinerary_products
+      get :itinerary_products
+      post :create_itinerary_products
+      get :get_itinerary_schedule
     end
     member do
       post :create_itinerary_schedules

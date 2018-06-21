@@ -8,22 +8,47 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
+      <%= bootstrap_form_tag url: create_itinerary_products_itineraries_path do |f| %>
+        <div class="modal-body">
+            <div class="form-group">
+              
+              <%= f.hidden_field 'itinerary_product[product_id][]', value: @products.join(',') %>
+              <%= f.select 'itinerary_product[itinerary_schedule_id]', @itineraries.all.collect { |x| [x.name, x.id.to_i]}, {label: "Select Itinarary" ,prompt: 'Please select'}, id: 'itinerary_schedule_id' %>
+            </div>
+            <div class="form-group duration">
+              <div class="duration_select">
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= f.submit %>
+        </div>
+        <% end %>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#itinerary_schedule_id').change(function() {
+   $('.duration_select').empty();
+    var id = $("#itinerary_schedule_id option:selected").val();
+    $.ajax({
+      url: '<%= get_itinerary_schedule_itineraries_path %>',
+      type: 'GET',
+      data: {itinerary: id},
+      dataType: 'JSON'
+    }).done(function(data){
+      var select_option = []
+      for(i=0; i <data["itinerary_schedules"].length; i++)
+      {
+        console.log(data["itinerary_schedules"][i].id)
+        select_option.push('<option value='+ data["itinerary_schedules"][i].id +'> Day ' + (i+1) + '</option>')
+      }
+      var select_div = '<select class="form-control">'+select_option+'</select>'
+      $(".duration_select").append(select_div);
+    });
+  });  
+}); 
+</script>

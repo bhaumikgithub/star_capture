@@ -40,7 +40,7 @@
     });
     console.log(product_array);
   $.ajax({
-    url: '<%= create_itinerary_products_itineraries_path %>',
+    url: '<%= itinerary_products_itineraries_path %>',
     type: 'GET',
     data: {product: product_array},
     dataType: 'script'

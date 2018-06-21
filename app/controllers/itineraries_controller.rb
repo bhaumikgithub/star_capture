@@ -30,6 +30,22 @@ class ItinerariesController < ApplicationController
     redirect_to itinerary_path(@resource)
   end
 
+  def itinerary_products
+    @products = params["product"]
+    @itineraries = Itinerary.all
+  end
+  
+  def get_itinerary_schedule
+    itinerary = Itinerary.find_by_id(params[:itinerary])
+    render json: { itinerary_schedules: itinerary.itinerary_schedules }
+  end
+
+  def create_itinerary_products
+    binding.pry
+     params[:itinerary_product][:product_ids] = params[:itinerary_product][:product_ids][0].split(',')
+
+  end
+
   private
 
   def itinerary_schedules_params
@@ -40,7 +56,9 @@ class ItinerariesController < ApplicationController
     @resource = Itinerary.find_by(id: params[:id])
   end
 
-  def create_itinerary_products
-    @products = params["product"]
+  def itinerary_product_params
+    params.require(:itinerary_product).permit!
   end
+
+ 
 end
