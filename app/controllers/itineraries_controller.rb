@@ -15,7 +15,8 @@ class ItinerariesController < ApplicationController
 
   def create_itinerary_schedules
     @resource.itinerary_schedules.present? ? is_update = true : is_update = false
-    for i in 1..@resource.duration.to_i
+    count = @resource.duration_type == "Hours" ? 1 : @resource.duration.to_i
+    for i in 1..count
       itinerary_schedules_params[i.to_s]["pickup_time"] = DateTime.parse((@resource.start_date.to_date+i-1).to_s+" "+params[:itinerary_schedules][i.to_s]["pickup_time"])
 
       itinerary_schedules_params[i.to_s]["drop_time"] = DateTime.parse((@resource.start_date.to_date+i-1).to_s+" "+params[:itinerary_schedules][i.to_s]["drop_time"])
