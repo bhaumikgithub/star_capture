@@ -1,7 +1,7 @@
 class ItinerariesController < ApplicationController
 
   include InheritAction
-  before_action :set_itinerary, only: [:create_itinerary_schedules]
+  before_action :set_itinerary, only: [:create_itinerary_schedules, :delete_itinerary_products]
 
   def create
     @resource = current_user.itineraries.new(resource_params)
@@ -41,9 +41,17 @@ class ItinerariesController < ApplicationController
   end
 
   def create_itinerary_products
-    binding.pry
-     params[:itinerary_product][:product_ids] = params[:itinerary_product][:product_ids][0].split(',')
+    params[:itinerary_product][:product_ids] = params[:itinerary_product][:product_ids][0].split(',')
+  end
 
+  def delete_itinerary_products
+    ItineraryProduct.find(params[:itinerary_product_id]).destroy
+    redirect_to itinerary_path(@resource)
+  end
+
+  def update_intinerary_products
+    @itinerary_product = ItineraryProduct.find_by(id: params[:itinerary_product_id])
+    @itinerary_product.update(timing: params[:timing])
   end
 
   private

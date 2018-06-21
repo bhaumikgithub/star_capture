@@ -26,4 +26,8 @@ class User < ApplicationRecord
     self.name.split('@')[1]
   end
 
+  def self.get_clients
+    User.where(role: 'client')
+  end
+
 end
