@@ -93,7 +93,7 @@
                           <%= hidden_field_tag "product_itinerary_id", itinerary_product.id, class: "product_itinerary_id" %>
                         </div>
                         <div class="col-5">
-                          <span class="mr-2"><%= link_to itinerary_product.product&.name, product_path(itinerary_product.product) %></span>
+                          <span class="mr-2"><%= link_to itinerary_product.product&.name, product_path(itinerary_product.product), target: "_blank" %></span>
                           <%= link_to(image_tag('remove.png'), delete_itinerary_products_itinerary_path(itinerary_product_id: itinerary_product.id),method: :delete, data: {confirm: "Are you sure?"}) %>
                         </div>
                       </div>
