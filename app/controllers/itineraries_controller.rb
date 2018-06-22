@@ -7,7 +7,7 @@ class ItinerariesController < ApplicationController
     @resource = current_user.itineraries.new(resource_params)
 
     if @resource.save
-      redirect_to itineraries_path
+      redirect_to @resource
     else
       render 'new'
     end
