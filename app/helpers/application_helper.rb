@@ -10,7 +10,7 @@ module ApplicationHelper
     elsif resource.start_date.present? && !resource.end_date.present?
       date = resource.start_date.strftime("%d %b")
     elsif resource.not_fixed
-      date = 'Not fixed /'+ resource.duration.to_s+" #{resource.duration_type}"
+      date = 'Not fixed '
     end
     date
   end
