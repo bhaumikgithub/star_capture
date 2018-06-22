@@ -19796,6 +19796,10 @@ $(document).on('turbolinks:load', function() {
 
 
 }).call(this);
+(function() {
+
+
+}).call(this);
 var product_id;
 var lat = '';
 var lang = '';
@@ -19918,7 +19922,6 @@ function initMap() {
       map: map,
       title:"Drag me!"
     });
- 
     // multiple marker
     if(typeof products_array !== 'undefined' && products_array.length > 0){
       geocoder = new google.maps.Geocoder();
@@ -20126,8 +20129,11 @@ function validate_comment() {
 $(document).on('click','.submit_btn', function(){
   $('.rating_comment_form').submit();
 })
-
 ;
+(function() {
+
+
+}).call(this);
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
