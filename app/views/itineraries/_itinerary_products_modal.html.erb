@@ -7,16 +7,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <%= bootstrap_form_tag url: create_itinerary_products_itineraries_path do |f| %>
+      <%= form_tag create_itinerary_products_itineraries_path, {id: 'itinerary_schedule_form'} do |f| %>
         <div class="modal-body">
             <div class="form-group">
               
-              <%= f.hidden_field 'product_id', value: @products%>
+              <%= hidden_field_tag 'product_id', @products%>
               <% if params[:itinerary_schedule_id].present? %>
-                <%= f.hidden_field :itinerary_schedule_id, value: params[:itinerary_schedule_id] %>
+                <%= hidden_field_tag :itinerary_schedule_id, params[:itinerary_schedule_id] %>
                 <%= text_field_tag :itinerary_schedule_name, @itinerary_schedule.itinerary.name, readonly: true, class: 'form-control' %>
               <% else %>
-                <%= f.select :itinerary_id, @itineraries.all.collect { |x| [x.name, x.id.to_i]}, {label: "Select Itinarary" ,prompt: 'Please select'}, id: 'itinerary_id' %>
+                <%#= select_tag :itinerary_id, @itineraries.all.collect { |x| [x.name, x.id.to_i]}, {label: "Select Itinarary" ,prompt: 'Please select', id: 'itinerary_id'} %>
+                <%= label_tag "Select Itinarary" %>
+                <%= select_tag :itinerary_id, options_from_collection_for_select(@itineraries,'id','name'), prompt: 'Please select', id: 'itinerary_id', class: 'form-control' %>
               <% end %>
             </div>
             <div class="form-group duration">
@@ -26,7 +28,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <%= f.submit "Add" %>
+        <%#= f.submit "Add" %>
+        <button class="add_btn">Add</button>
         </div>
         <% end %>
     </div>
@@ -41,7 +44,7 @@
     $.ajax({
       url: '<%= get_itinerary_schedule_itineraries_path %>',
       type: 'GET',
-      data: {itinerary: id},
+      data: {itinerary: id, products: '<%= @products.join(",") %>'},
       dataType: 'JSON'
     }).done(function(data){
       var select_option = []
@@ -53,6 +56,19 @@
       var select_div = '<select class="form-control" name="itinerary_schedule_id" id="itinerary_schedule_id">'+select_option+'</select>'
       $(".duration_select").append(select_div);
     });
-  });  
+  });
+  $(".add_btn").on('click', function(e){
+    var itinerary_schedule_id = $("#itinerary_schedule_id option:selected").val();
+    $.ajax({
+      url: '<%= check_itinerary_products_itineraries_path %>',
+      type: 'GET',
+      data: {itinerary_schedule_id: itinerary_schedule_id, products: '<%= @products.join(",") %>'},
+      dataType: 'JSON'
+    }).done(function(data){
+      console.log(data.product_names.length);
+      if(data.product_names.length != 0)
+        alert(data.product_names + " are alreay present")
+    });
+  })
 }); 
 </script>

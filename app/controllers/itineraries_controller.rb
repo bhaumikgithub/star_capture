@@ -41,6 +41,13 @@ class ItinerariesController < ApplicationController
     render json: { itinerary_schedules: itinerary.itinerary_schedules }
   end
 
+  def check_itinerary_products
+    products = params[:products].split(",")
+    itinerary_product = ItineraryProduct.joins(:product).where(itinerary_schedule_id:params[:itinerary_schedule_id]).where("product_id IN (?)",products).select("products.name as product_name").map(&:attributes).uniq
+    product_names = itinerary_product.map { |h| h["product_name"] }
+    render json: { product_names: product_names }
+  end
+
   def create_itinerary_products
     itinerary_schedule =  ItinerarySchedule.find_by(id:params[:itinerary_schedule_id])
     product_array = params[:product_id].split(' ')

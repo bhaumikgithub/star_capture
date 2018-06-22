@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       get :itinerary_products
       post :create_itinerary_products
       get :get_itinerary_schedule
+      get :check_itinerary_products
     end
     member do
       delete :delete_itinerary_products
