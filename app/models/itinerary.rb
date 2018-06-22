@@ -12,6 +12,8 @@ class Itinerary < ApplicationRecord
     if self.start_date && self.duration_type == "Days"
       self.end_date = self.start_date.to_date+self.duration.to_i-1
       self.not_fixed = false
+    elsif self.start_date && self.duration_type == "Hours"
+      self.end_date = self.start_date
     else
       self.not_fixed = true
     end
