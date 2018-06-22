@@ -9,7 +9,7 @@
     <thead>
       <tr>
         <th>Itinerary name</th>
-        <th>From/To date/Duration</th>
+        <th>From - To date/Duration</th>
         <th>Members</th>
         <th>Status</th>
         <th>Client</th>
@@ -22,10 +22,10 @@
       <% @resources.each do |itinerary| %>
         <tr>
           <td><%= link_to itinerary.name, itinerary_path(itinerary) %></td>
-          <td><%= itinerary.start_date && itinerary.end_date ?  itinerary.start_date.strftime("%d %b")+'-'+itinerary.end_date.strftime("%d %b")+' /'+itinerary.duration+' '+itinerary.duration_type : itinerary.duration+' '+itinerary.duration_type %></td>
+          <td><%= from_to_date(itinerary)+' / '+itinerary.duration+' '+itinerary.duration_type  %></td>
           <td><%= itinerary.members%></td>
           <td><%= itinerary.status %></td>
-          <td><%= itinerary.client.name %></td>
+          <td><%= itinerary.client.get_client_name %></td>
           <td><%= itinerary.price %></td>
           <td><%= link_to("View", itinerary_path(itinerary)) %></td>
           <td><%= link_to "Delete", itinerary_path(itinerary), method: :delete, data: {confirm: "Are you sure?"} %></td>

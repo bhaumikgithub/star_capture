@@ -5,21 +5,33 @@
 </div>
 <div class="row">
   <div class="col-6">
-    <div class="row">
+    <div class="row mt-2">
       <div class="col-6">
-       <span class="d-inline-block"><b>Expences: </b><%= @resource.expenses %></span>
+       <span class="d-inline-block"><b>From-To: </b><%= from_to_date(@resource) %></span>
      </div>
     <div class="col-6">
-      <span class="d-inline-block"><b>Price: </b><%= @resource.members %></span>
+      <span class="d-inline-block"><b>Members: </b><%= @resource.members %></span>
     </div>
   </div>
   </div>
 </div>
 <div class="row">
   <div class="col-6">
-    <div class="row">
+    <div class="row mt-2">
       <div class="col-6">
-       <span class="d-inline-block"><b>Expences: </b><%= @resource.expenses %></span>
+       <span class="d-inline-block"><b>Status: </b><%= @resource.status %></span>
+     </div>
+    <div class="col-6">
+      <span class="d-inline-block"><b>Client: </b><%= @resource.client.get_client_name %></span>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <div class="row mt-2">
+      <div class="col-6">
+       <span class="d-inline-block"><b>Transport Type: </b><%= @resource.transport_type.name %></span>
      </div>
     <div class="col-6">
       <span class="d-inline-block"><b>Price: </b><%= @resource.price %></span>
@@ -29,23 +41,12 @@
 </div>
 <div class="row">
   <div class="col-6">
-    <div class="row">
+    <div class="row mt-2">
       <div class="col-6">
-       <span class="d-inline-block"><b>Duration: </b><%= @resource.duration %></span>
+       <span class="d-inline-block"><b>Duration: </b><%= @resource.duration+' '+@resource.duration_type %></span>
      </div>
     <div class="col-6">
-      <span class="d-inline-block"><b>Client: </b><%= @resource.client.name %></span>
-    </div>
-  </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-6">
-    <div class="row">
-      <div class="col-6">
-       <span class="d-inline-block"><b>Transport Type: </b><%= @resource.transport_type.name %></span>
-     </div>
-    <div class="col-6">
+       <span class="d-inline-block"><b>Expenses: </b><%= @resource.expenses %></span>
     </div>
   </div>
   </div>
@@ -92,7 +93,7 @@
                           <%= hidden_field_tag "product_itinerary_id", itinerary_product.id, class: "product_itinerary_id" %>
                         </div>
                         <div class="col-5">
-                          <span class="mr-2"><%= itinerary_product.product.name %></span>
+                          <span class="mr-2"><%= itinerary_product.product&.name %></span>
                           <%= link_to(image_tag('remove.png'), delete_itinerary_products_itinerary_path(itinerary_product_id: itinerary_product.id),method: :delete, data: {confirm: "Are you sure?"}) %>
                         </div>
                       </div>
@@ -100,7 +101,7 @@
                   </div>
                 <% else %>
                   <div class="col-4"> 
-                    <%= link_to(image_tag('add.png'), show_nearby_products_products_path(itinerary_schedule_id: @resource.itinerary_schedules[i-1].id)) %>
+                    <%= link_to(image_tag('add.png'), show_nearby_products_products_path(itinerary_schedule_id: @resource.itinerary_schedules[i-1].id),:"data-turbolinks" => false) %>
                   </div>
                 <% end %>
               </div>

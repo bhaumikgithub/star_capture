@@ -17,7 +17,7 @@
           <li class="nav-item"><%= link_to 'Templates', category_templates_path, class: 'nav-link' %></li>
           <li class="nav-item"><%= link_to 'Product types', product_types_path, class: 'nav-link' %></li>
         <% else %>
-          <li class="nav-item"><%= link_to 'Nearby products', show_nearby_products_products_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'Nearby products', show_nearby_products_products_path, class: 'nav-link',:"data-turbolinks" => false %></li>
           <li class="nav-item"><%= link_to 'Transport Type', transport_types_path, class: 'nav-link' %></li>
           <li class="nav-item"><%= link_to 'Itineraries', itineraries_path, class: 'nav-link' %></li>
         <% end %>
