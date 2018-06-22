@@ -59,7 +59,7 @@
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-          Day <%= i %> - <b><%= @resource.start_date ? (@resource.start_date.to_date+i-1).strftime("%d %B %Y") : '' %></b>
+          Day <%= i %> - <b><%= from_to_date(@resource) %></b>
           </div>
           <div class="card-body">
 
