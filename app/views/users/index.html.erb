@@ -17,7 +17,7 @@
     <tbody>
       <% @resources.each do |client| %>
         <tr>
-          <td><%= client.name.split('@').first %></td>
+          <td><%= client.get_client_name %></td>
           <td><%= client.email %></td>
           <td><%= client.get_password %></td>
           <td><%= link_to 'Delete', client, method: :delete, data: {confirm: "Are you sure?"}  %></td>

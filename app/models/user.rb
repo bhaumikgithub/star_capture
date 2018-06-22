@@ -30,4 +30,8 @@ class User < ApplicationRecord
     User.where(role: 'client')
   end
 
+  def get_client_name
+    self.name.split('@').first
+  end
+
 end
