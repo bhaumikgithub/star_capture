@@ -22,7 +22,7 @@
       <% @resources.each do |itinerary| %>
         <tr>
           <td><%= link_to itinerary.name, itinerary_path(itinerary) %></td>
-          <td><%= from_to_date(itinerary)+' / '+itinerary.duration+' '+itinerary.duration_type  %></td>
+          <td><%= from_to_date(itinerary)  %></td>
           <td><%= itinerary.members%></td>
           <td><%= itinerary.status %></td>
           <td><%= itinerary.client.get_client_name %></td>
