@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-6">
+  <div class="col-8">
     <div class="row mt-2">
       <div class="col-6">
        <span class="d-inline-block"><b>From-To: </b><%= from_to_date(@resource) %></span>
@@ -16,7 +16,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-6">
+  <div class="col-8">
     <div class="row mt-2">
       <div class="col-6">
        <span class="d-inline-block"><b>Status: </b><%= @resource.status %></span>
@@ -28,7 +28,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-6">
+  <div class="col-8">
     <div class="row mt-2">
       <div class="col-6">
        <span class="d-inline-block"><b>Transport Type: </b><%= @resource.transport_type.name %></span>
@@ -40,7 +40,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-6">
+  <div class="col-8">
     <div class="row mt-2">
       <div class="col-6">
        <span class="d-inline-block"><b>Duration: </b><%= @resource.duration+' '+@resource.duration_type %></span>
@@ -59,7 +59,7 @@
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-          Day <%= i %> - <b><%= from_to_date(@resource) %></b>
+          Day <%= i %> - <b><%= @resource.start_date ? (@resource.start_date.to_date+i-1).strftime("%d %B %Y") : 'Not Fixed' %></b>
           </div>
           <div class="card-body">
 
@@ -93,7 +93,7 @@
                           <%= hidden_field_tag "product_itinerary_id", itinerary_product.id, class: "product_itinerary_id" %>
                         </div>
                         <div class="col-5">
-                          <span class="mr-2"><%= itinerary_product.product&.name %></span>
+                          <span class="mr-2"><%= link_to itinerary_product.product&.name, product_path(itinerary_product.product) %></span>
                           <%= link_to(image_tag('remove.png'), delete_itinerary_products_itinerary_path(itinerary_product_id: itinerary_product.id),method: :delete, data: {confirm: "Are you sure?"}) %>
                         </div>
                       </div>
