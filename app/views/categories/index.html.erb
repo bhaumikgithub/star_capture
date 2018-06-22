@@ -13,7 +13,7 @@
         <th>Created Time</th>
         <th>Product count</th>
         <th>Template</th>
-        <th colspan="4">Actions</th>
+        <th colspan="3">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -26,7 +26,7 @@
           <td><%= link_to "View products", products_path(category_id: category.id) %></td>
           <% if current_user.admin? %>
             <td><%= link_to("Edit", edit_category_path(category)) %></td>
-            <td><%= link_to "Delete only category", category_path(category), method: :delete, data: {confirm: "Are you sure?"} %></td>
+            <!-- <td><%#= link_to "Delete only category", category_path(category), method: :delete, data: {confirm: "Are you sure?"} %></td> -->
             <td><%= link_to "Delete category with products", delete_category_with_products_category_path(category), method: :delete, data: {confirm: "Are you sure?"} %></td>
           <% end %>
         </tr>
