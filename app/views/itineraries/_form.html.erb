@@ -11,7 +11,7 @@
     <%= f.text_field :name, required: true %>
     <div class="row">
       <div class="col-6">
-        <%= f.date_field :start_date, selected: Date.today, min: 0.days.ago, max: 1.year.from_now, value: @resource.start_date.present? ? @resource.start_date : Date.today %>
+        <%= f.date_field :start_date, selected: Date.today, min: 0.days.ago, max: 1.year.from_now, value: @resource.start_date.present? ? @resource.start_date.to_date : Date.today %>
       </div>
       <div class="col-6 mt-5">
         <%= f.check_box :not_fixed %>
