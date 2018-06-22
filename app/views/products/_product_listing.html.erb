@@ -38,13 +38,17 @@
       console.log(this.value); 
       product_array.push(this.value)
     });
-    console.log(product_array);
-  $.ajax({
-    url: '<%= itinerary_products_itineraries_path %>',
-    type: 'GET',
-    data: {product: product_array},
-    dataType: 'script'
-  })
+    if (product_array.length == 0){
+      alert("Please select atleast one product")
+    }
+    else{
+      $.ajax({
+        url: '<%= itinerary_products_itineraries_path %>',
+        type: 'GET',
+        data: {product: product_array},
+        dataType: 'script'
+      })
+    }
   });
 </script>
  
