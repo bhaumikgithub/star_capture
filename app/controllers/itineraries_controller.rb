@@ -32,6 +32,7 @@ class ItinerariesController < ApplicationController
 
   def itinerary_products
     @products = params["product"]
+    @itinerary_schedule = ItinerarySchedule.find_by_id(params[:itinerary_schedule_id])
     @itineraries = Itinerary.all
   end
   
@@ -41,7 +42,10 @@ class ItinerariesController < ApplicationController
   end
 
   def create_itinerary_products
-    params[:itinerary_product][:product_ids] = params[:itinerary_product][:product_ids][0].split(',')
+    itinerary_schedule =  ItinerarySchedule.find_by(id:params[:itinerary_schedule_id])
+    product_array = params[:product_id].split(' ')
+    product_array.map { |product| ItineraryProduct.create(product_id: product, itinerary_schedule_id: itinerary_schedule.id) }
+    redirect_to itinerary_path(itinerary_schedule.itinerary.id)
   end
 
   def delete_itinerary_products
@@ -63,10 +67,5 @@ class ItinerariesController < ApplicationController
   def set_itinerary
     @resource = Itinerary.find_by(id: params[:id])
   end
-
-  def itinerary_product_params
-    params.require(:itinerary_product).permit!
-  end
-
  
 end

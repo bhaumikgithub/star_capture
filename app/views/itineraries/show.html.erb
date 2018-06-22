@@ -100,7 +100,7 @@
                   </div>
                 <% else %>
                   <div class="col-4"> 
-                    <%= link_to(image_tag('add.png'), show_nearby_products_products_path(schedule_id: @resource.itinerary_schedules[i-1].id)) %>
+                    <%= link_to(image_tag('add.png'), show_nearby_products_products_path(itinerary_schedule_id: @resource.itinerary_schedules[i-1].id)) %>
                   </div>
                 <% end %>
               </div>

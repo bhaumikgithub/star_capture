@@ -86,6 +86,7 @@ class ProductsController < ApplicationController
 
   def show_nearby_products
     index()
+    @itinerary_schedule_id = params[:itinerary_schedule_id] if params[:itinerary_schedule_id].present?
     @nearby_products = Product.eager_load(:categories).near([current_user.latitude, current_user.longitude], 5,{order: ""}).pluck(:latitude,:longitude,:id,:name,:price, :"categories.name")
     @product_categories = @nearby_products.each_with_object({ }) do |item, result|
       item[4] = item[4]  ? item[4] : 0

@@ -2,8 +2,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <%= @products %>
+        <h5 class="modal-title" id="exampleModalLabel">Itinerary Schedule</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -12,8 +11,13 @@
         <div class="modal-body">
             <div class="form-group">
               
-              <%= f.hidden_field 'itinerary_product[product_id][]', value: @products.join(',') %>
-              <%= f.select 'itinerary_product[itinerary_schedule_id]', @itineraries.all.collect { |x| [x.name, x.id.to_i]}, {label: "Select Itinarary" ,prompt: 'Please select'}, id: 'itinerary_schedule_id' %>
+              <%= f.hidden_field 'product_id', value: @products%>
+              <% if params[:itinerary_schedule_id].present? %>
+                <%= f.hidden_field :itinerary_schedule_id, value: params[:itinerary_schedule_id] %>
+                <%= text_field_tag :itinerary_schedule_name, @itinerary_schedule.itinerary.name, readonly: true, class: 'form-control' %>
+              <% else %>
+                <%= f.select :itinerary_id, @itineraries.all.collect { |x| [x.name, x.id.to_i]}, {label: "Select Itinarary" ,prompt: 'Please select'}, id: 'itinerary_id' %>
+              <% end %>
             </div>
             <div class="form-group duration">
               <div class="duration_select">
@@ -22,7 +26,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <%= f.submit %>
+        <%= f.submit "Add" %>
         </div>
         <% end %>
     </div>
@@ -31,9 +35,9 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#itinerary_schedule_id').change(function() {
+    $('#itinerary_id').change(function() {
    $('.duration_select').empty();
-    var id = $("#itinerary_schedule_id option:selected").val();
+    var id = $("#itinerary_id option:selected").val();
     $.ajax({
       url: '<%= get_itinerary_schedule_itineraries_path %>',
       type: 'GET',
@@ -46,7 +50,7 @@
         console.log(data["itinerary_schedules"][i].id)
         select_option.push('<option value='+ data["itinerary_schedules"][i].id +'> Day ' + (i+1) + '</option>')
       }
-      var select_div = '<select class="form-control">'+select_option+'</select>'
+      var select_div = '<select class="form-control" name="itinerary_schedule_id" id="itinerary_schedule_id">'+select_option+'</select>'
       $(".duration_select").append(select_div);
     });
   });  

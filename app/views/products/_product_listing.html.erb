@@ -42,7 +42,7 @@
   $.ajax({
     url: '<%= itinerary_products_itineraries_path %>',
     type: 'GET',
-    data: {product: product_array},
+    data: {product: product_array, itinerary_schedule_id: '<%= params[:itinerary_schedule_id] %>'},
     dataType: 'script'
   })
   });
