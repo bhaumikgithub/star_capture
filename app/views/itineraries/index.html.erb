@@ -23,8 +23,7 @@
         <tr>
           <td><%= link_to itinerary.name, itinerary_path(itinerary) %></td>
           <td><%= from_to_date(itinerary)+' / '+itinerary&.duration+' '+itinerary&.duration_type  %></td>
-          <td><%= itinerary.min_members%></td>
-          <td><%= itinerary.max_members%></td>
+          <td><%= itinerary.min_members%>-<%= itinerary.max_members%></td>
           <td><%= itinerary.status %></td>
           <!-- <td><%#= itinerary.client.get_client_name %></td> -->
           <!-- <td><%#= itinerary.price %></td> -->

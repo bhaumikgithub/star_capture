@@ -27,13 +27,13 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row members_attributes">
       <div class="col-5">
         <%#= f.select :client_id, User.get_clients.collect { |x| [x.get_client_name, x.id.to_i]}, {label: "Select client" } %>
-        <%= f.text_field :min_members %>
+        <%= f.text_field :min_members, class: "members", readonly: (@resource&.member_not_fixed ? true : false) %>
       </div>
       <div class="col-5">
-        <%= f.text_field :max_members %>
+        <%= f.text_field :max_members, class: "members", readonly: (@resource&.member_not_fixed ? true : false)%>
       </div>
       <div class="col-2 mt-4">
         <%= f.check_box :member_not_fixed, :label => "Member Not Fixed" %>
