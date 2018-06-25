@@ -12,10 +12,10 @@ $(document).on('turbolinks:load', function() {
 function pickup_not_fixed() {
   $(document).on('change', '.pickup_not_fixed', function () {
     if (this.checked) {
-      $(this).closest('.pickup_attributes').find('.pickup').attr('disabled', true).val('');
+      $(this).closest('.pickup_attributes').find('.pickup').attr('readonly', true).val('');
     }
     else{
-      $(this).closest('.pickup_attributes').find('.pickup').attr('disabled', false)
+      $(this).closest('.pickup_attributes').find('.pickup').attr('readonly', false)
     }
   })
 }
@@ -24,10 +24,10 @@ function pickup_not_fixed() {
 function drop_not_fixed() {
   $(document).on('change', '.drop_not_fixed', function () {
     if (this.checked) {
-      $(this).closest('.drop_attributes').find('.drop').attr('disabled', true).val('');
+      $(this).closest('.drop_attributes').find('.drop').attr('readonly', true).val('');
     }
     else{
-      $(this).closest('.drop_attributes').find('.drop').attr('disabled', false)
+      $(this).closest('.drop_attributes').find('.drop').attr('readonly', false)
       
     }
   })
