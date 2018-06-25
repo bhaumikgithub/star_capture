@@ -56,27 +56,33 @@
 <%= form_tag({controller: :itineraries, action: :create_itinerary_schedules}, {method: :post})  do |f| %>
   <% for i in 1..@duration_count %>
     <div class="row">
-      <div class="col-6">
+      <div class="col-8">
         <div class="card">
           <div class="card-header">
           Day <%= i %> - <b><%= @resource.start_date ? (@resource.start_date.to_date+i-1).strftime("%d %B %Y") : 'Not Fixed' %></b>
           </div>
           <div class="card-body">
 
-            <div class="row">
-              <div class="col-6">
+            <div class="row pickup_attributes">
+              <div class="col-5">
                 <div class="row">
                   <div class="col-6 mt-2">
                     <label>Pickup Time:</label>
                   </div>
                   <div class="col-6">
-                    <%= time_field_tag "itinerary_schedules[#{i}][pickup_time]", @resource&.itinerary_schedules[i-1]&.pickup_time&.strftime("%H:%M"), class: "form-control" %>
+                    <%= time_field_tag "itinerary_schedules[#{i}][pickup_time]", @resource&.itinerary_schedules[i-1]&.pickup_time&.strftime("%H:%M"), class: "form-control pickup" %>
                   </div>
                 </div>
               </div>
-              <div class="col-6"> 
-                <%= text_field_tag "itinerary_schedules[#{i}][pickup_location]" ,@resource&.itinerary_schedules[i-1]&.pickup_location, class: 'form-control', placeholder: 'Pickup location' %>
+              <div class="col-5"> 
+                <%= text_field_tag "itinerary_schedules[#{i}][pickup_location]" ,@resource&.itinerary_schedules[i-1]&.pickup_location, class: 'form-control pickup ', placeholder: 'Pickup location' %>
               </div>
+              <% if i > 1 %>
+                <div class="col-2">
+                  <label>Not fixed</label>
+                  <%= check_box("itinerary_schedules[#{i}]", "  no_pickup", { class: 'pickup_not_fixed' }, "true", "false") %>
+                </div>
+              <% end %>
             </div>
             <br>
             <% if @resource.itinerary_schedules.present? %>
@@ -107,20 +113,26 @@
               </div>
               <br>
             <% end %>
-            <div class="row">
-              <div class="col-6">
+            <div class="row drop_attributes">
+              <div class="col-5">
                 <div class="row">
                   <div class="col-6 mt-2">
                     <label>Drop Time:</label>
                   </div>
                   <div class="col-6">
-                    <%= time_field_tag "itinerary_schedules[#{i}][drop_time]", @resource&.itinerary_schedules[i-1]&.drop_time&.strftime("%H:%M"), class: "form-control" %>
+                    <%= time_field_tag "itinerary_schedules[#{i}][drop_time]", @resource&.itinerary_schedules[i-1]&.drop_time&.strftime("%H:%M"), class: "form-control drop" %>
                   </div>
                 </div>
               </div>
-              <div class="col-6"> 
-                <%= text_field_tag "itinerary_schedules[#{i}][drop_location]",@resource&.itinerary_schedules[i-1]&.drop_location, class: 'form-control', placeholder: 'Drop location' %>
+              <div class="col-5"> 
+                <%= text_field_tag "itinerary_schedules[#{i}][drop_location]",@resource&.itinerary_schedules[i-1]&.drop_location, class: 'form-control drop', placeholder: 'Drop location' %>
               </div>
+              <% if i < @duration_count %>
+                <div class="col-2">
+                  <label>Not fixed</label>
+                  <%= check_box("itinerary_schedules[#{i}]", "no_drop", { class: 'drop_not_fixed' }, "true", "false") %>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
@@ -142,6 +154,7 @@
       })
     }
   })
+
 </script>
 
 
