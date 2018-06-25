@@ -54,11 +54,3 @@
     <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
     <%= link_to "Back", categories_path, class: 'btn btn-sm btn-info' %>
 <% end %>
-<script>
-  $('.not_fixed_checckbox').on('change', function(){
-    if(this.checked == true)
-      $('.start_date').attr('readonly', true).val(' ');
-    else
-      $('.start_date').attr('readonly', false).val("<%= Date.today %>");
-  })
-</script>

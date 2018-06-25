@@ -1,13 +1,15 @@
 $( document ).ready(function() {
   pickup_not_fixed();
   drop_not_fixed();
-  member_not_fixed()
+  member_not_fixed();
+  start_date_not_fixed();
 });
 
 $(document).on('turbolinks:load', function() {
   pickup_not_fixed();
   drop_not_fixed();
-  member_not_fixed()
+  member_not_fixed();
+  start_date_not_fixed();
 
 });
 
@@ -41,5 +43,17 @@ function member_not_fixed() {
       $(this).closest('.members_attributes').find('.members').val(' ').prop('readonly', true)
     else
       $(this).closest('.members_attributes').find('.members').prop('readonly', false)
+  })
+}
+
+function start_date_not_fixed(){
+  $(document).on('change', '.not_fixed_checckbox', function(){
+    if(this.checked == true)
+      $('.start_date').attr('readonly', true).val(' ');
+    else{
+      var date = new Date();
+      date = date.getFullYear() + '-0' + (date.getMonth()+1) + '-' + date.getDate();
+      $('.start_date').attr('readonly', false).val(date);
+    }
   })
 }
