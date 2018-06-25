@@ -19,7 +19,7 @@ class ItinerariesController < ApplicationController
     for i in 1..count
       itinerary_schedules_params[i.to_s]["pickup_time"] = DateTime.parse((@resource.start_date.to_date+i-1).to_s+" "+params[:itinerary_schedules][i.to_s]["pickup_time"])
 
-      itinerary_schedules_params[i.to_s]["drop_time"] = DateTime.parse((@resource.start_date.to_date+i-1).to_s+" "+params[:itinerary_schedules][i.to_s]["drop_time"])
+      itinerary_schedules_params[i.to_s]["drop_time"] = DateTime.parse((@resource.start_date.to_date+i-1).to_s+" "+params[:itinerary_schedules]&[i.to_s]["drop_time"])
 
       if is_update
         @resource.itinerary_schedules[i-1].update((itinerary_schedules_params[i.to_s]))

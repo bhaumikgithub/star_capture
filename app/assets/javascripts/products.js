@@ -25,6 +25,9 @@ $( document ).ready(function() {
 
   init_lightbox();
 
+  pickup_not_fixed();
+  drop_not_fixed();
+
   $.each($("input[type=checkbox]:checked"), function(){            
       $(this).closest('.row').find('.timings').show();
   });
@@ -42,6 +45,9 @@ $(document).on('turbolinks:load', function() {
   disable_optional_checkbox();
 
   enable_optional_checkbox();
+
+  pickup_not_fixed();
+  drop_not_fixed();
 
   // show_open_close_time();
 
@@ -327,3 +333,5 @@ function validate_comment() {
 $(document).on('click','.submit_btn', function(){
   $('.rating_comment_form').submit();
 })
+
+
