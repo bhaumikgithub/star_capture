@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_20_134006) do
+ActiveRecord::Schema.define(version: 2018_06_25_105216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,10 +127,10 @@ ActiveRecord::Schema.define(version: 2018_06_20_134006) do
   end
 
   create_table "itinerary_schedules", force: :cascade do |t|
-    t.datetime "pickup_time"
+    t.time "pickup_time"
     t.text "pickup_location"
     t.boolean "no_pickup"
-    t.datetime "drop_time"
+    t.time "drop_time"
     t.text "drop_location"
     t.boolean "no_drop"
     t.bigint "itinerary_id"
