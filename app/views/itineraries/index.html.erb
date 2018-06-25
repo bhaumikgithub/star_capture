@@ -12,8 +12,8 @@
         <th>From - To date/Duration</th>
         <th>Members</th>
         <th>Status</th>
-        <th>Client</th>
-        <th>Price</th>
+        <!-- <th>Client</th> -->
+        <!-- <th>Price</th> -->
         <th colspan="3">Action</th>
         
       </tr>
@@ -23,10 +23,11 @@
         <tr>
           <td><%= link_to itinerary.name, itinerary_path(itinerary) %></td>
           <td><%= from_to_date(itinerary)+' / '+itinerary&.duration+' '+itinerary&.duration_type  %></td>
-          <td><%= itinerary.members%></td>
+          <td><%= itinerary.min_members%></td>
+          <td><%= itinerary.max_members%></td>
           <td><%= itinerary.status %></td>
-          <td><%= itinerary.client.get_client_name %></td>
-          <td><%= itinerary.price %></td>
+          <!-- <td><%#= itinerary.client.get_client_name %></td> -->
+          <!-- <td><%#= itinerary.price %></td> -->
           <td><%= link_to("View", itinerary_path(itinerary)) %></td>
           <td><%= link_to("Edit", edit_itinerary_path(itinerary)) %></td>
           <td><%= link_to "Delete", itinerary_path(itinerary), method: :delete, data: {confirm: "Are you sure?"} %></td>
