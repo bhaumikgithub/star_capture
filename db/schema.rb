@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_20_134006) do
+ActiveRecord::Schema.define(version: 2018_06_25_054710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 2018_06_20_134006) do
     t.datetime "end_date"
     t.string "price"
     t.string "expenses"
-    t.string "members"
+    t.string "min_members"
     t.boolean "not_fixed"
     t.bigint "transport_type_id"
     t.datetime "created_at", null: false
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(version: 2018_06_20_134006) do
     t.bigint "user_id"
     t.string "duration_type"
     t.string "status", default: "pending"
+    t.string "max_members"
+    t.boolean "member_not_fixed"
     t.index ["transport_type_id"], name: "index_itineraries_on_transport_type_id"
     t.index ["user_id"], name: "index_itineraries_on_user_id"
   end

@@ -9,9 +9,6 @@
       <div class="col-6">
        <span class="d-inline-block"><b>From-To: </b><%= from_to_date(@resource) %></span>
      </div>
-    <div class="col-6">
-      <span class="d-inline-block"><b>Members: </b><%= @resource.members %></span>
-    </div>
   </div>
   </div>
 </div>
@@ -19,11 +16,8 @@
   <div class="col-8">
     <div class="row mt-2">
       <div class="col-6">
-       <span class="d-inline-block"><b>Status: </b><%= @resource.status %></span>
-     </div>
-    <div class="col-6">
-      <span class="d-inline-block"><b>Client: </b><%= @resource.client.get_client_name %></span>
-    </div>
+        <span class="d-inline-block"><b>Status: </b><%= @resource.status %></span>
+      </div>
   </div>
   </div>
 </div>
@@ -31,10 +25,24 @@
   <div class="col-8">
     <div class="row mt-2">
       <div class="col-6">
-       <span class="d-inline-block"><b>Transport Type: </b><%= @resource&.transport_type&.name %></span>
+      <% if @resource.min_members.present? && @resource.max_members.present? %>
+        <span class="d-inline-block"><b>Members: </b><%= @resource.min_members %></span>-
+        <span class="d-inline-block"><b></b><%= @resource.max_members %></span>
+      <% else %>
+        <span class="d-inline-block"><b>Members: </b>Not fixed</span>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-8">
+    <div class="row">
+      <div class="col-6">
+       <!-- <span class="d-inline-block"><b>Transport Type: </b><%#= @resource&.transport_type&.name %></span> -->
      </div>
     <div class="col-6">
-      <span class="d-inline-block"><b>Price: </b><%= @resource.price %></span>
+      <!-- <span class="d-inline-block"><b>Price: </b><%#= @resource.price %></span> -->
     </div>
   </div>
   </div>
@@ -46,7 +54,7 @@
        <span class="d-inline-block"><b>Duration: </b><%= @resource.duration+' '+@resource.duration_type %></span>
      </div>
     <div class="col-6">
-       <span class="d-inline-block"><b>Expenses: </b><%= @resource.expenses %></span>
+       <!-- <span class="d-inline-block"><b>Expenses: </b><%#= @resource.expenses %></span> -->
     </div>
   </div>
   </div>

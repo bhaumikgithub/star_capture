@@ -27,29 +27,30 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-6">
-        <%= f.select :client_id, User.get_clients.collect { |x| [x.get_client_name, x.id.to_i]}, {label: "Select client" } %>
+    <div class="row members_attributes">
+      <div class="col-5">
+        <%#= f.select :client_id, User.get_clients.collect { |x| [x.get_client_name, x.id.to_i]}, {label: "Select client" } %>
+        <%= f.text_field :min_members, class: "members", readonly: (@resource&.member_not_fixed ? true : false) %>
       </div>
-      <div class="col-6">
-        <%= f.text_field :members %>
+      <div class="col-5">
+        <%= f.text_field :max_members, class: "members", readonly: (@resource&.member_not_fixed ? true : false)%>
       </div>
+      <div class="col-2 mt-4">
+        <%= f.check_box :member_not_fixed, :label => "Member Not Fixed" %>
+      </div>
+
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-6">
-        <%= f.text_field :price %>
+        <%#= f.text_field :price %>
       </div>
       <div class="col-6">
-        <%= f.text_field :expenses %>
+        <%#= f.text_field :expenses %>
       </div>
-    </div>
+    </div> -->
 
-
-
-
-
-    <%= f.select :transport_type_id, TransportType.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your transport type" } %>
+    <%#= f.select :transport_type_id, TransportType.all.collect { |x| [x.name, x.id.to_i]}, {label: "Choose your transport type" } %>
     <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
     <%= link_to "Back", categories_path, class: 'btn btn-sm btn-info' %>
 <% end %>
