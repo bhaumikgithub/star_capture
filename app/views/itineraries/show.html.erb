@@ -70,17 +70,17 @@
                     <label>Pickup Time:</label>
                   </div>
                   <div class="col-6">
-                    <%= time_field_tag "itinerary_schedules[#{i}][pickup_time]", @resource&.itinerary_schedules[i-1]&.pickup_time&.strftime("%H:%M"), class: "form-control pickup" %>
+                    <%= time_field_tag "itinerary_schedules[#{i}][pickup_time]", @resource&.itinerary_schedules[i-1]&.pickup_time&.strftime("%H:%M"), class: "form-control pickup", disabled: (@resource&.itinerary_schedules[i-1]&.no_pickup ? true : false)  %>
                   </div>
                 </div>
               </div>
               <div class="col-5"> 
-                <%= text_field_tag "itinerary_schedules[#{i}][pickup_location]" ,@resource&.itinerary_schedules[i-1]&.pickup_location, class: 'form-control pickup ', placeholder: 'Pickup location' %>
+                <%= text_field_tag "itinerary_schedules[#{i}][pickup_location]" ,@resource&.itinerary_schedules[i-1]&.pickup_location, class: 'form-control pickup', placeholder: 'Pickup location', disabled: (@resource&.itinerary_schedules[i-1]&.no_pickup ? true : false) %>
               </div>
               <% if i > 1 %>
                 <div class="col-2">
                   <label>Not fixed</label>
-                  <%= check_box("itinerary_schedules[#{i}]", "  no_pickup", { class: 'pickup_not_fixed' }, "true", "false") %>
+                  <%= check_box("itinerary_schedules[#{i}]", "no_pickup", {checked: (@resource&.itinerary_schedules[i-1]&.no_pickup), class: 'pickup_not_fixed' }, "true", "false") %>
                 </div>
               <% end %>
             </div>
@@ -120,17 +120,17 @@
                     <label>Drop Time:</label>
                   </div>
                   <div class="col-6">
-                    <%= time_field_tag "itinerary_schedules[#{i}][drop_time]", @resource&.itinerary_schedules[i-1]&.drop_time&.strftime("%H:%M"), class: "form-control drop" %>
+                    <%= time_field_tag "itinerary_schedules[#{i}][drop_time]", @resource&.itinerary_schedules[i-1]&.drop_time&.strftime("%H:%M"), class: "form-control drop", disabled: (@resource&.itinerary_schedules[i-1]&.no_drop ? true : false) %>
                   </div>
                 </div>
               </div>
               <div class="col-5"> 
-                <%= text_field_tag "itinerary_schedules[#{i}][drop_location]",@resource&.itinerary_schedules[i-1]&.drop_location, class: 'form-control drop', placeholder: 'Drop location' %>
+                <%= text_field_tag "itinerary_schedules[#{i}][drop_location]",@resource&.itinerary_schedules[i-1]&.drop_location, class: 'form-control drop', placeholder: 'Drop location', disabled: (@resource&.itinerary_schedules[i-1]&.no_drop ? true : false) %>
               </div>
               <% if i < @duration_count %>
                 <div class="col-2">
                   <label>Not fixed</label>
-                  <%= check_box("itinerary_schedules[#{i}]", "no_drop", { class: 'drop_not_fixed' }, "true", "false") %>
+                  <%= check_box("itinerary_schedules[#{i}]", "no_drop", {checked: (@resource&.itinerary_schedules[i-1]&.no_drop), class: 'drop_not_fixed' }, "true", "false") %>
                 </div>
               <% end %>
             </div>
