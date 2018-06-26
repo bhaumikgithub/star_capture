@@ -58,7 +58,12 @@
     });
   });
   $(".add_btn").on('click', function(e){
-    var itinerary_schedule_id = $("#itinerary_schedule_id option:selected").val();
+    var itinerary_schedule_id = '';
+    <% if params[:itinerary_schedule_id].present? %>
+      itinerary_schedule_id = <%= params[:itinerary_schedule_id] %>
+    <% else %>
+     itinerary_schedule_id = $("#itinerary_schedule_id option:selected").val();
+    <% end %>
     $.ajax({
       url: '<%= check_itinerary_products_itineraries_path %>',
       type: 'GET',
@@ -67,7 +72,7 @@
     }).done(function(data){
       console.log(data.product_names.length);
       if(data.product_names.length != 0)
-        alert(data.product_names + " are alreay present")
+        alert(data.product_names + " are already present")
     });
   })
 }); 
