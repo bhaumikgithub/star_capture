@@ -47,3 +47,9 @@ gem 'acts_as_votable', '~> 0.11.1'
 #for ratings
 gem 'ratyrate'
 
+#for timepicker
+gem 'bootstrap-timepicker-rails'
+
+#for fa icons
+gem 'font-awesome-sass'
+
