@@ -77,8 +77,8 @@
                 <h5 class="col-12 mb-3">Products: </h5>
                 <div class="col-8">
                   <% @resource.itinerary_schedules[i-1].itinerary_products.each do |itinerary_product| %>
-                    <%= hidden_field_tag 'itinerary_product_id', itinerary_product.id, class: 'itinerary_product_id' %>
                     <div class="row mb-2">
+                      <%= hidden_field_tag 'itinerary_product_id', itinerary_product.id, class: 'itinerary_product_id' %>
                       <div class="col-3">
                         <%= select_tag :schedule_id, options_from_collection_for_select(Schedule.all,'id','name', selected: itinerary_product.schedule_id), prompt: 'Please select', id: 'schedule_id', class: 'form-control schedule' %>
                       </div>
@@ -125,7 +125,7 @@
 <script>
   $('.timepicker1').timepicker().on('hide.timepicker', function(e) {
     var timing = $(this).val();
-    var itinerary_product_id = $('.itinerary_product_id').val();
+    var itinerary_product_id = $(this).parent().parent().siblings('.itinerary_product_id').val();
     if (timing != ""){
       $.ajax({
         url: '<%= update_intinerary_products_itineraries_path %>',
@@ -137,7 +137,7 @@
   })
 $('.schedule').on('blur',function(){
     var schedule_id = $(this).val();
-    var itinerary_product_id = $('.itinerary_product_id').val();
+    var itinerary_product_id = $(this).parent().siblings('.itinerary_product_id').val();
     if (schedule_id != ""){
       $.ajax({
         url: '<%= update_itinerary_product_schedule_itineraries_path %>',
@@ -150,7 +150,7 @@ $('.schedule').on('blur',function(){
 
 $('.itinerary_product_description').on('blur',function(){
     var description = $(this).val();
-    var itinerary_product_id = $('.itinerary_product_id').val();
+    var itinerary_product_id = $(this).parent().siblings('.itinerary_product_id').val();
     if (description != ""){
       $.ajax({
         url: '<%= update_itinerary_product_description_itineraries_path %>',
