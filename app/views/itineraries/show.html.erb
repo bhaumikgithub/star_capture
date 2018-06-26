@@ -75,7 +75,7 @@
             <div class="row">
               <% if @resource.itinerary_schedules[i-1]&.itinerary_products.present? %>
                 <h5 class="col-12 mb-3">Products: </h5>
-                <div class="col-8">
+                <div class="col-10">
                   <% @resource.itinerary_schedules[i-1].itinerary_products.each do |itinerary_product| %>
                     <div class="row mb-2">
                       <%= hidden_field_tag 'itinerary_product_id', itinerary_product.id, class: 'itinerary_product_id' %>
@@ -88,12 +88,14 @@
                           <span class="input-group-addon timepicker_addon"><i class="far fa-clock" aria-hidden="true"></i></span>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-2">
                         <span class="mr-2"><%= link_to itinerary_product.product&.name, product_path(itinerary_product.product), target: "_blank" %></span>
-                        <%= link_to(image_tag('remove.png'), delete_itinerary_products_itinerary_path(itinerary_product_id: itinerary_product.id),method: :delete, data: {confirm: "Are you sure?"}) %>
                       </div>
-                      <div class="col-3">
-                        <%= text_area_tag :description, itinerary_product.description, rows: 1, cols: 25, class: 'itinerary_product_description' %>
+                      <div class="col-2">
+                        <%= text_area_tag :description, itinerary_product.description, rows: 1, cols: 20, class: 'itinerary_product_description' %>
+                      </div>
+                      <div class="col-2">
+                        <%= link_to(image_tag('remove.png'), delete_itinerary_products_itinerary_path(itinerary_product_id: itinerary_product.id),method: :delete, data: {confirm: "Are you sure?"},class: 'float-right') %>
                       </div>
 
                     </div>
