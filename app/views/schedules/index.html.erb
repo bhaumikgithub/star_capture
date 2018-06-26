@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>Product Type Listing</h2>
+  <div class="col-12">
+    <%= link_to "New Schedule", new_schedule_path, class: "btn  btn-outline-secondary btn-sm float-right mb-2" %>
+  </div>
+  <table class=" table table-striped sortable">
+    <thead>
+      <tr>
+        <th>Product type name</th>
+        <th>Created Time</th>
+        <th colspan="4">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @resources.each do |schedule| %>
+        <tr>
+          <td><%= link_to schedule.name, schedule_path(schedule) %></td>
+          <td><%= schedule.created_at.strftime("%d-%b-%-y") %></td>
+          <td><%= link_to "View", schedule_path(schedule) %></td>
+          <td><%= link_to("Edit", edit_schedule_path(schedule)) %></td>
+          <td><%= link_to "Delete", schedule_path(schedule), method: :delete, data: {confirm: "Are you sure?"} %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div id="paginate">
+    <%= paginate @resources, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

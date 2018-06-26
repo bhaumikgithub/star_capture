@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       delete :delete_itinerary_products
       post :create_itinerary_schedules
       patch :update_intinerary_products
+      patch :update_itinerary_product_schedule
     end
   end
   resources :category_templates
@@ -47,5 +48,6 @@ Rails.application.routes.draw do
   scope "/operator" do
     resources :users
   end
+  resources :schedules
 end
 

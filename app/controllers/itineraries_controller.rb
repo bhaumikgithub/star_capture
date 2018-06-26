@@ -74,6 +74,11 @@ class ItinerariesController < ApplicationController
     @itinerary_product.update(timing: params[:timing])
   end
 
+  def update_itinerary_product_schedule
+    @itinerary_product = ItineraryProduct.find_by(id: params[:itinerary_product_id].to_s)
+    @itinerary_product.update(schedule_id: params[:schedule_id])
+  end
+
   private
 
   def itinerary_schedules_params
