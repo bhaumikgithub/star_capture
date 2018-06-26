@@ -32,13 +32,14 @@ Rails.application.routes.draw do
       post :create_itinerary_products
       get :get_itinerary_schedule
       get :check_itinerary_products
+      patch :update_itinerary_product_description
+      patch :update_intinerary_products
+      patch :update_itinerary_product_schedule
     end
     member do
       delete :delete_itinerary_schedule
       delete :delete_itinerary_products
-      post :create_itinerary_schedules
-      patch :update_intinerary_products
-      patch :update_itinerary_product_schedule
+      get :add_new_schedule_itinerary
     end
   end
   resources :category_templates

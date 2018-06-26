@@ -61,111 +61,74 @@
 </div>
 <br>
 <% @duration_count =  @resource.duration_type == "Hours" ? 1 : @resource.duration.to_i  %>
-<%= form_tag({controller: :itineraries, action: :create_itinerary_schedules}, {method: :post})  do |f| %>
-  <% for i in 1..@duration_count %>
-    <div class="row">
-      <div class="col-8">
-        <div class="card">
-          <div class="card-header">
-          Day <%= i %> - <b><%= @resource.start_date ? (@resource.start_date.to_date+i-1).strftime("%d %B %Y") : 'Not Fixed' %></b>
-          <%= link_to 'Delete', delete_itinerary_schedule_itinerary_path(itinerary_schedule_id: @resource&.itinerary_schedules[i-1]), method: :delete, data: {confirm: "Are you sure?"}, class: 'ml-5' if @resource.duration.to_i > 1 && @resource.itinerary_schedules[i-1].present? %>
-          </div>
-          <div class="card-body">
-            <div class="row pickup_attributes">
-              <div class="col-5">
-                <div class="row">
-                  <div class="col-6 mt-2">
-                    <label>Pickup Time:</label>
-                  </div>
-                  <div class="col-6">
-                    <%= time_field_tag "itinerary_schedules[#{i}][pickup_time]", @resource&.itinerary_schedules[i-1]&.pickup_time&.strftime("%H:%M"), class: "form-control pickup", readonly: (@resource&.itinerary_schedules[i-1]&.no_pickup ? true : false)  %>
-                  </div>
-                </div>
-              </div>
-              <div class="col-5"> 
-                <%= text_field_tag "itinerary_schedules[#{i}][pickup_location]" ,@resource&.itinerary_schedules[i-1]&.pickup_location, class: 'form-control pickup', placeholder: 'Pickup location', readonly: (@resource&.itinerary_schedules[i-1]&.no_pickup ? true : false) %>
-              </div>
-              <% if i > 1 %>
-                <div class="col-2">
-                  <label>Not fixed</label>
-                  <%= check_box("itinerary_schedules[#{i}]", "no_pickup", {checked: (@resource&.itinerary_schedules[i-1]&.no_pickup), class: 'pickup_not_fixed' }, "true", "false") %>
+
+<% for i in 1..@duration_count %>
+  <div class="row">
+    <div class="col-10">
+      <div class="card">
+        <div class="card-header">
+        Day <%= i %> - <b><%= @resource.start_date ? (@resource.start_date.to_date+i-1).strftime("%d %B %Y") : 'Not Fixed' %></b>
+        <%= link_to 'Delete', delete_itinerary_schedule_itinerary_path(itinerary_schedule_id: @resource&.itinerary_schedules[i-1]), method: :delete, data: {confirm: "Are you sure?"}, class: 'ml-5' if @resource.duration.to_i > 1 && @resource.itinerary_schedules[i-1].present? && @resource.duration_type == 'Days' %>
+        </div>
+        <div class="card-body">
+          <% if @resource.itinerary_schedules.present? %>
+            <div class="row">
+              <% if @resource.itinerary_schedules[i-1]&.itinerary_products.present? %>
+                <h5 class="col-12 mb-3">Products: </h5>
+                <div class="col-8">
+                  <% @resource.itinerary_schedules[i-1].itinerary_products.each do |itinerary_product| %>
+                    <%= hidden_field_tag 'itinerary_product_id', itinerary_product.id, class: 'itinerary_product_id' %>
+                    <div class="row mb-2">
+                      <div class="col-3">
+                        <%= select_tag :schedule_id, options_from_collection_for_select(Schedule.all,'id','name', selected: itinerary_product.schedule_id), prompt: 'Please select', id: 'schedule_id', class: 'form-control schedule' %>
+                      </div>
+                      <div class="col-3">
+                        <div class="input-group bootstrap-timepicker timepicker">
+                          <%= text_field_tag :timing, itinerary_product.timing&.strftime("%H:%M"), class: "form-control product_timings input-small timepicker1" %>
+                          <span class="input-group-addon timepicker_addon"><i class="far fa-clock" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <span class="mr-2"><%= link_to itinerary_product.product&.name, product_path(itinerary_product.product), target: "_blank" %></span>
+                        <%= link_to(image_tag('remove.png'), delete_itinerary_products_itinerary_path(itinerary_product_id: itinerary_product.id),method: :delete, data: {confirm: "Are you sure?"}) %>
+                      </div>
+
+                      <div class="col-3">
+                        <%= text_area_tag :description, itinerary_product.description, rows: 1, cols: 25, class: 'itinerary_product_description' %>
+                      </div>
+                    </div>
+                  <% end %>
                 </div>
               <% end %>
             </div>
             <br>
-            <% if @resource.itinerary_schedules.present? %>
-              <div class="row">
-                <div class="col-3 mr-3 mt-1">
-                 Add products:
-                </div>
-                <% if @resource.itinerary_schedules[i-1]&.itinerary_products.present? %>
-                  <div class="col-8">
-                    <% @resource.itinerary_schedules[i-1].itinerary_products.each do |itinerary_product| %>
-                      <div class="row mb-2">
-                        <div class="col-4">
-                          <%= select_tag :schedule_id, options_from_collection_for_select(Schedule.all,'id','name', selected: itinerary_product.schedule_id), prompt: 'Please select', id: 'schedule_id', class: 'form-control schedule' %>
-                          <%= hidden_field_tag 'itinerary_product_id', itinerary_product.id, class: 'itinerary_product_id' %>
-                        </div>
-                        <div class="col-4">
-                          <div class="input-group bootstrap-timepicker timepicker">
-                            <%= text_field_tag :timing, itinerary_product.timing&.strftime("%H:%M"), class: "form-control product_timings input-small timepicker1" %>
-                            <span class="input-group-addon timepicker_addon"><i class="far fa-clock" aria-hidden="true"></i></span>
-                            <%= hidden_field_tag "product_itinerary_id", itinerary_product.id, class: "product_itinerary_id" %>
-                          </div>
-                        </div>
-                        <div class="col-4">
-                          <span class="mr-2"><%= link_to itinerary_product.product&.name, product_path(itinerary_product.product), target: "_blank" %></span>
-                          <%= link_to(image_tag('remove.png'), delete_itinerary_products_itinerary_path(itinerary_product_id: itinerary_product.id),method: :delete, data: {confirm: "Are you sure?"}) %>
-                        </div>
-                      </div>
-                    <% end %>
-                  </div>
-                <% else %>
-                  <div class="col-4"> 
-                    <%= link_to(image_tag('add.png'), show_nearby_products_products_path(itinerary_schedule_id: @resource.itinerary_schedules[i-1]&.id),:"data-turbolinks" => false) if @resource.itinerary_schedules[i-1].present? %>
-                  </div>
-                <% end %>
-              </div>
-              <br>
-            <% end %>
-            <div class="row drop_attributes">
-              <div class="col-5">
-                <div class="row">
-                  <div class="col-6 mt-2">
-                    <label>Drop Time:</label>
-                  </div>
-                  <div class="col-6">
-                    <%= time_field_tag "itinerary_schedules[#{i}][drop_time]", @resource&.itinerary_schedules[i-1]&.drop_time&.strftime("%H:%M"), class: "form-control drop", readonly: (@resource&.itinerary_schedules[i-1]&.no_drop ? true : false) %>
-                  </div>
-                </div>
-              </div>
-              <div class="col-5"> 
-                <%= text_field_tag "itinerary_schedules[#{i}][drop_location]",@resource&.itinerary_schedules[i-1]&.drop_location, class: 'form-control drop', placeholder: 'Drop location', readonly: (@resource&.itinerary_schedules[i-1]&.no_drop ? true : false) %>
-              </div>
-              <% if i < @duration_count %>
-                <div class="col-2">
-                  <label>Not fixed</label>
-                  <%= check_box("itinerary_schedules[#{i}]", "no_drop", {checked: (@resource&.itinerary_schedules[i-1]&.no_drop), class: 'drop_not_fixed' }, "true", "false") %>
-                </div>
-              <% end %>
+          <% end %>
+          <div class="row">
+            <div class="col-3 mr-3 mt-1">
+               Add products
             </div>
+
+            <div class="col-4"> 
+              <%= link_to(image_tag('add.png'), show_nearby_products_products_path(itinerary_schedule_id: @resource.itinerary_schedules[i-1]&.id),:"data-turbolinks" => false) if @resource.itinerary_schedules[i-1].present? %>
+            </div>
+            
           </div>
         </div>
       </div>
-    </div><br>
-  <% end %>
-  <%= submit_tag 'Submit', class: 'btn btn-primary' %>
+    </div>
+  </div><br>
 <% end %>
+
 <br>
-<%= link_to 'Add new Schedule', '#', class: 'btn btn-primary' %>  
+<%= link_to 'Add new Schedule', add_new_schedule_itinerary_itinerary_path, class: 'btn btn-primary' if @resource.duration_type == 'Days' %>  
 
 <script>
   $('.timepicker1').timepicker().on('hide.timepicker', function(e) {
     var timing = $(this).val();
-    var itinerary_product_id = $(this).siblings('.product_itinerary_id').val();
+    var itinerary_product_id = $('.itinerary_product_id').val();
     if (timing != ""){
       $.ajax({
-        url: '<%= update_intinerary_products_itinerary_path %>',
+        url: '<%= update_intinerary_products_itineraries_path %>',
         type: 'Patch',
         data: {timing: timing,itinerary_product_id: itinerary_product_id },
         dataType: 'script'
@@ -174,12 +137,25 @@
   })
 $('.schedule').on('blur',function(){
     var schedule_id = $(this).val();
-    var itinerary_product_id = $(this).siblings('.itinerary_product_id').val();
+    var itinerary_product_id = $('.itinerary_product_id').val();
     if (schedule_id != ""){
       $.ajax({
-        url: '<%= update_itinerary_product_schedule_itinerary_path %>',
+        url: '<%= update_itinerary_product_schedule_itineraries_path %>',
         type: 'Patch',
         data: {schedule_id: schedule_id,itinerary_product_id: itinerary_product_id },
+        dataType: 'script'
+      })
+    }
+  })
+
+$('.itinerary_product_description').on('blur',function(){
+    var description = $(this).val();
+    var itinerary_product_id = $('.itinerary_product_id').val();
+    if (description != ""){
+      $.ajax({
+        url: '<%= update_itinerary_product_description_itineraries_path %>',
+        type: 'Patch',
+        data: {description: description,itinerary_product_id: itinerary_product_id },
         dataType: 'script'
       })
     }
