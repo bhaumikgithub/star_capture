@@ -68,6 +68,7 @@
         <div class="card">
           <div class="card-header">
           Day <%= i %> - <b><%= @resource.start_date ? (@resource.start_date.to_date+i-1).strftime("%d %B %Y") : 'Not Fixed' %></b>
+          <%= link_to 'Delete', delete_itinerary_schedule_itinerary_path(itinerary_schedule_id: @resource&.itinerary_schedules[i-1]), method: :delete, data: {confirm: "Are you sure?"}, class: 'ml-5' if @resource.duration.to_i > 1 && @resource.itinerary_schedules[i-1].present? %>
           </div>
           <div class="card-body">
 
@@ -98,7 +99,7 @@
                 <div class="col-3 mr-3 mt-1">
                  Add products:
                 </div>
-                <% if @resource.itinerary_schedules[i-1].itinerary_products.present? %>
+                <% if @resource.itinerary_schedules[i-1]&.itinerary_products.present? %>
                   <div class="col-8">
                     <% @resource.itinerary_schedules[i-1].itinerary_products.each do |itinerary_product| %>
                       <div class="row mb-2">
@@ -120,7 +121,7 @@
                   </div>
                 <% else %>
                   <div class="col-4"> 
-                    <%= link_to(image_tag('add.png'), show_nearby_products_products_path(itinerary_schedule_id: @resource.itinerary_schedules[i-1].id),:"data-turbolinks" => false) %>
+                    <%= link_to(image_tag('add.png'), show_nearby_products_products_path(itinerary_schedule_id: @resource.itinerary_schedules[i-1]&.id),:"data-turbolinks" => false) if @resource.itinerary_schedules[i-1].present? %>
                   </div>
                 <% end %>
               </div>
@@ -154,6 +155,9 @@
   <% end %>
   <%= submit_tag 'Submit', class: 'btn btn-primary' %>
 <% end %>
+<br>
+<%= link_to 'Add new Schedule', '#', class: 'btn btn-primary' %>  
+
 <script>
   $('.product_timings').on('blur',function(){
     var timing = $(this).val();

@@ -1,7 +1,7 @@
 class ItinerariesController < ApplicationController
 
   include InheritAction
-  before_action :set_itinerary, only: [:create_itinerary_schedules, :delete_itinerary_products]
+  before_action :set_itinerary, only: [:create_itinerary_schedules, :delete_itinerary_products, :delete_itinerary_schedule]
 
   def create
     @resource = current_user.itineraries.new(resource_params)
@@ -14,9 +14,9 @@ class ItinerariesController < ApplicationController
   end
 
   def create_itinerary_schedules
-    @resource.itinerary_schedules.present? ? is_update = true : is_update = false
     count = @resource.duration_type == "Hours" ? 1 : @resource.duration.to_i
     for i in 1..count
+      @resource.itinerary_schedules[i-1].present? ? is_update = true : is_update = false
       itinerary_schedules_params[i.to_s]["pickup_time"] = params[:itinerary_schedules][i.to_s]["pickup_time"].to_s
 
       itinerary_schedules_params[i.to_s]["drop_time"] = params[:itinerary_schedules][i.to_s]["drop_time"].to_s
@@ -68,6 +68,12 @@ class ItinerariesController < ApplicationController
   def update_itinerary_product_schedule
     @itinerary_product = ItineraryProduct.find_by(id: params[:itinerary_product_id].to_s)
     @itinerary_product.update(schedule_id: params[:schedule_id])
+  end
+
+  def delete_itinerary_schedule
+    ItinerarySchedule.find_by_id(params[:itinerary_schedule_id]).destroy
+    @resource.update(duration: @resource.duration.to_i-1)
+    redirect_to itinerary_path(@resource)
   end
 
   private
