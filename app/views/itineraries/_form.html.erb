@@ -11,7 +11,7 @@
     <%= f.text_field :name, required: true %>
     <div class="row">
       <div class="col-6">
-        <%= f.date_field :start_date, selected: Date.today, min: 0.days.ago, max: 1.year.from_now, value: @resource.not_fixed ? "" : (@resource.start_date.present? ? @resource.start_date.to_date : Date.today), class: "start_date", disabled: (@resource.not_fixed ? true : false) %>
+        <%= f.date_field :start_date, selected: Date.today, min: 0.days.ago, max: 1.year.from_now, value: @resource.not_fixed ? "" : (@resource.start_date.present? ? @resource.start_date.to_date : Date.today), class: "start_date", readonly: (@resource.not_fixed ? true : false) %>
       </div>
       <div class="col-6 mt-5">
         <%= f.check_box :not_fixed, class: "not_fixed_checckbox" %>
@@ -54,16 +54,3 @@
     <%= f.submit "Submit", class: 'btn btn-sm btn-success' %>
     <%= link_to "Back", categories_path, class: 'btn btn-sm btn-info' %>
 <% end %>
-<script>
-  $('.not_fixed_checckbox').on('change', function(){
-    if(this.checked == true){
-      $('.start_date').attr('disabled', true);
-      $('.start_date').val("");
-    }
-    else
-    {
-      $('.start_date').attr('disabled', false);
-      $('.start_date').val("<%= Date.today %>");
-    }
-  })
-</script>
