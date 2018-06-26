@@ -17,9 +17,9 @@ class ItinerariesController < ApplicationController
     @resource.itinerary_schedules.present? ? is_update = true : is_update = false
     count = @resource.duration_type == "Hours" ? 1 : @resource.duration.to_i
     for i in 1..count
-      itinerary_schedules_params[i.to_s]["pickup_time"] = DateTime.parse((@resource.start_date.to_date+i-1).to_s+" "+params[:itinerary_schedules][i.to_s]["pickup_time"].to_s)
+      itinerary_schedules_params[i.to_s]["pickup_time"] = params[:itinerary_schedules][i.to_s]["pickup_time"].to_s
 
-      itinerary_schedules_params[i.to_s]["drop_time"] = DateTime.parse((@resource.start_date.to_date+i-1).to_s+" "+params[:itinerary_schedules][i.to_s]["drop_time"].to_s)
+      itinerary_schedules_params[i.to_s]["drop_time"] = params[:itinerary_schedules][i.to_s]["drop_time"].to_s
 
       if is_update
         @resource.itinerary_schedules[i-1].update((itinerary_schedules_params[i.to_s]))
@@ -63,6 +63,11 @@ class ItinerariesController < ApplicationController
   def update_intinerary_products
     @itinerary_product = ItineraryProduct.find_by(id: params[:itinerary_product_id])
     @itinerary_product.update(timing: params[:timing])
+  end
+
+  def update_itinerary_product_schedule
+    @itinerary_product = ItineraryProduct.find_by(id: params[:itinerary_product_id].to_s)
+    @itinerary_product.update(schedule_id: params[:schedule_id])
   end
 
   private

@@ -101,14 +101,18 @@
                   <div class="col-8">
                     <% @resource.itinerary_schedules[i-1].itinerary_products.each do |itinerary_product| %>
                       <div class="row mb-2">
-                        <div class="col-5">
+                        <div class="col-4">
+                          <%= select_tag :schedule_id, options_from_collection_for_select(Schedule.all,'id','name', selected: itinerary_product.schedule_id), prompt: 'Please select', id: 'schedule_id', class: 'form-control schedule' %>
+                          <%= hidden_field_tag 'itinerary_product_id', itinerary_product.id, class: 'itinerary_product_id' %>
+                        </div>
+                        <div class="col-4">
                           <div class="input-group bootstrap-timepicker timepicker">
                             <%= text_field_tag :timing, itinerary_product.timing&.strftime("%H:%M"), class: "form-control product_timings input-small timepicker1" %>
                             <span class="input-group-addon timepicker_addon"><i class="far fa-clock" aria-hidden="true"></i></span>
                             <%= hidden_field_tag "product_itinerary_id", itinerary_product.id, class: "product_itinerary_id" %>
                           </div>
                         </div>
-                        <div class="col-5">
+                        <div class="col-4">
                           <span class="mr-2"><%= link_to itinerary_product.product&.name, product_path(itinerary_product.product), target: "_blank" %></span>
                           <%= link_to(image_tag('remove.png'), delete_itinerary_products_itinerary_path(itinerary_product_id: itinerary_product.id),method: :delete, data: {confirm: "Are you sure?"}) %>
                         </div>
@@ -160,6 +164,18 @@
         url: '<%= update_intinerary_products_itinerary_path %>',
         type: 'Patch',
         data: {timing: timing,itinerary_product_id: itinerary_product_id },
+        dataType: 'script'
+      })
+    }
+  })
+$('.schedule').on('blur',function(){
+    var schedule_id = $(this).val();
+    var itinerary_product_id = $(this).siblings('.itinerary_product_id').val();
+    if (schedule_id != ""){
+      $.ajax({
+        url: '<%= update_itinerary_product_schedule_itinerary_path %>',
+        type: 'Patch',
+        data: {schedule_id: schedule_id,itinerary_product_id: itinerary_product_id },
         dataType: 'script'
       })
     }
