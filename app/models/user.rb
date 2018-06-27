@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :product_comments
   has_many :itineraries, foreign_key: :user_id
   has_one :itinerary, foreign_key: :client_id
+  belongs_to :operator, :class_name => "User", :foreign_key => "operator_id"
   ratyrate_rater
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   acts_as_voter
