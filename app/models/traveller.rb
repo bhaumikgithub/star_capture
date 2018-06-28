@@ -3,4 +3,6 @@
 class Traveller < ApplicationRecord
   belongs_to :user
   has_many :itinerary_travellers, :as => :memberable
+
+  GENDER = %w[Male  Female]
 end

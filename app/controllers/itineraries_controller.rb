@@ -88,15 +88,34 @@ class ItinerariesController < ApplicationController
   end
 
   def create_itinerary_traveller
-    itinerary_user = User.find_by_id(params[:user_id])
-    if itinerary_user
-      itinerary_user.itinerary_travellers.create(itinerary_id: params[:id])
-      params[:traveller_ids].each do |traveller|
-        itinerary_traveller = Traveller.find_by_id(traveller.to_i)
-        itinerary_traveller.itinerary_travellers.create(itinerary_id: params[:id]) if itinerary_traveller
+    # if params[:user_id].present?
+    #   update_itinerary_client
+    # else
+      itinerary_user = User.find_by_id(params[:user_id])
+      if itinerary_user
+        itinerary_user.itinerary_travellers.create(itinerary_id: params[:id])
+        params[:traveller_ids].each do |traveller|
+          itinerary_traveller = Traveller.find_by_id(traveller.to_i)
+
+          itinerary_traveller.itinerary_travellers.create(itinerary_id: params[:id]) if itinerary_traveller
+        end
       end
-    end
+    # end
     redirect_to itinerary_path
+  end
+
+  def update_itinerary_client
+    # binding.pry
+    a = @resource.itinerary_travellers.where(memberable_type: 'Traveller').pluck(:memberable_id)
+    b = User.find_by(id: params[:user_id]).travellers.pluck(:id)
+    itinerary_travellers =  ItineraryTraveller.where(memberable_id: (a & b) - params[:traveller_ids].map(&:to_i)).destroy_all
+    params[:traveller_ids].each do |id|
+      # binding.pry
+      traveller = Traveller.find_by_id(id.to_i)
+      itinerary_traveller = ItineraryTraveller.find_by(memberable_id: id.to_i)
+      traveller.itinerary_travellers.create(itinerary_id: params[:id]) if traveller !itinerary_traveller
+    end
+    # redirect_to 
   end
 
   private

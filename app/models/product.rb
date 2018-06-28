@@ -12,8 +12,8 @@ class Product < ApplicationRecord
 
   acts_as_votable
 
-  PARKING_TYPE = ['No Parking', 'Free', 'Paid', 'Valet']
-  WEEK_DAYS = ['Monday', 'Tudeday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  PARKING_TYPE = %w[No-Parking Free Paid Valet]
+  WEEK_DAYS = %w[Monday Tudeday Wednesday Thursday Friday Saturday Sunday]
 
   # after_validation :remove_images
   validate :add_errors

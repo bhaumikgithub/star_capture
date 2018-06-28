@@ -41,7 +41,7 @@
     <%= ff.remove_nested_fields_link %>
     <%= ff.text_field :first_name %>
     <%= ff.text_field :last_name %>
-    <%= ff.text_field :gender %>
+    <%= ff.select :gender , Traveller::GENDER  %>
     <%= ff.date_field :birthdate %>
   <% end %>
   <%= f.add_nested_fields_link :travellers %><br>

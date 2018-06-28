@@ -1,16 +1,1 @@
-<%= bootstrap_form_for(@resource) do |f| %>
-  <% if @resource.errors.any? %>
-    <div id="error_explanation">
-      <ul>
-        <% @resource.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-    <span> <b>Note: </b> Password is randomly created (6 digits)</span>
-    <%= f.text_field :name, required: true %>
-    <%= f.text_field :email, required: true %>
-    <%= f.submit "create Client", class: 'btn btn-sm btn-success' %>
-
-<% end %>
+<%= render 'form' %>

@@ -134,14 +134,22 @@
       </tr>
     </thead>
     <tbody>
+      <% count = 0 %>
       <% @resource.itinerary_travellers.where(memberable_type: 'User').each do |itinerary_traveller| %>
         <tr>
           <td><%= itinerary_traveller.memberable.get_client_name%></td>
           <td><%= itinerary_traveller.memberable.email %></td>
-          <td><%#= itinerary_traveller.user.email %></td>
-          <td><%#= itinerary_traveller.travellers.count %></td>
-          <td><%#= link_to 'View', itinerary_traveller%></td>
+          <%  travellers = @resource.itinerary_travellers.where(memberable_type: 'Traveller') %>
+          <% travellers.each do |traveller| %>
+            <% if traveller.memberable.user_id == itinerary_traveller.memberable_id %>
+              <% count = count + 1%>
+            <% end %>
+          <% end %>
+          <td><%= count %></td>
+          <td><%= link_to 'View', itinerary_traveller.memberable%></td>
+          <td><%= link_to 'Edit', '#' %></td>
           <td><%#= link_to 'Delete', itinerary_traveller, method: :delete, data: {confirm: "Are you sure?"}  %></td>
+          <% count = 0 %>
         </tr>
       <% end %>
     </tbody>

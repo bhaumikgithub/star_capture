@@ -37,7 +37,9 @@
 <%= bootstrap_form_tag url: create_itinerary_traveller_itinerary_path do |f|  %>
 
   <%= f.hidden_field :user_id, value: @client.id %>
-  <%= select_tag 'traveller_ids[]', options_from_collection_for_select(@travellers,'id','first_name'), id: 'traveller_id', class: 'form-control client', multiple: true %>
+  <% a = @resource.itinerary_travellers.where(memberable_type: 'Traveller').pluck(:memberable_id) %>
+  <% b = @client.travellers.pluck(:id) %>
+  <%= select_tag 'traveller_ids[]', options_from_collection_for_select(@travellers,'id','first_name', selected: a & b ), id: 'traveller_id', class: 'form-control client', multiple: true %>
   <br><br>
   <%= f.submit 'Add' %>
 <% end %>
