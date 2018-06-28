@@ -136,8 +136,8 @@
     <tbody>
       <% @resource.itinerary_travellers.where(memberable_type: 'User').each do |itinerary_traveller| %>
         <tr>
-          <td><%= itinerary_traveller.user.inspect %></td>
-          <td><%#= itinerary_traveller.user.get_client_name %></td>
+          <td><%= itinerary_traveller.memberable.get_client_name%></td>
+          <td><%= itinerary_traveller.memberable.email %></td>
           <td><%#= itinerary_traveller.user.email %></td>
           <td><%#= itinerary_traveller.travellers.count %></td>
           <td><%#= link_to 'View', itinerary_traveller%></td>

@@ -96,6 +96,7 @@ class ItinerariesController < ApplicationController
         itinerary_traveller.itinerary_travellers.create(itinerary_id: params[:id]) if itinerary_traveller
       end
     end
+    redirect_to itinerary_path
   end
 
   private

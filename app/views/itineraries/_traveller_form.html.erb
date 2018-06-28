@@ -3,7 +3,7 @@
     Email
   </div>
   <div class="col-4">
-    <%= text_field_tag :email,@client.present? ? @client.email : '', readyonly: true, class: 'form-control'%>
+    <%= text_field_tag :email,@client.present? ? @client.email : '', readonly: true, class: 'form-control'%>
   </div>
 </div>
 <br>
@@ -12,7 +12,7 @@
     Phone
   </div>
   <div class="col-4">
-    <%= text_field_tag :email,@client.present? ? @client.phone_number : '', readyonly: true, class: 'form-control'%>
+    <%= text_field_tag :email,@client.present? ? @client.phone_number : '', readonly: true, class: 'form-control'%>
   </div>
 </div>
 <!-- <br>
@@ -21,7 +21,7 @@
     Address
   </div>
   <div class="col-4">
-    <%#= text_field_tag :email,@client.present? ? @client.address : '', readyonly: true, class: 'form-control'%>
+    <%#= text_field_tag :email,@client.present? ? @client.address : '', readonly: true, class: 'form-control'%>
   </div>
 </div> -->
 <br>
@@ -30,7 +30,7 @@
     Contact person name
   </div>
   <div class="col-4">
-    <%= text_field_tag :email,@client.present? ? @client.get_client_name : '', readyonly: true, class: 'form-control'%>
+    <%= text_field_tag :email,@client.present? ? @client.get_client_name : '', readonly: true, class: 'form-control'%>
   </div>
 </div>
 <br>
