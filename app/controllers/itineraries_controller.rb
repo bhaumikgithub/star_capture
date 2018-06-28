@@ -3,7 +3,7 @@
 class ItinerariesController < ApplicationController
 
   include InheritAction
-  before_action :set_itinerary, only: [:delete_itinerary_products, :delete_itinerary_schedule, :add_new_schedule_itinerary,:add_itinerary_traveller, :create_itinerary_traveller]
+  before_action :set_itinerary, only: [:delete_itinerary_products, :delete_itinerary_schedule, :add_new_schedule_itinerary,:add_itinerary_traveller, :create_itinerary_traveller, :view_itinerary_details]
 
   def create
     @resource = current_user.itineraries.new(resource_params)
@@ -97,6 +97,10 @@ class ItinerariesController < ApplicationController
       end
     end
     redirect_to itinerary_path
+  end
+
+  def view_itinerary_details
+    @itineray_schedules = @resource.itinerary_schedules
   end
 
   private
