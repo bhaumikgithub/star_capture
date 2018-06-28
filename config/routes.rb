@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       get :add_new_schedule_itinerary
       get :add_itinerary_traveller
       post :create_itinerary_traveller
+      get :view_itinerary_details
     end
   end
   resources :category_templates

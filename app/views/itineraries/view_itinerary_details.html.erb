@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="col-12">
+    <span class="d-inline-block"><h5><b>Name: </b> <%= @resource.name %></h5></span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-8">
+    <div class="row mt-2">
+      <div class="col-6">
+       <span class="d-inline-block"><b>From-To: </b><%= from_to_date(@resource) %></span>
+     </div>
+  </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-8">
+    <div class="row mt-2">
+      <div class="col-6">
+        <span class="d-inline-block"><b>Status: </b><%= @resource.status %></span>
+      </div>
+  </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-8">
+    <div class="row mt-2">
+      <div class="col-6">
+      <% if @resource.min_members.present? && @resource.max_members.present? %>
+        <span class="d-inline-block"><b>Members: </b><%= @resource.min_members %></span>-
+        <span class="d-inline-block"><b></b><%= @resource.max_members %></span>
+      <% else %>
+        <span class="d-inline-block"><b>Members: </b>Not fixed</span>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-8">
+    <div class="row mt-2">
+      <div class="col-6">
+       <span class="d-inline-block"><b>Duration: </b><%= @resource.duration+' '+@resource.duration_type %></span>
+     </div>
+    </div>
+  </div>
+</div>
+<br>
+<% @itineray_schedules.each_with_index do |itinerary_schedule, index| %>
+  <div class="row">
+    <div class="col-10">
+      <div class="card">
+        <div class="card-header">
+          Day <%= index+1 %> - <b><%= @resource.start_date ? (@resource.start_date.to_date+index).strftime("%d %B %Y") : 'Not Fixed' %></b>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <% if @resource.itinerary_schedules[index]&.itinerary_products.present? %>
+              <div class="col-12">
+                <table class=" table table-striped sortable">
+                  <thead>
+                    <th>Schedule</th>
+                    <th>Timing</th>
+                    <th>Product</th>
+                    <th>Description</th>
+                  </thead>
+                  <% @resource.itinerary_schedules[index].itinerary_products.includes(:product).each do |itinerary_product| %>
+                    <tbody>
+                      <td><%= itinerary_product.schedule.present? ? itinerary_product.schedule.name : "-"%></td>
+                      <td><%= itinerary_product.timing.present? ? itinerary_product.timing.strftime("%l:%M %P") : "-" %></td>
+                      <td><%= itinerary_product.product.name %></td>
+                      <td><%= itinerary_product.description.present? ? itinerary_product.description : "-" %></td>
+                    </tbody>
+                  <% end %>
+                </table>
+              </div>
+            <% else %>
+              <span>No schedule available</span>
+            <% end %>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div><br>
+<% end %>
+<div class="col-10">
+  <h5>Clients Listing</h5>
+  <table class=" table table-striped sortable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Members</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% count = 0 %>
+      <% @resource.itinerary_travellers.where(memberable_type: 'User').each do |itinerary_traveller| %>
+        <tr>
+          <td><%= itinerary_traveller.memberable.get_client_name%></td>
+          <td><%= itinerary_traveller.memberable.email %></td>
+          <%  travellers = @resource.itinerary_travellers.where(memberable_type: 'Traveller') %>
+          <% travellers.each do |traveller| %>
+            <% if traveller.memberable.user_id == itinerary_traveller.memberable_id %>
+              <% count = count + 1%>
+            <% end %>
+          <% end %>
+          <td><%= count %></td>
+          <td><%= link_to 'View', itinerary_traveller.memberable%></td>
+          <!-- <td><%#= link_to 'Edit', '#' %></td> -->
+          <td><%#= link_to 'Delete', itinerary_traveller, method: :delete, data: {confirm: "Are you sure?"}  %></td>
+          <% count = 0 %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<!--   <div id="paginate">
+    <%#= paginate @resources, theme: 'twitter-bootstrap-4' %>
+  </div> -->
+</div>

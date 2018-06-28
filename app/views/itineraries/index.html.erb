@@ -26,8 +26,9 @@
           <td><%= itinerary.status %></td>
           <!-- <td><%#= itinerary.client.get_client_name %></td> -->
           <!-- <td><%#= itinerary.price %></td> -->
-          <td><%= link_to("View", itinerary_path(itinerary)) %></td>
+          <td><%= link_to("Edit itinerary schedule", itinerary_path(itinerary)) %></td>
           <td><%= link_to("Edit", edit_itinerary_path(itinerary)) %></td>
+          <td><%= link_to "View", view_itinerary_details_itinerary_path(itinerary) %></td>
           <td><%= link_to "Delete", itinerary_path(itinerary), method: :delete, data: {confirm: "Are you sure?"} %></td>
 
         </tr>
