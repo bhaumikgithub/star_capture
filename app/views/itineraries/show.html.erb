@@ -71,12 +71,12 @@
         <%= link_to 'Delete', delete_itinerary_schedule_itinerary_path(itinerary_schedule_id: @resource&.itinerary_schedules[i-1]), method: :delete, data: {confirm: "Are you sure?"}, class: 'ml-5' if @resource.duration.to_i > 1 && @resource.itinerary_schedules[i-1].present? && @resource.duration_type == 'Days' %>
         </div>
         <div class="card-body">
-          <% if @resource.itinerary_schedules.present? %>
+          <% if @resource.itinerary_schedules.includes(:itinerary_products).present? %>
             <div class="row">
               <% if @resource.itinerary_schedules[i-1]&.itinerary_products.present? %>
                 <h5 class="col-12 mb-3">Products: </h5>
                 <div class="col-10">
-                  <% @resource.itinerary_schedules[i-1].itinerary_products.each do |itinerary_product| %>
+                  <% @resource.itinerary_schedules[i-1].itinerary_products.includes(:product).each do |itinerary_product| %>
                     <div class="row mb-2">
                       <%= hidden_field_tag 'itinerary_product_id', itinerary_product.id, class: 'itinerary_product_id' %>
                       <div class="col-3">

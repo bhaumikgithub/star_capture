@@ -1,3 +1,4 @@
+# The CategoryTemplatesController class is responsible for creating templates.
 class CategoryTemplatesController < ApplicationController
 
   load_and_authorize_resource
