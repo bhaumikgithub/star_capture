@@ -100,11 +100,7 @@ class ItinerariesController < ApplicationController
   end
 
   private
-
-  def itinerary_schedules_params
-    params.require(:itinerary_schedules).permit!
-  end
-
+  
   def set_itinerary
     @resource = Itinerary.find_by(id: params[:id])
   end

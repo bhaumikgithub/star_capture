@@ -23,10 +23,4 @@ class CategoriesController < ApplicationController
     redirect_to categories_path
   end
 
-  private
-
-  def resource_params
-    params.require(:category).permit(:name, :category_template_id)
-  end
-
 end

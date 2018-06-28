@@ -16,7 +16,7 @@ class CategoryTemplate < ApplicationRecord
     arr = []
     get_template_fields.each do |key, value|
       if value.present?
-        arr << key if value['required'] == 'true' 
+        arr << key if value['required'] == 'true'
       end
     end
     arr
