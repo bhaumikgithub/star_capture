@@ -284,7 +284,9 @@ ActiveRecord::Schema.define(version: 2018_06_27_140655) do
     t.float "longitude"
     t.string "phone_number"
     t.text "address"
+    t.bigint "operator_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["operator_id"], name: "index_users_on_operator_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :travellers, dependent: :nullify
   accepts_nested_attributes_for :travellers, allow_destroy: true
   has_many :itinerary_travellers, :as => :memberable
-  
+  belongs_to :operator, :class_name => "User", :foreign_key => "operator_id"
   ratyrate_rater
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   acts_as_voter

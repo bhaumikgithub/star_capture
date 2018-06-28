@@ -13,7 +13,8 @@ class UsersController < ApplicationController
     client_password = Devise.friendly_token.first(6)
     @resource.name = user_params[:name]+'@'+client_password
     @resource.role = 'client'
-    @resource.password = client_password 
+    @resource.password = client_password
+    @resource.operator_id = current_user.id
     if  @resource.save
       redirect_to users_path
     else
