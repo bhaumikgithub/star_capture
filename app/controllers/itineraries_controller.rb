@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class ItinerariesController < ApplicationController
 
   include InheritAction
-  before_action :set_itinerary, only: [:delete_itinerary_products, :delete_itinerary_schedule, :add_new_schedule_itinerary]
+  before_action :set_itinerary, only: [:delete_itinerary_products, :delete_itinerary_schedule, :add_new_schedule_itinerary,:add_itinerary_traveller, :create_itinerary_traveller]
 
   def create
     @resource = current_user.itineraries.new(resource_params)
@@ -77,9 +79,33 @@ class ItinerariesController < ApplicationController
     @itinerary_product.update(description: params[:description])
   end
 
+  def add_itinerary_traveller
+    if params[:client_id].present?
+      @client = User.find_by_id(params[:client_id])
+      @travellers = @client.travellers
+    end
+    @clients = User.get_clients
+  end
+
+  def create_itinerary_traveller
+    itinerary_user = User.find_by_id(params[:user_id])
+    if itinerary_user
+      itinerary_user.itinerary_travellers.create(itinerary_id: params[:id])
+      params[:traveller_ids].each do |traveller|
+        itinerary_traveller = Traveller.find_by_id(traveller.to_i)
+        itinerary_traveller.itinerary_travellers.create(itinerary_id: params[:id]) if itinerary_traveller
+      end
+    end
+  end
+
   private
   
   def set_itinerary
     @resource = Itinerary.find_by(id: params[:id])
   end
+
+  def itinerary_traveller_params
+    params.permit!
+  end
+
 end

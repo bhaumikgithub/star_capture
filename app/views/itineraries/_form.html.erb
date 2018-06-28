@@ -20,10 +20,10 @@
 
     <div class="row">
       <div class="col-6">
-        <%= f.number_field :duration, min: 1, max: 24 %>
+        <%= f.number_field :duration, min: 1, max: 24,readonly: (@resource&.duration ? true : false)%>
       </div>
       <div class="col-6">
-        <%= f.select :duration_type, ['Days', 'Hours'].map { |e| e  }  %>
+        <%= f.select :duration_type, ['Days', 'Hours'].map { |e| e  }%>
       </div>
     </div>
 

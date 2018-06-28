@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ItinerarySchedule < ApplicationRecord
   belongs_to :itinerary
 

@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
-gem 'rails'
+gem 'coffee-rails', '~> 4.2'
+gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
 gem 'pg'
 gem 'puma', '~> 3.10'
+gem 'rails'
 gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
-gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
+gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -15,22 +17,22 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'devise'
 gem 'bootstrap', '~> 4.1.1'
-gem "bootstrap_form", git: "https://github.com/bootstrap-ruby/bootstrap_form.git", branch: "master"
-gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
+gem "bootstrap_form", git: "https://github.com/bootstrap-ruby/bootstrap_form.git", branch: "master"
+gem 'devise'
+gem 'kaminari'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #file storage
-gem 'cloudinary', require: false
 gem 'activestorage-cloudinary-service'
+gem 'cloudinary', require: false
 
 # for location
 gem 'geocoder'
@@ -52,4 +54,15 @@ gem 'bootstrap-timepicker-rails'
 
 #for fa icons
 gem 'font-awesome-sass'
+
+
+gem 'nested_form_fields'
+
+gem 'rubocop', '~> 0.57.2', require: false
+gem "rubycritic", require: false
+
+
+gem "select2-rails"
+
+
 

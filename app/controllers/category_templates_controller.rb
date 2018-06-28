@@ -1,4 +1,5 @@
-# The CategoryTemplatesController class is responsible for creating templates.
+# frozen_string_literal: true
+
 class CategoryTemplatesController < ApplicationController
 
   load_and_authorize_resource
