@@ -11,15 +11,16 @@
         <th>Name</th>
         <th>Email</th>
         <th>Password</th>
-        <th colspan="1">Actions</th>
+        <th colspan="2">Actions</th>
       </tr>
     </thead>
     <tbody>
       <% @resources.each do |client| %>
         <tr>
-          <td><%= client.get_client_name %></td>
+          <td><%= link_to client.get_client_name, client %></td>
           <td><%= client.email %></td>
           <td><%= client.get_password %></td>
+          <td><%= link_to 'View', client%></td>
           <td><%= link_to 'Delete', client, method: :delete, data: {confirm: "Are you sure?"}  %></td>
         </tr>
       <% end %>

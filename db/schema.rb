@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_26_112239) do
+ActiveRecord::Schema.define(version: 2018_06_27_140655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,16 @@ ActiveRecord::Schema.define(version: 2018_06_26_112239) do
     t.index ["itinerary_id"], name: "index_itinerary_schedules_on_itinerary_id"
   end
 
+  create_table "itinerary_travellers", force: :cascade do |t|
+    t.bigint "itinerary_id"
+    t.string "memberable_type"
+    t.bigint "memberable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["itinerary_id"], name: "index_itinerary_travellers_on_itinerary_id"
+    t.index ["memberable_type", "memberable_id"], name: "index_itinerary_travellers_on_memberable_type_and_memberable_id"
+  end
+
   create_table "overall_averages", force: :cascade do |t|
     t.string "rateable_type"
     t.bigint "rateable_id"
@@ -244,6 +254,17 @@ ActiveRecord::Schema.define(version: 2018_06_26_112239) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "travellers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "gender"
+    t.date "birthdate"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_travellers_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -261,6 +282,8 @@ ActiveRecord::Schema.define(version: 2018_06_26_112239) do
     t.string "role", default: "user"
     t.float "latitude"
     t.float "longitude"
+    t.string "phone_number"
+    t.text "address"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -288,7 +311,9 @@ ActiveRecord::Schema.define(version: 2018_06_26_112239) do
   add_foreign_key "itinerary_products", "itinerary_schedules"
   add_foreign_key "itinerary_products", "products"
   add_foreign_key "itinerary_schedules", "itineraries"
+  add_foreign_key "itinerary_travellers", "itineraries"
   add_foreign_key "product_comments", "products"
   add_foreign_key "product_comments", "users"
   add_foreign_key "products", "product_types"
+  add_foreign_key "travellers", "users"
 end

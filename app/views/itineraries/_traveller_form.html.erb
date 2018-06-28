@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-4">
+    Email
+  </div>
+  <div class="col-4">
+    <%= text_field_tag :email,@client.present? ? @client.email : '', readyonly: true, class: 'form-control'%>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-4">
+    Phone
+  </div>
+  <div class="col-4">
+    <%= text_field_tag :email,@client.present? ? @client.phone_number : '', readyonly: true, class: 'form-control'%>
+  </div>
+</div>
+<!-- <br>
+<div class="row">
+  <div class="col-4">
+    Address
+  </div>
+  <div class="col-4">
+    <%#= text_field_tag :email,@client.present? ? @client.address : '', readyonly: true, class: 'form-control'%>
+  </div>
+</div> -->
+<br>
+<div class="row">
+  <div class="col-4">
+    Contact person name
+  </div>
+  <div class="col-4">
+    <%= text_field_tag :email,@client.present? ? @client.get_client_name : '', readyonly: true, class: 'form-control'%>
+  </div>
+</div>
+<br>
+<%= bootstrap_form_tag url: create_itinerary_traveller_itinerary_path do |f|  %>
+
+  <%= f.hidden_field :user_id, value: @client.id %>
+  <%= select_tag 'traveller_ids[]', options_from_collection_for_select(@travellers,'id','first_name'), id: 'traveller_id', class: 'form-control client', multiple: true %>
+  <br><br>
+  <%= f.submit 'Add' %>
+<% end %>
+
+
+<script type="text/javascript">
+  $( "#traveller_id" ).select2({
+      placeholder: 'Please select travllers '
+  });
+</script>
+

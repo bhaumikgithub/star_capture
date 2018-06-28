@@ -18,4 +18,6 @@
 //= require jquery.raty
 //= require ratyrate
 //= require lightbox
+//= require nested_form_fields
+//= require select2-full
 //= require_tree .

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -7,6 +9,10 @@ class User < ApplicationRecord
   has_many :product_comments
   has_many :itineraries, foreign_key: :user_id
   has_one :itinerary, foreign_key: :client_id
+  has_many :travellers, dependent: :nullify
+  accepts_nested_attributes_for :travellers, allow_destroy: true
+  has_many :itinerary_travellers, :as => :memberable
+  
   ratyrate_rater
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   acts_as_voter

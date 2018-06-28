@@ -1,0 +1,9 @@
+AllCops:
+  TargetRubyVersion: 2.5.0
+  Exclude:
+    - db/schema.rb
+    - db/migrate/*.rb
+    - config/spring.rb
+    - bin/**/*
+    - test/**/*
+    

@@ -60,6 +60,7 @@
   </div>
 </div>
 <br>
+<%= link_to("Add Group", add_itinerary_traveller_itinerary_path) %>
 <% @duration_count =  @resource.duration_type == "Hours" ? 1 : @resource.duration.to_i  %>
 
 <% for i in 1..@duration_count %>
@@ -120,6 +121,35 @@
     </div>
   </div><br>
 <% end %>
+
+<div class="container">
+  <h5>Clients Listing</h5>
+  <table class=" table table-striped sortable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Members</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @resource.itinerary_travellers.where(memberable_type: 'User').each do |itinerary_traveller| %>
+        <tr>
+          <td><%= itinerary_traveller.user.inspect %></td>
+          <td><%#= itinerary_traveller.user.get_client_name %></td>
+          <td><%#= itinerary_traveller.user.email %></td>
+          <td><%#= itinerary_traveller.travellers.count %></td>
+          <td><%#= link_to 'View', itinerary_traveller%></td>
+          <td><%#= link_to 'Delete', itinerary_traveller, method: :delete, data: {confirm: "Are you sure?"}  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<!--   <div id="paginate">
+    <%#= paginate @resources, theme: 'twitter-bootstrap-4' %>
+  </div> -->
+</div>
 
 <br>
 <%= link_to 'Add new Schedule', add_new_schedule_itinerary_itinerary_path, class: 'btn btn-primary' if @resource.duration_type == 'Days' %>  

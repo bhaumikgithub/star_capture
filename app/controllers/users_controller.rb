@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
 
+  before_action :get_client , only: [:create_travellers,:show]
+  
   def new
     @resource = User.new
   end
@@ -26,9 +30,18 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def create_travellers
+    @resource.update(user_params)
+    redirect_to @resource
+  end
+
   private
 
+  def get_client
+    @resource = User.find_by_id(params[:id])
+  end
+
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email,:phone_number,travellers_attributes: [:first_name,:last_name,:gender,:birthdate,:id,:_destroy])
   end
 end

@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-4">
+    Email
+  </div>
+  <div class="col-4">
+    <%= text_field_tag :email,@resource.present? ? @resource.email : '', readonly: true, class: 'form-control'%>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-4">
+    Phone
+  </div>
+  <div class="col-4">
+    <%= text_field_tag :email,@resource.present? ? @resource.phone_number : '', readonly: true, class: 'form-control'%>
+  </div>
+</div>
+<!-- <br>
+<div class="row">
+  <div class="col-4">
+    Address
+  </div>
+  <div class="col-4">
+    <%#= text_field_tag :email,@resource.present? ? @resource.address : '', readonly: true, class: 'form-control'%>
+  </div>
+</div> -->
+<br>
+<div class="row">
+  <div class="col-4">
+    Contact person name
+  </div>
+  <div class="col-4">
+    <%= text_field_tag :email,@resource.present? ? @resource.get_client_name : '', readonly: true, class: 'form-control'%>
+  </div>
+</div>
+<br>
+<%#= text_field_tag :name ,@resource.present? ? @resource.get_client_name : '',readonly: true,class: 'form-control' %><br>
+<%= bootstrap_form_for @resource ,url: create_travellers_user_path , method: :post do |f| %>
+  <%= hidden_field_tag :client_id, @resource.id %>
+  <%= f.nested_fields_for :travellers do |ff| %>
+    <%= ff.remove_nested_fields_link %>
+    <%= ff.text_field :first_name %>
+    <%= ff.text_field :last_name %>
+    <%= ff.text_field :gender %>
+    <%= ff.date_field :birthdate %>
+  <% end %>
+  <%= f.add_nested_fields_link :travellers %><br>
+  <%= f.submit "Save" %>
+<% end %>

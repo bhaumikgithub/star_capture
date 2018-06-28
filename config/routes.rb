@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   
   post '/rate' => 'rater#create', :as => 'rate'
@@ -40,6 +42,8 @@ Rails.application.routes.draw do
       delete :delete_itinerary_schedule
       delete :delete_itinerary_products
       get :add_new_schedule_itinerary
+      get :add_itinerary_traveller
+      post :create_itinerary_traveller
     end
   end
   resources :category_templates
@@ -48,7 +52,11 @@ Rails.application.routes.draw do
   resources :rater, only: [:update]
   resources :transport_types
   scope "/operator" do
-    resources :users
+    resources :users do
+      member do
+        post :create_travellers
+      end
+    end
   end
   resources :schedules
 end
