@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       get :add_itinerary_traveller
       post :create_itinerary_traveller
       get :view_itinerary_details
+      delete :delete_itinerary_client
     end
   end
   resources :category_templates

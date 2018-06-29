@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     @resource.password = client_password
     @resource.operator_id = current_user.id
     if  @resource.save
-      redirect_to users_path
+      redirect_to @resource
     else
       render 'new'
     end

@@ -91,31 +91,16 @@
         <th>Name</th>
         <th>Email</th>
         <th>Members</th>
-        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <% count = 0 %>
       <% @resource.itinerary_travellers.where(memberable_type: 'User').each do |itinerary_traveller| %>
         <tr>
           <td><%= itinerary_traveller.memberable.get_client_name%></td>
           <td><%= itinerary_traveller.memberable.email %></td>
-          <%  travellers = @resource.itinerary_travellers.where(memberable_type: 'Traveller') %>
-          <% travellers.each do |traveller| %>
-            <% if traveller.memberable.user_id == itinerary_traveller.memberable_id %>
-              <% count = count + 1%>
-            <% end %>
-          <% end %>
-          <td><%= count %></td>
-          <td><%= link_to 'View', itinerary_traveller.memberable%></td>
-          <!-- <td><%#= link_to 'Edit', '#' %></td> -->
-          <td><%#= link_to 'Delete', itinerary_traveller, method: :delete, data: {confirm: "Are you sure?"}  %></td>
-          <% count = 0 %>
+          <td><%= ItineraryTraveller.client_travellers(itinerary_traveller.memberable_id, itinerary_traveller.itinerary_id).count %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-<!--   <div id="paginate">
-    <%#= paginate @resources, theme: 'twitter-bootstrap-4' %>
-  </div> -->
 </div>

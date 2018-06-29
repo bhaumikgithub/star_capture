@@ -3,7 +3,7 @@
 class ItinerariesController < ApplicationController
 
   include InheritAction
-  before_action :set_itinerary, only: [:delete_itinerary_products, :delete_itinerary_schedule, :add_new_schedule_itinerary,:add_itinerary_traveller, :create_itinerary_traveller, :view_itinerary_details]
+  before_action :set_itinerary, only: [:delete_itinerary_products, :delete_itinerary_schedule, :add_new_schedule_itinerary,:add_itinerary_traveller, :create_itinerary_traveller, :view_itinerary_details, :delete_itinerary_client]
 
   def create
     @resource = current_user.itineraries.new(resource_params)
@@ -83,40 +83,32 @@ class ItinerariesController < ApplicationController
     if params[:client_id].present?
       @client = User.find_by_id(params[:client_id])
       @travellers = @client.travellers
+      @itinerary_travellers = ItineraryTraveller.client_travellers(params[:client_id], params[:id]).pluck(:memberable_id)
     end
     @clients = User.get_clients
   end
 
   def create_itinerary_traveller
-    # if params[:user_id].present?
-    #   update_itinerary_client
-    # else
-      itinerary_user = User.find_by_id(params[:user_id])
-      if itinerary_user
-        itinerary_user.itinerary_travellers.create(itinerary_id: params[:id])
-        params[:traveller_ids].each do |traveller|
-          itinerary_traveller = Traveller.find_by_id(traveller.to_i)
-
-          itinerary_traveller.itinerary_travellers.create(itinerary_id: params[:id], client_id: itinerary_user.id) if itinerary_traveller
-        end
+    itinerary_user = User.find_by_id(params[:user_id])
+    if itinerary_user && params[:traveller_ids].present?
+      itinerary_user.itinerary_travellers.find_or_create_by(itinerary_id: params[:id])
+      travellers = Traveller.where(id: params[:traveller_ids]).pluck(:id)
+      client_traveller_ids = ItineraryTraveller.client_travellers(params[:user_id].to_i, params[:id]).pluck(:id)
+      params[:traveller_ids].each do |traveller_id|
+        ItineraryTraveller.create(memberable_id: traveller_id, memberable_type: 'Traveller', client_id: params[:user_id], itinerary_id: params[:id]) if (travellers.include? traveller_id.to_i) && !(client_traveller_ids.include? traveller_id.to_i)
       end
-    # end
-    redirect_to itinerary_path
+    end
+    client_travellers = ItineraryTraveller.client_travellers(params[:user_id].to_i, params[:id]).where.not(memberable_id: params[:traveller_ids]).destroy_all
+    redirect_to view_itinerary_details_itinerary_path(@resource)
   end
 
-  def update_itinerary_client
-    # binding.pry
-    a = @resource.itinerary_travellers.where(memberable_type: 'Traveller').pluck(:memberable_id)
-    b = User.find_by(id: params[:user_id]).travellers.pluck(:id)
-    itinerary_travellers =  ItineraryTraveller.where(memberable_id: (a & b) - params[:traveller_ids].map(&:to_i)).destroy_all
-    params[:traveller_ids].each do |id|
-      # binding.pry
-      traveller = Traveller.find_by_id(id.to_i)
-      itinerary_traveller = ItineraryTraveller.find_by(memberable_id: id.to_i)
-      traveller.itinerary_travellers.create(itinerary_id: params[:id]) if traveller !itinerary_traveller
-    end
-    # redirect_to 
+  def delete_itinerary_client
+    itinerary_client = ItineraryTraveller.find_by(memberable_id: params[:memberable_id])
+    ItineraryTraveller.client_travellers(params[:memberable_id], params[:id]).destroy_all if itinerary_client
+    itinerary_client.destroy
+    redirect_to itinerary_path(@resource) 
   end
+
 
   def view_itinerary_details
     @itineray_schedules = @resource.itinerary_schedules

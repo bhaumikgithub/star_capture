@@ -122,7 +122,31 @@
   </div><br>
 <% end %>
 
-
+<div class="col-10">
+  <h5>Clients Listing</h5>
+  <table class=" table table-striped sortable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Members</th>
+        <th colspan="3">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @resource.itinerary_travellers.where(memberable_type: 'User').each do |itinerary_traveller| %>
+        <tr>
+          <td><%= itinerary_traveller.memberable.get_client_name%></td>
+          <td><%= itinerary_traveller.memberable.email %></td>
+          <td><%= ItineraryTraveller.client_travellers(itinerary_traveller.memberable_id, itinerary_traveller.itinerary_id).count %></td>
+          <td><%= link_to 'View', itinerary_traveller.memberable%></td>
+          <td><%= link_to 'Edit', add_itinerary_traveller_itinerary_path(user_id: itinerary_traveller.memberable_id) %></td>
+          <td><%= link_to 'Delete', delete_itinerary_client_itinerary_path(memberable_id: itinerary_traveller.memberable_id) , method: :delete, data: {confirm: "Are you sure?"} %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
 <%= link_to 'Add new Schedule', add_new_schedule_itinerary_itinerary_path, class: 'btn btn-primary' if @resource.duration_type == 'Days' %>  
