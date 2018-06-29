@@ -13,4 +13,8 @@ development:
   <<: *default
   database: rails_demo_development
 
+production:
+  <<: *default
+  database: rails_demo_production
+
 
