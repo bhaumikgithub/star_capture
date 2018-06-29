@@ -97,7 +97,7 @@ class ItinerariesController < ApplicationController
         params[:traveller_ids].each do |traveller|
           itinerary_traveller = Traveller.find_by_id(traveller.to_i)
 
-          itinerary_traveller.itinerary_travellers.create(itinerary_id: params[:id]) if itinerary_traveller
+          itinerary_traveller.itinerary_travellers.create(itinerary_id: params[:id], client_id: itinerary_user.id) if itinerary_traveller
         end
       end
     # end

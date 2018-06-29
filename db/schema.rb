@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_27_140655) do
+ActiveRecord::Schema.define(version: 2018_06_29_054239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 2018_06_27_140655) do
     t.bigint "memberable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "client_id"
     t.index ["itinerary_id"], name: "index_itinerary_travellers_on_itinerary_id"
     t.index ["memberable_type", "memberable_id"], name: "index_itinerary_travellers_on_memberable_type_and_memberable_id"
   end
