@@ -3,7 +3,8 @@
 class ItinerariesController < ApplicationController
 
   include InheritAction
-  before_action :set_itinerary, only: [:delete_itinerary_products, :delete_itinerary_schedule, :add_new_schedule_itinerary,:add_itinerary_traveller, :create_itinerary_traveller, :view_itinerary_details, :delete_itinerary_client]
+
+  before_action :set_itinerary, only: [:delete_itinerary_products, :delete_itinerary_schedule, :add_new_schedule_itinerary,:add_itinerary_traveller, :create_itinerary_traveller, :delete_itinerary_client]
 
   def create
     @resource = current_user.itineraries.new(resource_params)
@@ -113,7 +114,7 @@ class ItinerariesController < ApplicationController
 
 
   def view_itinerary_details
-    @itineray_schedules = @resource.itinerary_schedules
+    @resource = Itinerary.includes(:itinerary_schedules => [ { :itinerary_products => :product} ]).find_by(id: params[:id])
   end
 
   private

@@ -1,12 +1,20 @@
 default: &default
-  adapter: postgresql
+  adapter:  postgresql
   encoding: unicode
+  username: <%= ENV.fetch("DB_USERNAME") { "star_capture" } %>
+  password: <%= ENV.fetch("DB_PASSWORD") { "star_capture" } %>
+  pool:     <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host:     <%= ENV.fetch("DB_HOST") { "localhost" } %>
+  port:     5432
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
   database: rails_demo_development
+
+production:
+  <<: *default
+  database: rails_demo_production
 
 
