@@ -23,10 +23,10 @@ group :development do
   gem 'web-console'
 
   # cap deployment
-  gem 'capistrano',         require: false
-  gem 'capistrano-rvm',     require: false
-  gem 'capistrano-rails',   require: false
-  gem 'capistrano-bundler', require: false
+  gem 'capistrano'
+  gem 'capistrano-rvm'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
 end
 
 gem 'bootstrap', '~> 4.1.1'
