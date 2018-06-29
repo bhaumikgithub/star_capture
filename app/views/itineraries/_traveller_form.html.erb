@@ -7,24 +7,7 @@
   </div>
 </div>
 <br>
-<div class="row">
-  <div class="col-4">
-    Phone
-  </div>
-  <div class="col-4">
-    <%= text_field_tag :email,@client.present? ? @client.phone_number : '', readonly: true, class: 'form-control'%>
-  </div>
-</div>
-<!-- <br>
-<div class="row">
-  <div class="col-4">
-    Address
-  </div>
-  <div class="col-4">
-    <%#= text_field_tag :email,@client.present? ? @client.address : '', readonly: true, class: 'form-control'%>
-  </div>
-</div> -->
-<br>
+
 <div class="row">
   <div class="col-4">
     Contact person name
@@ -34,10 +17,50 @@
   </div>
 </div>
 <br>
+
+<div class="row">
+  <div class="col-4">
+    Phone
+  </div>
+  <div class="col-4">
+    <%= text_field_tag :phone_number,@client.present? ? @client.phone_number : '', readonly: true, class: 'form-control'%>
+  </div>
+</div>
+
 <%= bootstrap_form_tag url: create_itinerary_traveller_itinerary_path do |f|  %>
+  <br>
+  <div class="row">
+    <div class="col-4">
+      Price
+    </div>
+    <div class="col-4">
+      <%= number_field_tag :price, @itinerary_client.present? ? @itinerary_client.price : '', class: 'form-control'%>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-4">
+      Booking date
+    </div>
+    <div class="col-4">
+      <%= date_field_tag :start_date,  @itinerary_client&.start_date.present? ? @itinerary_client.start_date : Date.today, class: 'form-control'%>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-4">
+      Description
+    </div>
+    <div class="col-4">
+      <%= text_area_tag :description,  @itinerary_client.present? ? @itinerary_client.description : '', class: 'form-control'%>
+    </div>
+  </div>
+  <br>
 
   <%= f.hidden_field :user_id, value: @client.id %>
-  <%= select_tag 'traveller_ids[]', options_from_collection_for_select(@travellers,'id','first_name', selected: @itinerary_travellers.present? ? @itinerary_travellers : @travellers.pluck(:id) ), id: 'traveller_id', class: 'form-control client', multiple: true %>
+  <%= select_tag 'traveller_ids[]', options_from_collection_for_select(@travellers,'id','first_name', selected: @itinerary_traveller.present? ? @itinerary_traveller : @travellers.pluck(:id) ), id: 'traveller_id', class: 'form-control client', multiple: true %>
   <br><br>
   <%= f.submit 'Add' %>
 <% end %>

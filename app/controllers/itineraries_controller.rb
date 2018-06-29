@@ -83,7 +83,8 @@ class ItinerariesController < ApplicationController
     if params[:client_id].present?
       @client = User.find_by_id(params[:client_id])
       @travellers = @client.travellers
-      @itinerary_travellers = ItineraryTraveller.client_travellers(params[:client_id], params[:id]).pluck(:memberable_id)
+      @itinerary_client = ItineraryTraveller.find_by(memberable_id: params[:client_id], itinerary_id: params[:id])
+      @itinerary_traveller = ItineraryTraveller.client_travellers(params[:client_id], params[:id]).pluck(:memberable_id)
     end
     @clients = User.get_clients
   end
@@ -91,9 +92,10 @@ class ItinerariesController < ApplicationController
   def create_itinerary_traveller
     itinerary_user = User.find_by_id(params[:user_id])
     if itinerary_user && params[:traveller_ids].present?
-      itinerary_user.itinerary_travellers.find_or_create_by(itinerary_id: params[:id])
+      itinerary_user = itinerary_user.itinerary_travellers.find_or_create_by(itinerary_id: params[:id])
+      itinerary_user.update(price: params[:price], description: params[:description], start_date: params[:start_date])
       travellers = Traveller.where(id: params[:traveller_ids]).pluck(:id)
-      client_traveller_ids = ItineraryTraveller.client_travellers(params[:user_id].to_i, params[:id]).pluck(:id)
+      client_traveller_ids = ItineraryTraveller.client_travellers(params[:user_id].to_i, params[:id]).pluck(:memberable_id)
       params[:traveller_ids].each do |traveller_id|
         ItineraryTraveller.create(memberable_id: traveller_id, memberable_type: 'Traveller', client_id: params[:user_id], itinerary_id: params[:id]) if (travellers.include? traveller_id.to_i) && !(client_traveller_ids.include? traveller_id.to_i)
       end
