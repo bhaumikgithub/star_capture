@@ -24,8 +24,8 @@ group :development do
 
   # cap deployment
   gem 'capistrano'
-  gem 'capistrano-rvm'
   gem 'capistrano-rails'
+  gem 'capistrano-rvm'
   gem 'capistrano-bundler'
 end
 

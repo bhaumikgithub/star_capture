@@ -45,7 +45,7 @@
   </div>
 </div>
 <br>
-<% @itineray_schedules.each_with_index do |itinerary_schedule, index| %>
+<% @resource.itinerary_schedules.each_with_index do |itinerary_schedule, index| %>
   <div class="row">
     <div class="col-10">
       <div class="card">
@@ -63,7 +63,7 @@
                     <th>Product</th>
                     <th>Description</th>
                   </thead>
-                  <% @resource.itinerary_schedules[index].itinerary_products.includes(:product).each do |itinerary_product| %>
+                  <% @resource.itinerary_schedules[index].itinerary_products.each do |itinerary_product| %>
                     <tbody>
                       <td><%= itinerary_product.schedule.present? ? itinerary_product.schedule.name : "-"%></td>
                       <td><%= itinerary_product.timing.present? ? itinerary_product.timing.strftime("%l:%M %P") : "-" %></td>
